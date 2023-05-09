@@ -10,10 +10,10 @@
         rolXpantalla:{api: hecho, app: falta},
     },
     pantallas = {
-        insumo:{api: hecho, app: falta},
+        insumo:{api: hecho, app: editar(hecho !campo de precio), crear(hecho !error), borrar(hecho)},
         Combo:{api: hecho, app: falta},
         ComboDetalle:{api: hecho, app: falta},
-        Categoria:{api: hecho, app: 90%},
+        Categoria:{api: hecho,  app: editar(hecho !error), crear(hecho !error), borrar(hecho)},
         Clientes: {api: hecho, app: falta},
         Metodo:{api: hecho, app: editar(hecho), crear(hecho !error), borrar(hecho)},
     },

@@ -319,8 +319,8 @@ const Usuario = () => {
                         responsiveLayout="scroll"
                     >
                          
-                        <Column selectionMode="multiple" headerStyle={{ width: '4rem' }}></Column>
-                        <Column field="Id" header="ID" sortable />
+                        
+                        <Column field="user_Id" header="ID" sortable />
                         <Column field="user_NombreUsuario" header="Usuario" sortable />
                         <Column field="nombre" header="Nombre" sortable />
                          <Column body={actionBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
