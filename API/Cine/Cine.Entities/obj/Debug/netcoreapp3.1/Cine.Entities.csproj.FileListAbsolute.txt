@@ -1,0 +1,70 @@
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.deps.json
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.AssemblyReference.cache
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfoInputs.cache
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfo.cs
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.CoreCompileInputs.cache
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.deps.json
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.AssemblyReference.cache
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfoInputs.cache
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfo.cs
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.CoreCompileInputs.cache
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.deps.json
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.AssemblyReference.cache
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfoInputs.cache
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfo.cs
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.CoreCompileInputs.cache
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.deps.json
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.AssemblyReference.cache
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfoInputs.cache
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfo.cs
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.CoreCompileInputs.cache
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.deps.json
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.AssemblyReference.cache
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfoInputs.cache
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfo.cs
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.CoreCompileInputs.cache
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.deps.json
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.AssemblyReference.cache
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfoInputs.cache
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfo.cs
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.deps.json
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.AssemblyReference.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfoInputs.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.AssemblyInfo.cs
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.csproj.CoreCompileInputs.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.Entities\obj\Debug\netcoreapp3.1\Cine.Entities.pdb

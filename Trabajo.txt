@@ -1,0 +1,42 @@
+ Angie = {
+    Base_De_Datos:{
+        Tablas:90%,
+        UDPS:50%,
+                   }
+    Seguridad ={
+        login:Hecho,
+        Usuarios:{api: hecho, app: falta},
+        rol:{api: hecho, app: falta},
+        rolXpantalla:{api: hecho, app: falta},
+    },
+    pantallas = {
+        insumo:{api: hecho, app: falta},
+        Combo:{api: hecho, app: falta},
+        ComboDetalle:{api: hecho, app: falta},
+        Categoria:{api: hecho, app: 90%},
+        Clientes: {api: hecho, app: falta},
+        Metodo:{api: hecho, app: 90%},
+    },
+    Extra: Graficas
+}
+
+ Selvin = {
+    Base_De_Datos:{
+        Tablas:10%,
+        UDPS:50%},
+    Empleado:Hecho,
+    Director:Hecho,
+    Pelicula:{api: hecho, app: falta},
+    Sala:{api: hecho, app: falta},
+    Sucursal: {api: hecho, app: falta},
+    Proyecciones: {api: hecho, app: falta},
+    Tickets:{api: hecho, app: falta},
+    Factura = {
+        factura:{api: hecho, app: falta},,
+        facturaDetalle:{api: hecho, app: falta},
+        Asientos:{api: hecho, app: falta},,
+    }
+        Extra: Reportes
+
+}
+

@@ -1,0 +1,120 @@
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.deps.json
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.pdb
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfo.cs
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CopyComplete
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\selvin almendarez\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.deps.json
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.pdb
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfo.cs
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CopyComplete
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\LAB01\Desktop\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.deps.json
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.pdb
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfo.cs
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CopyComplete
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\selvin almendarez\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.deps.json
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.pdb
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfo.cs
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CopyComplete
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\LAB01\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.deps.json
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.pdb
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfo.cs
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CopyComplete
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\LAB01\Desktop\Programa\proyecto-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.deps.json
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.pdb
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfo.cs
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CopyComplete
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\Usuario\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.deps.json
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.pdb
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfo.cs
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CopyComplete
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\sistema-cine\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.deps.json
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.dll
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.DataAccess.pdb
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\bin\Debug\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.AssemblyInfo.cs
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.csproj.CopyComplete
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.dll
+C:\Users\Usuario\Documents\Copia 080523\API\Cine\Cine.BusinessLogic\obj\Debug\netcoreapp3.1\Cine.BusinessLogic.pdb

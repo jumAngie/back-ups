@@ -1,0 +1,205 @@
+﻿{
+   "CodeGenerationMode": 0,
+   "ContextClassName": "Db_CineContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Context",
+   "ProjectRootNamespace": "Cine.DataAccess",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 1,
+   "Tables": [
+      {
+         "Name": "[acce].[tbPantallas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[acce].[tbRoles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[acce].[tbRolesPantallas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[acce].[tbUsuarios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbAsientos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbComboDetalle]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbCombos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbDirectores]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbFacturaDetalle]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbFacturas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbInsumos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbPeliculas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbProyecciones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbSalas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbSucursales]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[gral].[tbCargos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[gral].[tbCategorias]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[gral].[tbClientes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[gral].[tbDepartamentos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[gral].[tbEmpleados]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[gral].[tbEstadosCiviles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[gral].[tbMetodosPago]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[gral].[tbMunicipios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[acce].[VW_Pantallas]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[acce].[VW_RolPantallas]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[acce].[VW_tbRoles]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[acce].[VW_Usuario]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_Salas]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_tbCombo]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_tbComboDetalles]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_tbDirector]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_tbFactura]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_tbFacturaDetalle]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_tbInsumos]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_tbPeliculas]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_tbSUCURSAL]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[VW_Departamento]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[gral].[VW_Cargo]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[gral].[VW_Categorias]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[gral].[VW_Clientes]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[gral].[VW_EstadoCivil]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[gral].[VW_MetodoPago]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[gral].[VW_tbEmpleados]",
+         "ObjectType": 3
+      }
+   ],
+   "UiHint": "PC-ANGIE\\SQLEXPRESS.db_Cine",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false
+}
