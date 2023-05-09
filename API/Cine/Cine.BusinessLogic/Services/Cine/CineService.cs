@@ -447,7 +447,6 @@ namespace Cine.BusinessLogic.Services.Cine
              
             try
             {
-
                     var list = _insumoRepository.List();
                     return result.Ok(list);
              }
@@ -455,6 +454,50 @@ namespace Cine.BusinessLogic.Services.Cine
             {
 
                 return result.Error(e.Message);
+            }
+        }
+
+        public ServiceResult InsertarInsumo(tbInsumo item)
+        {
+            var result = new ServiceResult();
+
+            var map = _insumoRepository.Insert(item);
+            return result.Ok(map);
+        }
+
+        public VW_tbInsumo BuscarInsumo(int id)
+        {
+            try
+            {
+                return _insumoRepository.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public RequestStatus BorrarInsumo(int id)
+        {
+            try
+            {
+                return _insumoRepository.Delete(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public RequestStatus UpdateInsumo(tbInsumo tbInsumo)
+        {
+            try
+            {
+                return _insumoRepository.Update(tbInsumo);
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
         #endregion

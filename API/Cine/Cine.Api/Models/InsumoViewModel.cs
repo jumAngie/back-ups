@@ -16,6 +16,7 @@ namespace Cine.Api.Models
         public string insu_alt { get; set; }
         public bool? insu_Estado { get; set; }
         public int insu_UserCrea { get; set; }
+        public int? insu_UsuarioModifica { get; set; }
 
     }
 }

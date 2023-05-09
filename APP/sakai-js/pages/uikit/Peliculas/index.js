@@ -147,9 +147,10 @@ const Peliculas = () => {
 
         if (test.peli_Id != "" && test.peli_Id != 0 && test.peli_Id != null) {
 
+            
             console.log("siiiiiiii");
 
-            var año = test.peli_AnioEstreno;
+         
             //Tomo los datos de mi modelo
             var parameterEdit = {
                 "peli_Id": test.peli_Id,
@@ -183,16 +184,14 @@ const Peliculas = () => {
         }
         else if (test.peli_Titulo != "" && test.peli_TitulOriginal != "" && test.peli_AnioEstreno != "" && test.peli_Categoria != "" && test.peli_Director != "" && test.peli_Duracion != "") {
 
-            const fecha = new Date(test.peli_AnioEstreno);
-            const anio = fecha.getFullYear();
-            console.log(anio); // Salida: 2028
+           
             
             //Tomo los datos de mi modelo
             var parameterInsert = {
 
                 "peli_Titulo": test.peli_Titulo,
                 "peli_TitulOriginal": test.peli_TitulOriginal,
-                "peli_AnioEstreno": anio,
+                "peli_AnioEstreno": test.peli_AnioEstreno,
                 "peli_Categoria": selectedCategoria,
                 "peli_Duracion": test.peli_Duracion,
                 "peli_Director": selectedDirector,
@@ -222,6 +221,8 @@ const Peliculas = () => {
         axios.get(Global.url + `Peliculas/Find/${product.peli_Id}`)
             .then((response) => {
                 const product = response.data;
+                setSelectedCategoria(response.data.peli_Categoria);
+                setSelectedDirector(response.data.peli_Director);
                 setProduct({ ...product });
             })
             .catch((error) => {
@@ -244,12 +245,12 @@ const Peliculas = () => {
         setProducts(_products);
 
         //setDeleteProductDialog(false);
-        setProduct(emptyDirector);
+        setProduct(emptyPeliculas);
 
         if (_products.peli_Id != "") {
 
 
-            axios.post(Global.url + `Peliculas/Delete/{id}/${_products.dire_Id}`)
+            axios.post(Global.url + `Peliculas/Delete/${_products.peli_Id}`)
                 .then((response) => {
 
                     if (response.data.codeStatus == 1) {
@@ -441,7 +442,7 @@ const Peliculas = () => {
                         <Column field="peli_TitulOriginal" header="Titulo Original" sortable />
                         <Column field="peli_AnioEstreno" header="Año Estreno" sortable />
                         <Column field="cate_Nombre" header="Categoria" sortable />
-                        <Column field="dire_Nombre" header="" sortable />
+                        <Column field="dire_Nombre" header="Director" sortable />
                         <Column body={actionBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
 
                     </DataTable>
@@ -463,7 +464,7 @@ const Peliculas = () => {
                         <div className="formgrid grid">
                             <div className="field col-6 mr-2" >
                                 <label htmlFor="peli_AnioEstreno">Año Estreno</label>
-                                <Calendar yearNavigator yearRange="1900:2130" view="year" dateFormat="yy" value={product.peli_AnioEstreno} id="peli_AnioEstreno" showIcon showButtonBar onChange={(e) => peli_AnioEstrenoChange(e, 'peli_AnioEstreno')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.peli_AnioEstreno })} />
+                                <InputText yearNavigator yearRange="1900:2130" view="year" dateFormat="yy" value={product.peli_AnioEstreno} id="peli_AnioEstreno" showIcon showButtonBar onChange={(e) => peli_AnioEstrenoChange(e, 'peli_AnioEstreno')} required className={classNames({ 'p-invalid': submitted && !product.peli_AnioEstreno })} />
                                 {submitted && !product.peli_AnioEstreno && <small className="p-invalid">Año Estreno es requerido.</small>}
                             </div>
                             <div className="field col">

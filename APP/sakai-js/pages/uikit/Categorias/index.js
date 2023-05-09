@@ -17,7 +17,6 @@ import axios from 'axios';
 
 //Importo la url de la api
 import Global from '../../api/Global';
-import { colors } from 'react-select/dist/declarations/src/theme';
 
 
 const Categorias = () => {
@@ -239,7 +238,7 @@ const Categorias = () => {
             <React.Fragment>
                 <div className="my-2">
                     <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
-                    <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
+                   
                 </div>
             </React.Fragment>
         );
@@ -249,8 +248,7 @@ const Categorias = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="mr-2 inline-block" />
-                <Button label="Export" icon="pi pi-upload" severity="help" onClick={exportCSV} />
+              
             </React.Fragment>
         );
     };
@@ -279,7 +277,7 @@ const Categorias = () => {
     //Encabezado
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <h5 className="m-0">Peliculas</h5>
+            <h5 className="m-0">Categorías</h5>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Buscar..." />

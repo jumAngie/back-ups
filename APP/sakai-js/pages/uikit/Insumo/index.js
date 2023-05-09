@@ -312,7 +312,7 @@ const Insumo = () => {
                         responsiveLayout="scroll"
                     >
                         
-                        <Column selectionMode="multiple" headerStyle={{ width: '4rem' }}></Column>
+                       
                         <Column field="insu_Id" header="ID" sortable />
                         <Column field="insu_Descripcion" header="Nombre" sortable />
                         <Column field="insu_Precio" header="Precio" sortable />

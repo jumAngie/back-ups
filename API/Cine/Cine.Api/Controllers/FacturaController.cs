@@ -31,7 +31,7 @@ namespace Cine.Api.Controllers
             return Ok(listado);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("InsertAR")]
         public IActionResult Insert(FacturaViewModel item)
         {
             tbFactura factura = new tbFactura();

@@ -27,7 +27,7 @@ namespace Cine.DataAccess.Repository.Cine
             var parametros = new DynamicParameters();
             parametros.Add("@fact_Id", id, DbType.Int32, ParameterDirection.Input);
 
-            return db.QueryFirst<VW_tbFactura>(ScriptsDataBase.UDP_tbFactura_SELECT, parametros, commandType: CommandType.StoredProcedure);
+            return db.QueryFirst<VW_tbFactura>(ScriptsDataBase.UDP_tbFactura_FIND, parametros, commandType: CommandType.StoredProcedure);
 
         }
 

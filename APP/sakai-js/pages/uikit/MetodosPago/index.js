@@ -17,21 +17,20 @@ import axios from 'axios';
 
 //Importo la url de la api
 import Global from '../../api/Global';
-import { colors } from 'react-select/dist/declarations/src/theme';
 
 
-const Categorias = () => {
-    let emptyCategorias = {
+const Metodo = () => {
+    let emptyMetodo = {
 
-        cate_Id: null,
-        cate_Nombre: "",
-        cate_UsuarioCreador: null,
-        cate_UsuarioModificador: null,
+        pago_Id: null,
+        pago_Descripcion: "",
+        pago_UsuarioCreador: null,
+        pago_UsuarioModificador: null,
 
     };
     
     //products son los datos
-    const [categorias, setCategorias] = useState([]);
+    const [metodo, setMetodo] = useState([]);
     
     //products son los datos
     const [calendarValue, setCalendarValue] = useState(null);
@@ -41,11 +40,12 @@ const Categorias = () => {
 
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
+    const [detalleProductDialog, setDetalleProductDialog] = useState(false);
     const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
     const [headerDialog, setheaderDialog] = useState("");
 
     //es mi model
-    const [product, setProduct] = useState(emptyCategorias);
+    const [product, setProduct] = useState(emptyMetodo);
 
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [submitted, setSubmitted] = useState(false);
@@ -58,20 +58,20 @@ const Categorias = () => {
     //el ProductService esta trallendo los datos de los productos
     useEffect(() => {
 
-        axios.get(Global.url + 'Categoria/List')
+        axios.get(Global.url + 'MetodoPago/List')
             .then(response => {
-                setCategorias(response.data.data);
+                setMetodo(response.data.data);
             })
             .catch(error => {
                 console.error(error);
             });
 
-    }, [categorias]);
+    }, [metodo]);
 
 
     //abre el modal
     const openNew = () => {
-        setProduct(emptyCategorias);
+        setProduct(emptyMetodo);
         setSubmitted(false);
         setProductDialog(true);
         setheaderDialog(1);
@@ -96,18 +96,18 @@ const Categorias = () => {
 
         setSubmitted(true);
 
-        if (test.cate_Id != "" && test.cate_Id != 0 && test.cate_Id != null) {
+        if (test.pago_Id != "" && test.pago_Id != 0 && test.pago_Id != null) {
 
             console.log("siiiiiiii");
 
             //Tomo los datos de mi modelo
             var parameterEdit = {
-                "cate_Id": null,
-                "cate_Nombre": "",
-                "cate_UsuarioModificador": 1,
+                "pago_Id": test.pago_Id,
+                "pago_Descripcion": test.pago_Descripcion,
+                "pago_UsuarioModificador": 1,
             }
 
-            axios.put(Global.url + `Categoria/Update`, parameterEdit)
+            axios.put(Global.url + `MetodoPago/Update`, parameterEdit)
                 .then((response) => {
 
                     if (response.data.codeStatus == 1) {
@@ -126,23 +126,23 @@ const Categorias = () => {
 
                 });
         }
-        else if (test.cate_Nombre != "" && test.cate_UsuarioCreador != "") {
+        else if (test.pago_Descripcion != "" && test.pago_UsuarioCreador != "") {
 
            
             
             //Tomo los datos de mi modelo
             var parameterInsert = {
-                "cate_Id": null,
-                "cate_Nombre": "",
-                "cate_UsuarioCreador": 1,
+                "pago_Id": test.pago_Id,
+                "pago_Descripcion": test.pago_Descripcion,
+                "pago_UsuarioCreador": 1,
             }
 
-            axios.post(Global.url + 'Categoria/Insert', parameterInsert)
+            axios.post(Global.url + 'MetodoPago/Insert', parameterInsert)
                 .then((response) => {
                     if (response.data.code == 200) {
                         toast.current.show({ severity: 'success', summary: 'Felicidades', detail: 'Ingresaste un nuevo registro', life: 1500 });
                         setProductDialog(false);
-                        product.cate_Id = "";
+                        product.pago_Id = "";
                         console.log("hola")
                     }
                 })
@@ -157,7 +157,7 @@ const Categorias = () => {
 
     const editProduct = (product) => {
         setheaderDialog(2);
-        axios.get(Global.url + `Categoria/Find/${product.cate_Id}`)
+        axios.get(Global.url + `MetodoPago/Find/${product.pago_Id}`)
             .then((response) => {
                 const product = response.data;
                 setProduct({ ...product });
@@ -182,16 +182,16 @@ const Categorias = () => {
         setProducts(_products);
 
         //setDeleteProductDialog(false);
-        setProduct(emptyCategorias);
+        setProduct(emptyMetodo);
 
-        if (_products.cate_Id != "") {
+        if (_products.pago_Id != "") {
 
 
-            axios.post(Global.url + `Categoria/Delete/{id}/${_products.cate_Id}`)
+            axios.post(Global.url + `MetodoPago/Delete/${_products.pago_Id}`)
                 .then((response) => {
 
                     if (response.data.codeStatus == 1) {
-                        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Categoría Eliminada', life: 3000 });
+                        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Método de pago eliminado', life: 3000 });
                         setDeleteProductDialog(false);
                     }
 
@@ -219,15 +219,15 @@ const Categorias = () => {
         setProducts(_products);
         setDeleteProductsDialog(false);
         setSelectedProducts(null);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Categoría Eliminada', life: 3000 });
+        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Método de pago eliminado', life: 3000 });
     };
 
 
 
-    const cate_NombreChange = (e, cate_Nombre) => {
+    const pago_DescripcionChange = (e, pago_Descripcion) => {
         const val = (e.target && e.target.value) || '';
         let _product = { ...product };
-        _product[`${cate_Nombre}`] = val;
+        _product[`${pago_Descripcion}`] = val;
 
         setProduct(_product);
     };
@@ -261,17 +261,16 @@ const Categorias = () => {
         return (
             <>
                 <Button icon="pi pi-pencil" severity="success" rounded className="mr-2" onClick={() => editProduct(rowData)} />
-                <Button icon="pi pi-trash" severity="warning" rounded onClick={() => confirmDeleteProduct(rowData)} />
+                <Button icon="pi pi-trash" severity="warning" rounded className="mr-2" onClick={() => confirmDeleteProduct(rowData)} />
             </>
         );
     };
 
     //Hederrrr
     if (headerDialog == "1") {
-        var Titulo = "Registrar una Categoría"
+        var Titulo = "Registrar un Método de Pago"
     } else if (headerDialog == "2") {
-        var Titulo = "Editar una Categoría"
-
+        var Titulo = "Editar un Método de Pago"
     }
 
 
@@ -279,7 +278,7 @@ const Categorias = () => {
     //Encabezado
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <h5 className="m-0">Peliculas</h5>
+            <h5 className="m-0">Método de Pago</h5>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Buscar..." />
@@ -295,8 +294,7 @@ const Categorias = () => {
         }
         return data.filter(
             (item) =>
-                item.dire_Nombres.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-                item.dire_Apellidos.toLowerCase().indexOf(value.toLowerCase()) !== -1
+                item.pago_Descripcion.toLowerCase().indexOf(value.toLowerCase()) !== -1
         );
     };
 
@@ -327,7 +325,7 @@ const Categorias = () => {
 
                     <DataTable
                         ref={dt}
-                        value={filterByNameOrAddress(globalFilter, categorias)}
+                        value={filterByNameOrAddress(globalFilter, metodo)}
                         selection={selectedProducts}
                         onSelectionChange={(e) => setSelectedProducts(e.value)}
                         dataKey="id"
@@ -338,15 +336,15 @@ const Categorias = () => {
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
                         globalFilter={globalFilter}
-                        emptyMessage="No hay Categorías."
+                        emptyMessage="No hay Métodos de pago."
                         header={header}
                         responsiveLayout="scroll"
                     >
 
 
 
-                        <Column field="cate_Id" header="ID" sortable />
-                        <Column field="cate_Nombre" header="Descripción" sortable />
+                        <Column field="pago_Id" header="ID" sortable />
+                        <Column field="pago_Descripcion" header="Descripción" sortable />
                         <Column header="Acciones" body={actionBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
 
                     </DataTable>
@@ -356,8 +354,8 @@ const Categorias = () => {
                         <div className="formgrid grid">
                             <div className="field col">
                                 <label htmlFor="name">Descripción</label>
-                                <InputText id="name" value={product.cate_Nombre} autoFocus onChange={(e) => cate_NombreChange(e, 'cate_Nombre')} required className={classNames({ 'p-invalid': submitted && !product.cate_Nombre })} />
-                                {submitted && !product.cate_Nombre && <small style={colors.danger} className="p-invalid">La descripción es requerida.</small>}
+                                <InputText id="name" value={product.pago_Descripcion} autoFocus onChange={(e) => pago_DescripcionChange(e, 'pago_Descripcion')} required className={classNames({ 'p-invalid': submitted && !product.pago_Descripcion })} />
+                                {submitted && !product.pago_Descripcion && <small className="p-invalid">La descripción es requerida.</small>}
                             </div>
                         </div>
                     </Dialog>
@@ -377,4 +375,4 @@ const Categorias = () => {
     );
 };
 
-export default Categorias;
+export default Metodo;

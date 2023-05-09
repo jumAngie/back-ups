@@ -10,7 +10,7 @@ const AppMenu = () => {
     const model = [
         {
             label: 'Inicio',
-            items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' }]
+            items: [{ label: 'Principal', icon: 'pi pi-fw pi-home', to: '/' }]
         },
         {
             label: 'Menu Administrativo',
@@ -22,9 +22,9 @@ const AppMenu = () => {
                 { label: 'Usuario', icon: 'pi pi-fw pi-globe', to: '/uikit/Usuarios' },
                 { label: 'Peliculas', icon: 'pi pi-fw pi-eye', to: '/uikit/Peliculas' },
                 { label: 'Categorías', icon: 'pi pi-fw pi-bookmark', to: '/uikit/Categorias' },
-                { label: 'Combos', icon: 'pi pi-fw pi-eye', to: '/uikit/Combos' },
-                { label: 'Método de Pago', icon: 'pi pi-fw pi-eye', to: '/uikit/MetodosPago' },
-                { label: 'Roles', icon: 'pi pi-fw pi-eye', to: '/uikit/Roles' },
+                { label: 'Combos', icon: 'pi pi-fw pi-exclamation-circle', to: '/uikit/Combos' },
+                { label: 'Método de Pago', icon: 'pi pi-fw pi-briefcase', to: '/uikit/MetodosPago' },
+                { label: 'Roles', icon: 'pi pi-fw pi-user', to: '/uikit/Roles' },
 
               
             ]

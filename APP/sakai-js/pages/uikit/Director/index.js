@@ -215,7 +215,7 @@ const Director = () => {
             .then((response) => {
 
                  if(response.data.codeStatus == 1){
-                    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+                    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Director Eliminado', life: 3000 });
                     setDeleteProductDialog(false);
                 }
  

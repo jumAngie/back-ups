@@ -9140,23 +9140,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Usuario\\.nuget\\packages\\": {},
+    "C:\\Users\\LAB01.DESKTOP-36LBO8D\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Documents\\Copia 080523\\API\\Cine\\Cine.Api\\Cine.Api.csproj",
+      "projectUniqueName": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Api\\Cine.Api.csproj",
       "projectName": "Cine.Api",
-      "projectPath": "C:\\Users\\Usuario\\Documents\\Copia 080523\\API\\Cine\\Cine.Api\\Cine.Api.csproj",
-      "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Documents\\Copia 080523\\API\\Cine\\Cine.Api\\obj\\",
+      "projectPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Api\\Cine.Api.csproj",
+      "packagesPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\LAB01.DESKTOP-36LBO8D\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -9171,8 +9171,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Usuario\\Documents\\Copia 080523\\API\\Cine\\Cine.BusinessLogic\\Cine.BusinessLogic.csproj": {
-              "projectPath": "C:\\Users\\Usuario\\Documents\\Copia 080523\\API\\Cine\\Cine.BusinessLogic\\Cine.BusinessLogic.csproj"
+            "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.BusinessLogic\\Cine.BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.BusinessLogic\\Cine.BusinessLogic.csproj"
             }
           }
         }
