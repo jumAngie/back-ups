@@ -18,6 +18,7 @@ const AppMenu = () => {
                 { label: 'Categorías', icon: 'pi pi-fw pi-bookmark', to: '/uikit/Categorias' },
                 { label: 'Empleados', icon: 'pi pi-fw pi-id-card', to: '/uikit/Empleados' },
                 { label: 'Método de Pago', icon: 'pi pi-fw pi-briefcase', to: '/uikit/MetodosPago' },
+                { label: 'Prueba', icon: 'pi pi-fw pi-bookmark', to: '/uikit/table' },
               
             ]
         },

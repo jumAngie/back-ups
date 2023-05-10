@@ -101,6 +101,7 @@ namespace Terminal.DataAccess.Repository
         public static string UDP_tbRolPantallas_FIND = "acce.UDP_tbRolPantallas_FIND";
         public static string UDP_tbRolPantallas_UPDATE = "acce.UDP_tbRolPantallas_UPDATE";
         public static string UDP_tbRolPantallas_DELETE = "acce.UDP_tbRolPantallas_Delete";
+        public static string UDP_PantallasPorRol = "acce.UDP_PantallasPorRol";
         #endregion
 
         // // n u e v o //

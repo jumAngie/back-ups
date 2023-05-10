@@ -49,6 +49,13 @@ namespace Cine.Api.Controllers
             return Ok(listado);
         }
 
+        [HttpGet("ListarPantallas/{id}")]
+        public IActionResult ListarPantallas(int id)
+        {
+            var listado = _accessService.PantallasPorRol(id);
+            return Ok(listado);
+        }
+
         [HttpPut("Update")]
         public IActionResult Edit(RolPantallasViewModel item)
         {

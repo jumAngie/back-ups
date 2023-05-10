@@ -12,6 +12,7 @@ import { Calendar } from "primereact/calendar";
 import { Toast } from 'primereact/toast';
 import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
+import { PickList } from 'primereact/picklist';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
@@ -31,6 +32,21 @@ const Roles = () => {
     
     //products son los datos
     const [roles, setRoles] = useState([]);
+
+    const listValue = [
+        { name: 'San Francisco', code: 'SF' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Paris', code: 'PRS' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Berlin', code: 'BRL' },
+        { name: 'Barcelona', code: 'BRC' },
+        { name: 'Rome', code: 'RM' }
+    ];
+
+///
+
+const [picklistSourceValue, setPicklistSourceValue] = useState(listValue);
+const [picklistTargetValue, setPicklistTargetValue] = useState([]);
     
     //products son los datos
     const [calendarValue, setCalendarValue] = useState(null);
@@ -358,6 +374,23 @@ const Roles = () => {
                                 {submitted && !product.role_Nombre && <small className="p-invalid">La descripción es requerida.</small>}
                             </div>
                         </div>
+                <div className="card">
+                    <center><h5>Listado de Pantallas</h5></center>
+                    <PickList
+                        source={picklistSourceValue}
+                        target={picklistTargetValue}
+                        sourceHeader="From"
+                        targetHeader="To"
+                        itemTemplate={(item) => <div>{item.name}</div>}
+                        onChange={(e) => {
+                            setPicklistSourceValue(e.source);
+                            setPicklistTargetValue(e.target);
+                        }}
+                        sourceStyle={{ height: '200px' }}
+                        targetStyle={{ height: '200px' }}
+                    ></PickList>
+                </div>
+          
                     </Dialog>
                     <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Confirmar" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
                         <div className="flex align-items-center justify-content-center">

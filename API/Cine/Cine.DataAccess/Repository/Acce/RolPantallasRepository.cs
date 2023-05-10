@@ -52,6 +52,14 @@ namespace Cine.DataAccess.Repository.Acce
 
         }
 
+        public IEnumerable<VW_RolPantalla> PantallasPorRol(int Id)
+        {
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@role_Id", Id, DbType.Int32, ParameterDirection.Input);
+
+            return db.Query<VW_RolPantalla>(ScriptsDataBase.UDP_PantallasPorRol, parametros, commandType: CommandType.StoredProcedure);
+        }
         public RequestStatus Update(tbRolesPantalla item)
         {
             using var db = new SqlConnection(CineContext.ConnectionString);

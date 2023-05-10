@@ -68,6 +68,19 @@ namespace Cine.BusinessLogic.Services.Access
                 return result.Error(e.Message);
             }
         }
+        public ServiceResult PantallasPorRol(int Id)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _rolPantallasRepository.PantallasPorRol(Id);
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+                return result.Error(e.Message);
+            }
+        }
 
         public ServiceResult InsertarRolXPantallas(tbRolesPantalla item)
         {
@@ -89,6 +102,7 @@ namespace Cine.BusinessLogic.Services.Access
             }
         }
 
+        
         public RequestStatus BorrarRolXPantalla(int id)
         {
             try
