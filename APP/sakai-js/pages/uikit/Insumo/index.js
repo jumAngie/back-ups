@@ -337,13 +337,17 @@ const Insumo = () => {
                         <div className="formgrid grid">
                             <div className="field col">
                                 <label htmlFor="name">Descripción</label>
+                                
                                 <InputText id="name" value={product.insu_Descripcion} autoFocus onChange={(e) => insu_DescripcionChange(e, 'insu_Descripcion')} required className={classNames({ 'p-invalid': submitted && !product.insu_Descripcion })} />
                                 {submitted && !product.insu_Descripcion && <small className="p-invalid">La descripción es requerida.</small>}
                             </div>
                              <div className="field">
                             <label htmlFor="insu_Precio">Precio</label>
-                            <InputNumber id="name" value={product.insu_Precio} onChange={(e) => insu_PrecioChange(e, 'insu_Precio')} required className={classNames({ 'p-invalid': submitted && !product.insu_Precio })} />
-                            {submitted && !product.insu_Precio && <small className="p-invalid">El precio es requerida.</small>}
+                            <div class="p-inputgroup">
+                            <InputNumber id="name" value={product.insu_Precio} onChange={(e) => insu_PrecioChange(e, 'insu_Precio')} required className={classNames({ 'p-invalid': submitted && !product.insu_Precio })}  />
+                            <span class="p-inputgroup-addon">HNL</span>
+                            </div>
+                            {submitted && !product.insu_Precio && <small className="p-invalid">El precio es requerido.</small>}
                         </div>
                         </div>
                     </Dialog>

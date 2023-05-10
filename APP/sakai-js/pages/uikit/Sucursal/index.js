@@ -179,9 +179,8 @@ const Sucursal = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
-                    <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
-                </div>
+                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />                
+                    </div>
             </React.Fragment>
         );
     };
@@ -190,8 +189,7 @@ const Sucursal = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="mr-2 inline-block" />
-                <Button label="Export" icon="pi pi-upload" severity="help" onClick={exportCSV} />
+                
             </React.Fragment>
         );
     };
@@ -315,7 +313,7 @@ const Sucursal = () => {
             responsiveLayout="scroll"
             globalFilter={globalFilter}
            >
-            <Column selectionMode="multiple" headerStyle={{ width: '4rem' }} />
+            
             <Column field="sucu_Id" header="ID" sortable />
             <Column field="sucu_Nombre" header="Sucursal" sortable />
             <Column field="sucu_Direccion" header="Direccion" sortable />

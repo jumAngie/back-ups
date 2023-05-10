@@ -5,12 +5,12 @@
                    }
     Seguridad ={
         login:Hecho,
-        Usuarios:{api: hecho, app: falta},
-        rol:{api: hecho, app: falta},
-        rolXpantalla:{api: hecho, app: falta},
+        Usuarios:{api: hecho, editar(hecho), crear(hecho !error), borrar(hecho) },
+        rol:{api: hecho, },
+        rolXpantalla:{api: hecho, app: editar(hecho), crear(hecho !error), borrar(hecho)},
     },
     pantallas = {
-        insumo:{api: hecho, app: editar(hecho !campo de precio), crear(hecho !error), borrar(hecho)},
+        insumo:{api: hecho, app: editar(hecho), crear(hecho !error), borrar(hecho)},
         Combo:{api: hecho, app: falta},
         ComboDetalle:{api: hecho, app: falta},
         Categoria:{api: hecho,  app: editar(hecho !error), crear(hecho !error), borrar(hecho)},

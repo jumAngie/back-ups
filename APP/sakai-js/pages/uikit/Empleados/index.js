@@ -211,7 +211,6 @@ const Empleados = () => {
             <React.Fragment>
                 <div className="my-2">
                       <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={() => router.push('/uikit/Empleados/CreateEmpleado')} />
-
                 </div>
             </React.Fragment>
         );
@@ -221,8 +220,7 @@ const Empleados = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="mr-2 inline-block" />
-                <Button label="Export" icon="pi pi-upload" severity="help" onClick={exportCSV} />
+               
             </React.Fragment>
         );
     };

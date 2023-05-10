@@ -208,20 +208,11 @@ const Dashboard = () => {
 
             <div className="col-12 xl:col-6">
                 <div className="card">
-                    <h5>Películas Recientes</h5>
+                    <h5>Insumos Populares</h5>
                     <DataTable value={products} rows={5} paginator responsiveLayout="scroll">
-                        <Column header="Image" body={(data) => <img className="shadow-2" src={`/demo/images/product/${data.image}`} alt={data.image} width="50" />} />
-                        <Column field="name" header="Name" sortable style={{ width: '35%' }} />
-                        <Column field="price" header="Price" sortable style={{ width: '35%' }} body={(data) => formatCurrency(data.price)} />
-                        <Column
-                            header="View"
-                            style={{ width: '15%' }}
-                            body={() => (
-                                <>
-                                    <Button icon="pi pi-search" type="button" text />
-                                </>
-                            )}
-                        />
+                        <Column header="Imagen" body={(data) => <img className="shadow-2" src={`/demo/images/product/${data.image}`} alt={data.image} width="50" />} />
+                        <Column field="name" header="Nombre" sortable style={{ width: '35%' }} />
+                       
                     </DataTable>
                 </div>
                 <div className="card">

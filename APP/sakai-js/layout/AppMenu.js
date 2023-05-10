@@ -15,31 +15,27 @@ const AppMenu = () => {
         {
             label: 'Menu General',
             items: [
-                { label: 'Directores', icon: 'pi pi-fw pi-users', to: '/uikit/Director' },
-                { label: 'Insumos', icon: 'pi pi-fw pi-apple', to: '/uikit/Insumo' },
-                { label: 'Sucursales', icon: 'pi pi-fw pi-amazon', to: '/uikit/Sucursal' },
-                { label: 'Usuario', icon: 'pi pi-fw pi-globe', to: '/uikit/Usuarios' },
-                { label: 'Peliculas', icon: 'pi pi-fw pi-eye', to: '/uikit/Peliculas' },
                 { label: 'Categorías', icon: 'pi pi-fw pi-bookmark', to: '/uikit/Categorias' },
-                { label: 'Combos', icon: 'pi pi-fw pi-exclamation-circle', to: '/uikit/Combos' },
+                { label: 'Empleados', icon: 'pi pi-fw pi-id-card', to: '/uikit/Empleados' },
                 { label: 'Método de Pago', icon: 'pi pi-fw pi-briefcase', to: '/uikit/MetodosPago' },
-               
-
               
             ]
         },
         {
             label: 'Menu Administraivo',
             items: [
-                { label: 'Empleados', icon: 'pi pi-fw pi-id-card', to: '/uikit/Empleados' },
-                { label: 'All Blocks', icon: 'pi pi-fw pi-globe', url: 'https://blocks.primereact.org', target: '_blank' }
+                { label: 'Directores', icon: 'pi pi-fw pi-users', to: '/uikit/Director' },
+                { label: 'Insumos', icon: 'pi pi-fw pi-apple', to: '/uikit/Insumo' },
+                { label: 'Sucursales', icon: 'pi pi-fw pi-amazon', to: '/uikit/Sucursal' },
+                { label: 'Combos', icon: 'pi pi-fw pi-exclamation-circle', to: '/uikit/Combos' },
+                { label: 'Peliculas', icon: 'pi pi-fw pi-eye', to: '/uikit/Peliculas' },
             ]
         },
         {
             label: 'Menu Seguridad',
             items: [
                 { label: 'Roles', icon: 'pi pi-fw pi-user', to: '/uikit/Roles' },
-                { label: 'All Blocks', icon: 'pi pi-fw pi-globe', url: 'https://blocks.primereact.org', target: '_blank' }
+                { label: 'Usuario', icon: 'pi pi-fw pi-globe', to: '/uikit/Usuarios' },
             ]
         },
     ];
@@ -51,9 +47,7 @@ const AppMenu = () => {
                     return !item.seperator ? <AppMenuitem item={item} root={true} index={i} key={item.label} /> : <li className="menu-separator"></li>;
                 })}
 
-                <Link href="https://blocks.primereact.org" target="_blank" style={{ cursor: 'pointer' }}>
-                    <img alt="Prime Blocks" className="w-full mt-3" src={`/layout/images/banner-primeblocks${layoutConfig.colorScheme === 'light' ? '' : '-dark'}.png`} />
-                </Link>
+               
             </ul>
         </MenuProvider>
     );

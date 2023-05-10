@@ -45,7 +45,7 @@ const Roles = () => {
     const [headerDialog, setheaderDialog] = useState("");
 
     //es mi model
-    const [product, setProduct] = useState(emptyMetodo);
+    const [product, setProduct] = useState(emptyRoles);
 
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [submitted, setSubmitted] = useState(false);
@@ -96,18 +96,20 @@ const Roles = () => {
 
         setSubmitted(true);
 
-        if (test.pago_Id != "" && test.pago_Id != 0 && test.pago_Id != null) {
-
-            console.log("siiiiiiii");
+        if (test.role_Id != "" && test.role_Id != 0 && test.role_Id != null) {
 
             //Tomo los datos de mi modelo
             var parameterEdit = {
-                "pago_Id": test.pago_Id,
-                "pago_Descripcion": test.pago_Descripcion,
-                "pago_UsuarioModificador": 1,
+                "role_Id": test.role_Id,
+                "role_Nombre": test.role_Nombre,
+                "role_UsuCreacion": test.role_UsuCreacion,
+                "role_FechaCreacion": "2023-05-10T16:44:43.339Z",
+                "role_UsuModificacion": 1,
+                "role_FechaModificacion": "2023-05-10T16:44:43.339Z",
+                "role_Estado": true
             }
 
-            axios.put(Global.url + `MetodoPago/Update`, parameterEdit)
+            axios.put(Global.url + `Roles/Update`, parameterEdit)
                 .then((response) => {
 
                     if (response.data.codeStatus == 1) {
@@ -126,23 +128,27 @@ const Roles = () => {
 
                 });
         }
-        else if (test.pago_Descripcion != "" && test.pago_UsuarioCreador != "") {
+        else if (test.role_Nombre != "" && test.role_UsuCreacion != "") {
 
            
             
             //Tomo los datos de mi modelo
             var parameterInsert = {
-                "pago_Id": test.pago_Id,
-                "pago_Descripcion": test.pago_Descripcion,
-                "pago_UsuarioCreador": 1,
+                "role_Id": test.role_Id,
+                "role_Nombre": test.role_Nombre,
+                "role_UsuCreacion": 1,
+                "role_FechaCreacion": "2023-05-10T16:46:21.691Z",
+                "role_UsuModificacion": test.role_UsuModificacion,
+                "role_FechaModificacion": "2023-05-10T16:46:21.691Z",
+                "role_Estado": true
             }
 
-            axios.post(Global.url + 'MetodoPago/Insert', parameterInsert)
+            axios.post(Global.url + 'Roles/Insert', parameterInsert)
                 .then((response) => {
                     if (response.data.code == 200) {
                         toast.current.show({ severity: 'success', summary: 'Felicidades', detail: 'Ingresaste un nuevo registro', life: 1500 });
                         setProductDialog(false);
-                        product.pago_Id = "";
+                        product.role_Id = "";
                         console.log("hola")
                     }
                 })
@@ -157,7 +163,7 @@ const Roles = () => {
 
     const editProduct = (product) => {
         setheaderDialog(2);
-        axios.get(Global.url + `MetodoPago/Find/${product.pago_Id}`)
+        axios.get(Global.url + `Roles/Find/${product.role_Id}`)
             .then((response) => {
                 const product = response.data;
                 setProduct({ ...product });
@@ -187,11 +193,11 @@ const Roles = () => {
         if (_products.pago_Id != "") {
 
 
-            axios.post(Global.url + `MetodoPago/Delete/${_products.pago_Id}`)
+            axios.post(Global.url + `Roles/Delete/${_products.role_Id}`)
                 .then((response) => {
 
                     if (response.data.codeStatus == 1) {
-                        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Método de pago eliminado', life: 3000 });
+                        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Rol eliminado', life: 3000 });
                         setDeleteProductDialog(false);
                     }
 
@@ -206,10 +212,6 @@ const Roles = () => {
         }
     };
 
-    const exportCSV = () => {
-        dt.current.exportCSV();
-    };
-
     const confirmDeleteSelected = () => {
         setDeleteProductsDialog(true);
     };
@@ -219,15 +221,15 @@ const Roles = () => {
         setProducts(_products);
         setDeleteProductsDialog(false);
         setSelectedProducts(null);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Método de pago eliminado', life: 3000 });
+        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Rol eliminado', life: 3000 });
     };
 
 
 
-    const pago_DescripcionChange = (e, pago_Descripcion) => {
+    const role_NombreChange = (e, role_Nombre) => {
         const val = (e.target && e.target.value) || '';
         let _product = { ...product };
-        _product[`${pago_Descripcion}`] = val;
+        _product[`${role_Nombre}`] = val;
 
         setProduct(_product);
     };
@@ -239,7 +241,6 @@ const Roles = () => {
             <React.Fragment>
                 <div className="my-2">
                     <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
-                    <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
                 </div>
             </React.Fragment>
         );
@@ -249,8 +250,7 @@ const Roles = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="mr-2 inline-block" />
-                <Button label="Export" icon="pi pi-upload" severity="help" onClick={exportCSV} />
+               
             </React.Fragment>
         );
     };
@@ -268,9 +268,9 @@ const Roles = () => {
 
     //Hederrrr
     if (headerDialog == "1") {
-        var Titulo = "Registrar un Método de Pago"
+        var Titulo = "Registrar un Rol"
     } else if (headerDialog == "2") {
-        var Titulo = "Editar un Método de Pago"
+        var Titulo = "Editar un Rol"
     }
 
 
@@ -278,7 +278,7 @@ const Roles = () => {
     //Encabezado
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <h5 className="m-0">Método de Pago</h5>
+            <h5 className="m-0">Roles</h5>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Buscar..." />
@@ -294,7 +294,7 @@ const Roles = () => {
         }
         return data.filter(
             (item) =>
-                item.pago_Descripcion.toLowerCase().indexOf(value.toLowerCase()) !== -1
+                item.role_Nombre.toLowerCase().indexOf(value.toLowerCase()) !== -1
         );
     };
 
@@ -325,7 +325,7 @@ const Roles = () => {
 
                     <DataTable
                         ref={dt}
-                        value={filterByNameOrAddress(globalFilter, metodo)}
+                        value={filterByNameOrAddress(globalFilter, roles)}
                         selection={selectedProducts}
                         onSelectionChange={(e) => setSelectedProducts(e.value)}
                         dataKey="id"
@@ -336,15 +336,15 @@ const Roles = () => {
                         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
                         globalFilter={globalFilter}
-                        emptyMessage="No hay Métodos de pago."
+                        emptyMessage="No hay Roles"
                         header={header}
                         responsiveLayout="scroll"
                     >
 
 
 
-                        <Column field="pago_Id" header="ID" sortable />
-                        <Column field="pago_Descripcion" header="Descripción" sortable />
+                        <Column field="role_Id" header="ID" sortable />
+                        <Column field="role_Nombre" header="Descripción" sortable />
                         <Column header="Acciones" body={actionBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
 
                     </DataTable>
@@ -354,8 +354,8 @@ const Roles = () => {
                         <div className="formgrid grid">
                             <div className="field col">
                                 <label htmlFor="name">Descripción</label>
-                                <InputText id="name" value={product.pago_Descripcion} autoFocus onChange={(e) => pago_DescripcionChange(e, 'pago_Descripcion')} required className={classNames({ 'p-invalid': submitted && !product.pago_Descripcion })} />
-                                {submitted && !product.pago_Descripcion && <small className="p-invalid">La descripción es requerida.</small>}
+                                <InputText id="name" value={product.role_Nombre} autoFocus onChange={(e) => role_NombreChange(e, 'role_Nombre')} required className={classNames({ 'p-invalid': submitted && !product.role_Nombre })} />
+                                {submitted && !product.role_Nombre && <small className="p-invalid">La descripción es requerida.</small>}
                             </div>
                         </div>
                     </Dialog>
