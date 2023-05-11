@@ -52,6 +52,18 @@ namespace Cine.DataAccess.Repository.Acce
 
         }
 
+        public IEnumerable<VW_RolPantalla> DibujadoMenu(int Rol, bool Admin)
+        {
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@rol_Id", Rol, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@EsAdmin", Admin, DbType.Boolean, ParameterDirection.Input);
+
+
+            return db.Query<VW_RolPantalla>(ScriptsDataBase.UDP_DibujadoMenu, parametros, commandType: CommandType.StoredProcedure);
+        }
+
+
         public IEnumerable<VW_RolPantalla> PantallasPorRol(int Id)
         {
             using var db = new SqlConnection(CineContext.ConnectionString);

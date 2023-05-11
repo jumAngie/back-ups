@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\Cine.DataAccess.csproj": {}
+    "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\Cine.DataAccess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\Cine.DataAccess.csproj": {
+    "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\Cine.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\Cine.DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\Cine.DataAccess.csproj",
         "projectName": "Cine.DataAccess",
-        "projectPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\Cine.DataAccess.csproj",
-        "packagesPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\obj\\",
+        "projectPath": "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\Cine.DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\LAB01.DESKTOP-36LBO8D\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,8 +32,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj": {
-                "projectPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj"
+              "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj": {
+                "projectPath": "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj"
               }
             }
           }
@@ -80,20 +80,20 @@
         }
       }
     },
-    "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj": {
+    "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj",
         "projectName": "Cine.Entities",
-        "projectPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj",
-        "packagesPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LAB01.DESKTOP-36LBO8D\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\obj\\",
+        "projectPath": "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\Cine.Entities.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Usuario\\Documents\\GitHub\\back-ups\\API\\Cine\\Cine.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\LAB01.DESKTOP-36LBO8D\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
