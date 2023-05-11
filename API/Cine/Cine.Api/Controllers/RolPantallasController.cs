@@ -49,6 +49,15 @@ namespace Cine.Api.Controllers
             return Ok(listado);
         }
 
+
+        [HttpGet("DibujarMenu/{Rol},{Admin}")]
+
+        public IActionResult DibujarMenu (int Rol, bool Admin)
+        {
+            var listado = _accessService.DibujadoMenu(Rol, Admin);
+            return Ok(listado);
+        }
+
         [HttpGet("ListarPantallas/{id}")]
         public IActionResult ListarPantallas(int id)
         {

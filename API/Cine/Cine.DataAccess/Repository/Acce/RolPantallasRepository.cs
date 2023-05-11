@@ -72,6 +72,7 @@ namespace Cine.DataAccess.Repository.Acce
 
             return db.Query<VW_RolPantalla>(ScriptsDataBase.UDP_PantallasPorRol, parametros, commandType: CommandType.StoredProcedure);
         }
+
         public RequestStatus Update(tbRolesPantalla item)
         {
             using var db = new SqlConnection(CineContext.ConnectionString);

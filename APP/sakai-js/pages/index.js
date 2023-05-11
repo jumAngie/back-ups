@@ -138,28 +138,10 @@ const Dashboard = () => {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     };
 
-    function handleLogout() {
-        localStorage.clear();
-        router.push('/auth/login');
-      }
+
 
     return (
         <div className="grid">
-            <div className="col-12 lg:col-6 xl:col-3">
-            <button class="p-button p-component p-button-danger"
-      style={{ 
-        display: 'block', 
-        margin: '0 auto', 
-        fontSize: '24px', 
-        padding: '10px 20px' 
-      }}
-      onClick={handleLogout}
-    >
-      Cerrar Sesión
-    </button>
-    <h6 className='text-red-600'>* Diseño de botón temporal</h6>
-                
-            </div>
             <div className="col-12 lg:col-6 xl:col-3">
                 <div className="card mb-0">
                     <div className="flex justify-content-between mb-3">

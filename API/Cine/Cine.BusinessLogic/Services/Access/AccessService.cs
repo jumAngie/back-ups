@@ -51,6 +51,21 @@ namespace Cine.BusinessLogic.Services.Access
         #endregion
 
         #region Rol X Pantallas
+
+        public ServiceResult DibujadoMenu(int Rol, bool Admin)
+        {
+
+            var result = new ServiceResult();
+            try
+            {
+                var list = _rolPantallasRepository.DibujadoMenu(Rol, Admin);
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+                return result.Error(e.Message);
+            }
+        }
         public ServiceResult RolXPantallasList()
         {
 

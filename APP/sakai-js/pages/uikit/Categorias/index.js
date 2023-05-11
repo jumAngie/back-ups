@@ -238,7 +238,6 @@ const Categorias = () => {
             <React.Fragment>
                 <div className="my-2">
                     <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
-                   
                 </div>
             </React.Fragment>
         );

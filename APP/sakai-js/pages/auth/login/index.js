@@ -47,10 +47,29 @@ const LoginPage = () => {
         axios.post(Global.url + 'Usuario/LogIn', parameter)
         .then((item) => {
             setIsSubmitting(false)
+            // variables locales ///
             var id = item.data.data.user_Id;
-            var msj = item.data.message;
+            var rol = item.data.data.user_Rol;
+            var admin = item.data.data.user_EsAdmin;
+            var nombreRol = item.data.data.role_Nombre;
+            var nombreCargo = item.data.data.carg_Cargo;
+            var nombreSucursal = item.data.data.sucu_Nombre;
+            var idSucursal = item.data.data.empl_Sucursal;
+            var nombreUsuario = item.data.data.user_NombreUsuario;
+            var nombreEmpleado = item.data.data.nombre;
+            var idEmpleado = item.data.data.user_Empleado;
+          ////////////////////////////////////////////////
+            localStorage.setItem('EsAdmin', admin);
             localStorage.setItem('usuario', id);
-            console.log(msj);
+            localStorage.setItem('id_rol', rol);
+            localStorage.setItem('nombreRol', nombreRol);
+            localStorage.setItem('nombreCargo', nombreCargo);
+            localStorage.setItem('nombreSucu', nombreSucursal);
+            localStorage.setItem('idSucursal', idSucursal);
+            localStorage.setItem('nombreUsuario', nombreUsuario);
+            localStorage.setItem('nombreEmpleado', nombreEmpleado);
+            localStorage.setItem('idEmpleado', idEmpleado);
+            //////////////////////////////////////////////////
             router.push('/');
         })
         .catch((ex)=>{ setIsSubmitting(false)
@@ -102,9 +121,29 @@ const LoginPage = () => {
                   {
                     setIsSubmitting(false);
                     setErrorMessage(null);
-                    var id = item.data.data.pers_Id;
-                    var msj = item.data.message;
-                    localStorage.setItem('usuario', id);
+                     // variables locales ///
+                    var id = item.data.data.user_Id;
+                    var rol = item.data.data.user_Rol;
+                    var admin = item.data.data.user_EsAdmin;
+                    var nombreRol = item.data.data.role_Nombre;
+                    var nombreCargo = item.data.data.carg_Cargo;
+                    var nombreSucursal = item.data.data.sucu_Nombre;
+                    var idSucursal = item.data.data.empl_Sucursal;
+                    var nombreUsuario = item.data.data.user_NombreUsuario;
+                    var nombreEmpleado = item.data.data.nombre;
+                    var idEmpleado = item.data.data.user_Empleado;
+                    ////////////////////////////////////////////////
+                      localStorage.setItem('EsAdmin', admin);
+                      localStorage.setItem('usuario', id);
+                      localStorage.setItem('id_rol', rol);
+                      localStorage.setItem('nombreRol', nombreRol);
+                      localStorage.setItem('nombreCargo', nombreCargo);
+                      localStorage.setItem('nombreSucu', nombreSucursal);
+                      localStorage.setItem('idSucursal', idSucursal);
+                      localStorage.setItem('nombreUsuario', nombreUsuario);
+                      localStorage.setItem('nombreEmpleado', nombreEmpleado);
+                      localStorage.setItem('idEmpleado', idEmpleado);
+                      //////////////////////////////////////////////////
                     router.push('/');
                   }
                   else

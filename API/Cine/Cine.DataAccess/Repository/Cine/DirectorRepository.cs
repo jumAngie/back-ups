@@ -38,7 +38,7 @@ namespace Cine.DataAccess.Repository
             var parametros = new DynamicParameters();
              parametros.Add("@dire_Nombres", item.dire_Nombres, DbType.String, ParameterDirection.Input);
              parametros.Add("@dire_Apellidos", item.dire_Apellidos, DbType.String, ParameterDirection.Input);
-             parametros.Add("@dire_FechaNacimiento", item.dire_FechaNacimiento, DbType.String, ParameterDirection.Input);
+             parametros.Add("@dire_FechaNacimiento", item.dire_FechaNacimiento, DbType.DateTime, ParameterDirection.Input);
              parametros.Add("@dire_Sexo", item.dire_Sexo, DbType.String, ParameterDirection.Input);
              parametros.Add("@dire_UsuCrea", item.dire_UsuCrea, DbType.Int32, ParameterDirection.Input);
 
@@ -64,7 +64,7 @@ namespace Cine.DataAccess.Repository
 
             parametros.Add("@dire_Nombres", item.dire_Nombres, DbType.String, ParameterDirection.Input);
             parametros.Add("@dire_Apellidos", item.dire_Nombres, DbType.String, ParameterDirection.Input);
-            parametros.Add("@dire_FechaNacimiento", item.dire_Nombres, DbType.String, ParameterDirection.Input);
+            parametros.Add("@dire_FechaNacimiento", item.dire_Nombres, DbType.DateTime, ParameterDirection.Input);
             parametros.Add("@dire_Sexo", item.dire_Nombres, DbType.String, ParameterDirection.Input);
             parametros.Add("@dire_UsuCrea", item.dire_Nombres, DbType.Int32, ParameterDirection.Input);
 
