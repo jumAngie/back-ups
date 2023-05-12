@@ -1002,10 +1002,7 @@ namespace Cine.DataAccess.Context
 
                 entity.Property(e => e.fade_FechaModifica).HasColumnType("datetime");
 
-                entity.HasOne(d => d.fade_ComboDetalleNavigation)
-                    .WithMany(p => p.tbFacturaDetalles)
-                    .HasForeignKey(d => d.fade_ComboDetalle)
-                    .HasConstraintName("FK_cine_tbComboDetalle_fade_ComboDetalle");
+               
 
                 entity.HasOne(d => d.fade_FacturaNavigation)
                     .WithMany(p => p.tbFacturaDetalles)

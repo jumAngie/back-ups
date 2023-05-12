@@ -1,0 +1,21 @@
+//hacer un index de factura detalle
+//hacer un boton para crear factura detalle
+
+
+al momento de eleguir los ascientos los metera a un arreglo y 
+cuando le de enter que tome los datos y lo que cambie son los ascientos 
+cada asciento es un insert 
+
+en el momento que seleccionamos o desseleccionamos abilitaremos o desabilitaremos el asciento
+
+cambiaremos la tabla de factura detalles (cambiamos nombre a tikets)
+cambiaremos la tabla de factura (que esta llevara el combo y extras)
+
+// Al final se incluiran 
+cambiaremos la tabla de clientes (podriamos llamarlo factura total)
+
+
+en el procedimiento almacenado recibe los datos para insertar 
+hace un select con el crossaplay y lo inserta a una tabla temporal 
+
+y los valores que tenga 

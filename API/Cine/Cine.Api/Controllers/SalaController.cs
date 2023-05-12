@@ -33,13 +33,8 @@ namespace Cine.Api.Controllers
         [HttpPost("Insert")]
         public IActionResult Insert(SalaViewModel item)
         {
-            tbSala sala = new tbSala();
-            sala.sala_Butacas = item.sala_Butacas;
-            sala.sala_Sucursal = item.sala_Sucursal;
-            sala.sala_Tipo = item.sala_Tipo;
-            sala.sala_UserCrea = item.sala_UserCrea;
-
-            var listado = _cineService.InsertarSalas(sala);
+            var listado = _mapper.Map<tbSala>(item);
+            var Result = _cineService.InsertarSalas(listado);
             return Ok(listado);
         }
 

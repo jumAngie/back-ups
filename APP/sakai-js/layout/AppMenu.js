@@ -30,6 +30,7 @@ const AppMenu = () => {
                 { label: 'Sucursales', icon: 'pi pi-fw pi-amazon', to: '/uikit/Sucursal' },
                 { label: 'Combos', icon: 'pi pi-fw pi-exclamation-circle', to: '/uikit/Combos' },
                 { label: 'Peliculas', icon: 'pi pi-fw pi-eye', to: '/uikit/Peliculas' },
+                { label: 'Factura', icon: 'pi pi-fw pi-bookmark', to: '/uikit/Factura' },
             ]
         },
         {

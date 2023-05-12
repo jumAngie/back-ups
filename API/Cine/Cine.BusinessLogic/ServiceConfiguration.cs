@@ -34,6 +34,7 @@ namespace Cine.BusinessLogic
             service.AddScoped<CombosRepository>();
             service.AddScoped<ComboDetallesRepository>();
             service.AddScoped<FacturaDetallesRepository>();
+            service.AddScoped<ProyeccionesRepository>();
             service.AddScoped<FacturasRepository>();
             service.AddScoped<SalaRepository>();
 

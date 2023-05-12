@@ -8,6 +8,8 @@ namespace Cine.Entities.Entities
 {
     public partial class tbFacturaDetalle
     {
+      
+
         public int fade_Id { get; set; }
         public int? fade_Factura { get; set; }
         public int? fade_Proyeccion { get; set; }

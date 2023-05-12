@@ -34,14 +34,9 @@ namespace Cine.Api.Controllers
         [HttpPost("Insert")]
         public IActionResult Insert(ClientesViewModel item)
         {
-            tbCliente client = new tbCliente();
-            client.clie_Nombres = item.clie_Nombres;
-            client.clie_Apellidos = item.clie_Apellidos;
-            client.clie_RTN = item.clie_RTN;
-            client.clie_UserCrea = item.clie_UserCrea;
-
-            var listado = _generalesServices.InsertarClientes(client);
-            return Ok(listado);
+            var listado = _mapper.Map<tbCliente>(item);
+            var Result = _generalesServices.InsertarClientes(listado);
+            return Ok(Result);
         }
 
         [HttpGet("Find/{id}")]
