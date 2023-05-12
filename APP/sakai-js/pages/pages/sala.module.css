@@ -1,0 +1,31 @@
+.sala-cine-asientos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .asientos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 20px;
+  }
+  
+  .asiento {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .asiento-libre {
+    background-color: green;
+  }
+  
+  .asiento-reservado {
+    background-color: red;
+  }
+  

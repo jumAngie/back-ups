@@ -5,7 +5,8 @@ import axios from "axios";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
-import { SelectButton } from "primereact/selectbutton";
+
+
 
 const Asientos = ({ salaId, ddlDisabled }) => {
   const [asientos, setAsientos] = useState([]);
@@ -40,6 +41,8 @@ const Asientos = ({ salaId, ddlDisabled }) => {
     return <div style={{ padding: "28px" }}>{option.name}</div>;
   };
 
+  
+
   //Stilo de los Asientos
   const asientoStyles = {
     width: "calc(10% - 10px)",
@@ -52,10 +55,12 @@ const Asientos = ({ salaId, ddlDisabled }) => {
     fontSize: "16px",
   };
 
+  
+
   if(ddlDisabled == true){
-    var Titulo = "Seleccione una Funcion"
+    var Titulo = "Seleccione una Función"
   }else{
-    var Titulo = "Seleccione una Un Asiento"
+    var Titulo = "Seleccione un Asiento"
 
   }
   return (
@@ -66,9 +71,12 @@ const Asientos = ({ salaId, ddlDisabled }) => {
         baseZIndex={1000}
         fullScreen
       >
-        <h1 style={{ fontWeight: "normal" }}>Asientos</h1>
-        <div className="sala-cine-asientos">
+        <center><h1 style={{ fontWeight: "normal" }}>Asientos</h1></center>
+        <center><img src={`/layout/images/PANTALLA.png`} width="25%" ></img></center>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px'}}>
+        <div className="sala-cine-asientos" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px' }}>
           {asientos.length > 0 ? (
+            
             asientos.map((asiento) => (
               <div
                 key={asiento.asie_Id}
@@ -88,6 +96,7 @@ const Asientos = ({ salaId, ddlDisabled }) => {
           ) : (
             <p>Cargando asientos...</p>
           )}
+        </div>
         </div>
       </Sidebar>
       <Button

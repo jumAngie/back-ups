@@ -6,6 +6,8 @@ import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 import '../styles/layout/layout.scss';
 import '../styles/demo/Demos.scss';
+import styles from './pages/sala.module.css'
+
 
 export default function MyApp({ Component, pageProps }) {
     if (Component.getLayout) {
