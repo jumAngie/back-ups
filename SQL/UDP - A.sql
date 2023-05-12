@@ -2781,3 +2781,63 @@ BEGIN
     END
 END
 GO
+
+--*****************************************************--
+--*************** VISTA DE PROYECCIONES ******************--
+CREATE OR ALTER VIEW cine.VW_Proyecciones
+as
+SELECT	[proy_Id], 
+		[proy_Pelicula],
+		t2.peli_Titulo,
+		[proy_Sala],
+		t3.sala_Butacas,
+		t3.sala_Tipo,
+		t5.casa_Categoria,
+		t5.casa_Precio,
+		[proy_Horario],
+		CONVERT(varchar, t4.hor_HoraInicio, 100) AS hor_HoraInicio,
+		CONVERT(varchar, t4.hor_HoraFin, 100) AS hor_HoraFin
+FROM	cine.tbProyecciones t1
+INNER JOIN cine.tbPeliculas t2 ON t1.proy_Pelicula = t2.peli_Id
+INNER JOIN cine.tbSalas t3 ON t1.proy_Sala = t3.sala_Id
+INNER JOIN cine.tbHorarios t4 ON t1.proy_Horario = t4.hor_Id
+INNER JOIN cine.tbCategoriaSala t5 ON t3.sala_Tipo = t5.casa_Id
+
+
+GO
+CREATE OR ALTER PROCEDURE cine.UDP_tbProyecciones_SELECT
+AS 
+BEGIN
+	SELECT * FROM cine.VW_Proyecciones
+END
+
+
+--/////////////////--PRUEBA DE FACTURA--//////////////////////--
+GO
+CREATE OR ALTER PROCEDURE cine.UDP_tbAsientos_SELECT 
+@asie_Sala INT
+AS
+BEGIN
+	SELECT TOP (1000) [asie_Id]
+		,[asie_Sala]
+		,[asie_Code]
+		,[asie_Reservado]
+		,[asie_UserCrea]
+		,[asie_FechaCrea]
+		,[asie_UserMofica]
+		,[asie_FechaModifica]
+  FROM	[db_Cine].[cine].[tbAsientos]
+  WHERE [asie_Sala] = @asie_Sala
+END
+
+
+ CREATE OR ALTER PROC acce.UDP_PantallasPorRol
+	@role_Id		INT
+AS
+BEGIN
+SELECT	ropa_Id, ropa_Rol, ropa_Pantalla, pants.panta_Descripcion, roles.role_Nombre FROM acce.tbRolesPantallas ropa INNER JOIN acce.tbPantallas pants
+ON		pants.panta_Id = ropa.ropa_Pantalla INNER JOIN acce.tbRoles roles
+ON		ropa.ropa_Rol = roles.role_Id
+WHERE	ropa_Rol = @role_Id
+END
+

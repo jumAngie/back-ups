@@ -1,4 +1,4 @@
-/*
+﻿/*
 DROP DATABASE db_Cine
 
 DROP SCHEMA cine
@@ -87,7 +87,7 @@ GO
 								VALUES('Miembro',1);
 								GO
 
-							-- A�ADO EL CONSTRAINT PARA LA TABLA DE USUARIOS (USER_ROL)
+							-- AÑADO EL CONSTRAINT PARA LA TABLA DE USUARIOS (USER_ROL)
 ALTER TABLE acce.tbUsuarios
 	ADD CONSTRAINT FK_gral_tbUsuarios_user_Rol_acce_tbRoles_role_Id	FOREIGN KEY (user_Rol) REFERENCES acce.tbRoles (role_Id)
 GO
@@ -279,7 +279,7 @@ CREATE TABLE acce.tbRolesPantallas(
 									 ( 3, 'Las Lajas',				   1),
 									 ( 3, 'Taulabe',				   1),
 									 ( 4, 'Santa Rosa de Copan',	   1),
-									 ( 4, 'Caba�as',				   1),
+									 ( 4, 'Cabañas',				   1),
 									 ( 4, 'Concepcion',				   1),
 									 ( 4, 'Copan Ruinas',			   1),
 									 ( 4, 'Corquin',				   1),
@@ -402,7 +402,7 @@ CREATE TABLE acce.tbRolesPantallas(
 									 (11, 'Jose Santos Guardiola',	   1),
 									 (11, 'Utila',					   1),
 									 (12, 'Aguanqueterique',		   1),
-									 (12, 'Caba�as',				   1),
+									 (12, 'Cabañas',				   1),
 									 (12, 'Cane',					   1),
 									 (12, 'Chinacla',				   1),
 									 (12, 'Guagiquiro',				   1),
@@ -595,8 +595,6 @@ INSERT INTO cine.tbSucursales (sucu_Nombre, sucu_Direccion, sucu_Ciudad, sucu_Us
 							   ('MegaFilms Infinity',	'Calle del Cosmos, 321',		137,	1),
 							   ('MegaFilms Eclipse',	'Avenida del Sol, 987',			205,	1); 
 
- -------------------------------------tbMetodoDePago---------------------------------
-
 CREATE TABLE gral.tbMetodosPago(
 	pago_Id						INT IDENTITY(1,1),
 	pago_Descripcion			NVARCHAR (200),
@@ -617,11 +615,14 @@ GO
 
 						--///***************** INSERTS DE METODO DE PAGO --///*****************
 INSERT INTO gral.tbMetodosPago(pago_Descripcion, pago_UsuarioCreador)
-								VALUES  ('Efectivo',							 1),
+								VALUES  ('Bitcoin', 1),
+										('ethereum', 1),
+										('Efectivo',							 1),
 										('Cheques',								 1),
 										('Tarjeta de Debito',					 1),
 										('Tarjeta de Credito',					 1),
-										('Tranferencias Bancarias Electronicas', 1);
+										('Tranferencias Bancarias Electronicas', 1),
+										('TigoMoney', 1);
 
  -------------------------------------tbCargos---------------------------------
 
@@ -700,7 +701,7 @@ VALUES
 				('0512199900730', 'Pedro',	'Fernandez Martin', 'M', 1, 6, 5,	'Calle del Carmen 5',		'01-05-1949', '789123456', 1,	5),
 				('0201199900734', 'Laura',	'Gomez Garcia',		'F', 3, 2, 6,	'Avenida de la Paz 6',		'01-06-1959', '321654987', 1,	2),
 				('1201199800923', 'David',	'Lopez Hernandez',	'M', 4, 15, 7,	'Calle del Pilar 7',		'01-06-1989', '987321654', 1,	2),
-				('0901200600234', 'Sofia',	'Sanchez Perez',	'F', 1, 10, 8,	'Plaza de Espa�a 8',		'01-07-1979', '159487263', 1,	2),
+				('0901200600234', 'Sofia',	'Sanchez Perez',	'F', 1, 10, 8,	'Plaza de España 8',		'01-07-1979', '159487263', 1,	2),
 				('0901200300235', 'Javier', 'Hernandez Ruiz',	'M', 2, 8, 9,	'Calle de la Fuente 9',		'01-08-1969', '357159486', 1,	2),
 				('0901200500230', 'Paola',	'Garcia Sanchez',	'F', 3, 1, 1,	'Calle Mayor 10',			'01-09-1978', '456321789', 1,	2),
 				('1801200200123', 'Luis',	'Martinez Garcia',	'M', 4, 4, 2,	'Plaza del Sol 11',			'01-10-1990', '789654123', 1,	1),
@@ -796,26 +797,27 @@ CREATE TABLE cine.tbInsumos
 
 ---------------------------------------tbCombo-------------------------------------
 GO
-CREATE TABLE cine.tbCombos(
-	comb_Id						INT IDENTITY(1,1)				NOT NULL,
-	comb_Descripcion			NVARCHAR(MAX)					NOT NULL,
-	comb_Precio					DECIMAL(18,2)					NOT NULL,
-	comb_Estado					BIT DEFAULT 1					NOT NULL,
+	CREATE TABLE cine.tbCombos(
+		comb_Id						INT IDENTITY(1,1)				NOT NULL,
+		comb_Descripcion			NVARCHAR(MAX)					NOT NULL,
+		comb_Precio					DECIMAL(18,2)					NOT NULL,
+		comb_Estado					BIT DEFAULT 1					NOT NULL,
 
-	comb_UserCrea				INT								NOT NULL,
-	comb_FechaCrea				DATETIME DEFAULT GETDATE()		NOT NULL,
-	comb_UsuarioModifica	    INT,
-	comb_FechaModifica			DATETIME
+		comb_UserCrea				INT								NOT NULL,
+		comb_FechaCrea				DATETIME DEFAULT GETDATE()		NOT NULL,
+		comb_UsuarioModifica	    INT,
+		comb_FechaModifica			DATETIME
 
-	CONSTRAINT PK_cine_tbCombo_comb_Id	PRIMARY KEY (comb_Id),
+		CONSTRAINT PK_cine_tbCombo_comb_Id	PRIMARY KEY (comb_Id),
 
-	CONSTRAINT FK_cine_tbCombo_comb_UserCrea_acce_tbUsuarios_userId			FOREIGN KEY (comb_UserCrea)			REFERENCES	acce.tbUsuarios (user_Id),
-	CONSTRAINT FK_cine_tbCombo_insu_UsuarioModifica_acce_tbUsuarios_userId	FOREIGN KEY (comb_UsuarioModifica)	REFERENCES	acce.tbUsuarios (user_Id)
-);
+		CONSTRAINT FK_cine_tbCombo_comb_UserCrea_acce_tbUsuarios_userId			FOREIGN KEY (comb_UserCrea)			REFERENCES	acce.tbUsuarios (user_Id),
+		CONSTRAINT FK_cine_tbCombo_insu_UsuarioModifica_acce_tbUsuarios_userId	FOREIGN KEY (comb_UsuarioModifica)	REFERENCES	acce.tbUsuarios (user_Id)
+	);
 
 					--///***************** INSERTS DE COMBOS --///*****************
 INSERT INTO cine.tbCombos(comb_Descripcion, comb_Precio, comb_UserCrea)
 VALUES
+							('Combo Pollo',					100.99,				1),
 							('Combo Personal',            130.99,				1),
 							('Combo Nacho-Amigos',        230.00,				1),
 							('Combo Personal Premium',    220.00,				1),
@@ -859,12 +861,29 @@ VALUES
 								(4, 7, 1 ),
 								(4, 8, 1 ),
 								(4, 3, 1 );
+
+---------------------------------------tbCategoriaSala-----------------------------------
+GO
+CREATE TABLE cine.tbCategoriaSala(
+	casa_Id				INT IDENTITY(1,1),
+	casa_Categoria		VARCHAR(100),
+	casa_Precio			INT
+
+	CONSTRAINT PK_cine_tbCategoriaSala_casa_Id	PRIMARY KEY (casa_Id)
+);
+
+INSERT INTO cine.tbCategoriaSala (casa_Categoria, casa_Precio)
+VALUES ('Normal', 100);
+
+INSERT INTO cine.tbCategoriaSala (casa_Categoria, casa_Precio)
+VALUES ('VIP', 200);
+
 ---------------------------------------tbSalas-------------------------------------
 GO
 CREATE TABLE cine.tbSalas(
 		sala_Id					INT IDENTITY(1,1)			NOT NULL,
 		sala_Butacas			INT							NOT NULL,
-		sala_Tipo				CHAR(3)						NOT NULL,
+		sala_Tipo				INT							NOT NULL,
 		sala_Sucursal			INT							NOT NULL,
 		sala_Estado				BIT DEFAULT 1				NOT NULL,
 
@@ -875,6 +894,7 @@ CREATE TABLE cine.tbSalas(
 
 		CONSTRAINT PK_cine_tbSalas_sala_Id		PRIMARY KEY (sala_Id),
 		CONSTRAINT FK_cine_tbSalas_sala_Sucursal_cine_tbSucursales_sucu_Id FOREIGN KEY (sala_Sucursal)		REFERENCES cine.tbSucursales (sucu_Id),
+		CONSTRAINT FK_cine_tbCategoriaSala_sala_Tipo					   FOREIGN KEY (sala_Tipo)			REFERENCES cine.tbCategoriaSala (casa_Id),
 
 		CONSTRAINT FK_cine_tbSalas_sala_UserCrea_acce_tbUsuarios_userId		FOREIGN KEY (sala_UserCrea)		REFERENCES	acce.tbUsuarios (user_Id),
 		CONSTRAINT FK_cine_tbSalas_sala_UserMofica_acce_tbUsuarios_userId	FOREIGN KEY (sala_UserMofica)	REFERENCES	acce.tbUsuarios (user_Id)
@@ -882,28 +902,28 @@ CREATE TABLE cine.tbSalas(
 GO
 
 					--///***************** INSERTS DE SALAS --///*****************
+
 INSERT INTO cine.tbSalas(sala_Butacas, sala_Sucursal, sala_Tipo, sala_UserCrea)
 VALUES					
-						(25,			1,             'NOR',				1),
-						(30,			1,             'NOR',				1),
-						(10,			1,             'VIP',				1),
-						(15,			1,             'VIP',				1),
+						(25,			1,             1,				1),
+						(30,			1,             1,				1),
+						(10,			1,             2,				1),
+						(15,			1,             2,				1),
 
-						(25,			2,			  'NOR',				1),
-						(30,			2,            'NOR',				1),
-						(10,			2,            'VIP',				1),
-						(15,			2,            'VIP',				1),
+						(25,			2,			  1,				1),
+						(30,			2,            1,				1),
+						(10,			2,            2,				1),
+						(15,			2,            2,				1),
 
-						(25,			3,             'NOR',				1),
-						(10,			3,             'VIP',				1),
-						(15,			3,             'VIP',				1),
+						(25,			3,             1,				1),
+						(10,			3,             2,				1),
+						(15,			3,             2,				1),
 						
-						(25,			4,            'NOR',				1),
-						(10,			4,            'VIP',				1),
+						(25,			4,            1,				1),
+						(10,			4,            2,				1),
 
-						(25,			5,            'NOR',				1),
-						(10,			5,            'VIP',				1);
-
+						(25,			5,            1,				1),
+						(10,			5,            2,				1);
 ---------------------------------------tbAsientos-------------------------------------
 
 CREATE TABLE cine.tbAsientos(
@@ -1308,7 +1328,7 @@ GO
 			VALUES ('Alfonso', 'Cuaron', '09-09-1961', 'M', 1);
 			GO
 			INSERT INTO cine.tbDirectores(dire_Nombres, dire_Apellidos, dire_FechaNacimiento, dire_Sexo, dire_UsuCrea)
-			VALUES ('Alejandro', 'Gonzalez I�arritu', '12-04-1963', 'M', 1);
+			VALUES ('Alejandro', 'Gonzalez Iñarritu', '12-04-1963', 'M', 1);
 			GO
 			INSERT INTO cine.tbDirectores(dire_Nombres, dire_Apellidos, dire_FechaNacimiento, dire_Sexo, dire_UsuCrea)
 			VALUES ('Martin', 'Scorsese', '11-11-1942', 'M', 1);
@@ -1359,7 +1379,7 @@ VALUES ('El Misterio del Castillo', 'The Mystery of the Castle', 2021, 95, 4, 5,
 GO
 -- Insert 3
 INSERT INTO cine.tbPeliculas(peli_Titulo, peli_TitulOriginal, peli_AnioEstreno, peli_Duracion, peli_Categoria, peli_Director, peli_UsuCrea)
-VALUES ('La Vida es Bella', 'La Vita � Bella', 1997, 116, 1, 1, 1);
+VALUES ('La Vida es Bella', 'La Vita è Bella', 1997, 116, 1, 1, 1);
 GO
 -- Insert 4
 INSERT INTO cine.tbPeliculas(peli_Titulo, peli_TitulOriginal, peli_AnioEstreno, peli_Duracion, peli_Categoria, peli_Director, peli_UsuCrea)
@@ -1404,18 +1424,88 @@ GO
 
 
 ---------------------------------------tbProyeccion -------------------------------------
+CREATE TABLE cine.tbHorarios (
+    hor_Id INT IDENTITY(1,1),
+    hor_HoraInicio TIME NOT NULL,
+    hor_HoraFin TIME NOT NULL
+
+	CONSTRAINT PK_cine_tbHorarios	 PRIMARY KEY (hor_Id),
+
+);
+
+--//Insert tar de los horarios//--
+-- Inserts para películas de corta duración
+INSERT INTO cine.tbHorarios (hor_HoraInicio, hor_HoraFin)
+VALUES
+('13:00:00', '14:30:00'),
+('15:00:00', '16:30:00'),
+('17:00:00', '18:30:00'),
+('19:00:00', '20:30:00'),
+('21:00:00', '22:30:00'),
+('23:00:00', '23:50:00');
+
+-- Inserts para películas de duración media
+INSERT INTO cine.tbHorarios (hor_HoraInicio, hor_HoraFin)
+VALUES
+('13:00:00', '15:00:00'),
+('15:30:00', '17:30:00'),
+('18:00:00', '20:00:00'),
+('20:30:00', '22:30:00'),
+('23:00:00', '23:50:00'),
+('13:30:00', '15:30:00');
+
+-- Inserts para películas de larga duración
+INSERT INTO cine.tbHorarios (hor_HoraInicio, hor_HoraFin)
+VALUES
+('13:00:00', '16:00:00'),
+('16:30:00', '19:30:00'),
+('20:00:00', '23:00:00'),
+('13:30:00', '16:30:00'),
+('17:00:00', '20:00:00'),
+('20:30:00', '23:30:00');
+
+
+--//Insert tar de los horarios//--
+
+select * from cine.tbHorarios
+
+
+
+---------------------------------------tbProyecci�n -------------------------------------
 GO
 CREATE TABLE cine.tbProyecciones(
 
 	proy_Id				INT IDENTITY(1,1),
 	proy_Pelicula		INT,
 	proy_Sala			INT,
+	proy_Horario		INT,
 
 	CONSTRAINT PK_cine_tbProyecciones_proy_Id			 PRIMARY KEY (proy_Id),
 	CONSTRAINT FK_cine_tbPeliculas_proy_Pelicula_peli_Id FOREIGN KEY (proy_Pelicula) REFERENCES cine.tbPeliculas(peli_Id),
-	CONSTRAINT FK_cine_tbSalas_proy_Sala_sala_Id		 FOREIGN KEY (proy_Sala)	 REFERENCES cine.tbSalas(sala_Id)
+	CONSTRAINT FK_cine_tbSalas_proy_Sala_sala_Id		 FOREIGN KEY (proy_Sala)	 REFERENCES cine.tbSalas(sala_Id),
+	CONSTRAINT FK_cine_tbHorarios_proy_Horario			 FOREIGN KEY (proy_Horario)	 REFERENCES cine.tbHorarios(hor_Id)
 
 );
+
+ -- inserts de proyecciones -- 
+DECLARE @i INT = 1;
+DECLARE @max INT = 20;
+
+WHILE @i <= @max
+BEGIN
+    -- generar valores aleatorios para los campos proy_Pelicula, proy_Sala, y proy_Horario
+    DECLARE @pelicula INT = (SELECT TOP 1 peli_Id FROM cine.tbPeliculas ORDER BY NEWID());
+    DECLARE @sala INT = (SELECT TOP 1 sala_Id FROM cine.tbSalas ORDER BY NEWID());
+    DECLARE @horario INT = (SELECT TOP 1 hor_Id FROM cine.tbHorarios ORDER BY NEWID());
+    
+    -- insertar fila en la tabla tbProyecciones con los valores generados aleatoriamente
+    INSERT INTO cine.tbProyecciones (proy_Pelicula, proy_Sala, proy_Horario)
+    VALUES (@pelicula, @sala, @horario);
+    
+    SET @i = @i + 1;
+END
+
+-- inserts de proyecciones -- 
 
 
 
@@ -1424,20 +1514,17 @@ GO
 CREATE TABLE cine.tbFacturas(
 		
 		fact_Id				INT IDENTITY(1,1),
-		fact_Nombres		NVARCHAR(100)		NOT NULL,
-		fact_Apellidos		NVARCHAR(100)		NOT NULL,
-		fact_RTN			VARCHAR(14),
-		
+		fact_Cliente		INT,
 		fact_Estado			BIT DEFAULT 1,
 		fact_UsuCrea		INT					NOT NULL,
 		fact_FechaCrea		DATETIME DEFAULT GETDATE(),
 		fact_UsuMofica		INT,
 		fact_FechaModifica	DATETIME
 
-		CONSTRAINT PK_cine_tbFacturas_fact_ID	PRIMARY KEY (fact_ID)
-
+		CONSTRAINT PK_cine_tbFacturas_fact_ID		PRIMARY KEY (fact_ID)
+		CONSTRAINT FK_cine_tbFacturas_fact_Cliente	FOREIGN KEY (fact_Cliente)		REFERENCES gral.tbClientes (clie_Id),
 );
-
+/*
 GO
 CREATE TABLE cine.tbFacturaDetalle(
 
@@ -1458,3 +1545,177 @@ CREATE TABLE cine.tbFacturaDetalle(
 	CONSTRAINT FK_cine_tbComboDetalle_fade_ComboDetalle FOREIGN KEY (fade_ComboDetalle) REFERENCES cine.tbComboDetalle (cdet_Id)
 
 );
+*/
+--/////////////////////////////////////////////////////////////////////////////--
+-- factura
+
+GO
+CREATE TABLE cine.tbFacturaDetalle(
+
+	fade_Id							INT IDENTITY(1,1),
+	fade_Factura					INT,
+	fade_Proyeccion					INT,
+	fade_Tickets					INT,
+	fade_Combo_Id					INT,
+	fade_Combo_Cantidad				INT,
+	fade_ComboDetalle				INT,
+	fade_ComboDetalle_Cantidad		INT,
+	fade_Pago						INT,
+	fade_Total						INT,
+	fade_Estado						BIT DEFAULT 1,
+	fade_UsuCrea					INT					NOT NULL,
+	fade_FechaCrea					DATETIME DEFAULT GETDATE(),
+	fade_UsuMofica					INT,
+	fade_FechaModifica				DATETIME
+
+	CONSTRAINT PK_cine_tbFacturaDetalle_fade_Id			PRIMARY KEY(fade_Id)
+	CONSTRAINT FK_cine_tbFacturas_fade_Factura			FOREIGN KEY (fade_Factura)		REFERENCES cine.tbFacturas (fact_Id),
+	CONSTRAINT FK_cine_tbProyeccion_fade_Proyeccion		FOREIGN KEY (fade_Proyeccion)	REFERENCES cine.tbProyecciones (proy_Id),
+	CONSTRAINT FK_cine_tbMetodoPago_fade_Pago			FOREIGN KEY (fade_Pago)			REFERENCES gral.tbMetodosPago (pago_Id),
+	CONSTRAINT FK_cine_tbComboDetalle_fade_ComboDetalle	FOREIGN KEY (fade_ComboDetalle)			REFERENCES cine.tbComboDetalle (cdet_Id)
+
+);
+
+GO
+CREATE TABLE cine.tbTickets(
+
+	tick_Id				INT IDENTITY(1,1),
+	tick_Factura		INT,
+	tick_Proyeccion		INT,
+	tick_Asiento		INT,
+	tick_Estado			BIT DEFAULT 1,
+	tick_UsuCrea		INT					NOT NULL,
+	tick_FechaCrea		DATETIME DEFAULT	GETDATE(),
+	tick_UsuMofica		INT,
+	tick_FechaModifica	DATETIME
+
+	CONSTRAINT PK_cine_tbTickets_tick_Id				PRIMARY KEY(tick_Id)
+	CONSTRAINT FK_cine_tbFacturas_tick_Factura			FOREIGN KEY (tick_Factura)		REFERENCES cine.tbFacturas (fact_Id), 
+	CONSTRAINT FK_cine_tbProyeccion_tick_Proyeccion		FOREIGN KEY (tick_Proyeccion)	REFERENCES cine.tbProyecciones (proy_Id),
+	CONSTRAINT FK_cine_tbTickets_tick_Asiento			FOREIGN KEY (tick_Asiento)		REFERENCES [cine].[tbAsientos] 	 ([asie_Id]),
+
+);
+
+select * from cine.tbFacturaDetalle
+/*
+*/
+------------------Prueba
+drop table tbtempFacturaDetalle
+
+CREATE TABLE tbtempFacturaDetalle (
+		fade_Factura INT,
+		fade_Proyeccion INT,
+		fade_Tickets INT,
+		fade_ContenidoCombo NVARCHAR(MAX),
+		fade_ContenidoInsumo NVARCHAR(MAX),
+		fade_Pago INT,
+		fade_Total INT,
+		fade_UsuCrea INT
+		)
+
+create table hobbies(
+	id INT Identity(1,1) PRIMARY KEY,
+    hobbie VARCHAR(50)
+);
+
+INSERT INTO hobbies (hobbie) VALUES ('lavar'),('trapear'),('lavar carro'),('pasear perros');
+
+CREATE TABLE trabajo  (
+    id INT Identity(1,1) PRIMARY KEY,
+    trabajo VARCHAR(50)
+);
+
+INSERT INTO trabajo (trabajo) VALUES ('reportero'),('Albanil'),('Cantero'),('Visepresidente');
+
+CREATE TABLE ejemplo  (
+    id INT Identity(1,1) PRIMARY KEY,
+    nombre VARCHAR(50),
+    Trabajodatos NVARCHAR(max),
+    Hobiedatos NVARCHAR(max),
+);
+
+CREATE TABLE ejemploFinal  (
+    id INT Identity(1,1) PRIMARY KEY,
+    nombre VARCHAR(50),
+    trabajo NVARCHAR(max),
+    cantidaTrabajo int,
+	Hobbie NVARCHAR(max),
+	cantidaHobies int,
+
+);
+
+INSERT INTO ejemplo (nombre, Trabajodatos,Hobiedatos) 
+VALUES ('Carlito', '[{"id": 1, "cantidad": 3}, {"id": 2, "cantidad": 2}, {"id": 3, "cantidad": 1}]', '[{"id":1, "cantidad":2}, {"id":3, "cantidad":1}]');
+
+
+
+SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad, null AS hobbie, null AS hobbie_cantidad
+FROM ejemplo t1
+CROSS APPLY OPENJSON(t1.Trabajodatos) WITH (id int '$.id', cantidad int '$.cantidad') t2
+JOIN trabajo t3 ON t2.id = t3.id
+
+UNION ALL
+SELECT t1.id, t1.nombre, null AS trabajo, null AS cantidad, t5.hobbie, t4.cantidad
+FROM ejemplo t1
+CROSS APPLY OPENJSON(t1.Hobiedatos) WITH (id int '$.id', cantidad int '$.cantidad') t4
+JOIN hobbies t5 ON t4.id = t5.id;
+
+
+
+
+--INSERT INTO ejemplo (nombre, Trabajodatos,Hobiedatos) 
+--VALUES ('juen', '{"trabajos": [{"id": 1, "cantidad": 3}, {"id": 2, "cantidad": 2}, {"id": 3, "cantidad": 1}]}', '{ "hobbies":[{"id":1, "cantidad":2}, {"id":3, "cantidad":1}]}');
+
+
+INSERT INTO ejemploFinal (nombre, trabajo, cantidaTrabajo, Hobbie, cantidaHobies)
+SELECT t1.nombre, t3.trabajo, t2.cantidad, null AS hobbie, null AS hobbie_cantidad
+FROM ejemplo t1
+CROSS APPLY OPENJSON(t1.Trabajodatos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
+JOIN trabajo t3 ON t2.id = t3.id
+UNION ALL
+SELECT t1.nombre, null AS trabajo, null AS cantidad, t5.hobbie, t4.cantidad
+FROM ejemplo t1
+CROSS APPLY OPENJSON(t1.Hobiedatos, '$.hobbies') WITH (id int '$.id', cantidad int '$.cantidad') t4
+JOIN hobbies t5 ON t4.id = t5.id;
+
+
+
+--SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad, t5.hobbie, t4.cantidad
+--FROM ejemplo t1
+--CROSS APPLY OPENJSON(t1.Trabajodatos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
+--JOIN trabajo t3 ON t2.id = t3.id
+--CROSS APPLY OPENJSON(t1.Hobiedatos, '$.hobbies') WITH (id int '$.id', cantidad int '$.cantidad') t4
+--JOIN hobbies t5 ON t4.id = t5.id;
+
+
+
+
+--INSERT INTO ejemplo (nombre, Trabajodatos,Hobiedatos) 
+--VALUES ('Leonardo2', '{"trabajos": [{"id": 2, "cantidad": 2}, {"id": 4, "cantidad": 2}], "hobbies":[{"id":1, "cantidad":2}, {"id":3, "cantidad":1}, {"id":4, "cantidad":1}] }');
+
+--SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad
+--FROM ejemplo t1
+--CROSS APPLY OPENJSON(t1.datos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
+--JOIN trabajo t3 ON t2.id = t3.id
+
+--SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad, t5.hobbie, t4.cantidad
+--FROM ejemplo t1
+--CROSS APPLY OPENJSON(t1.datos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
+--JOIN trabajo t3 ON t2.id = t3.id
+--CROSS APPLY OPENJSON(t1.datos, '$.hobbies') WITH (id int '$.id', cantidad int '$.cantidad') t4
+--JOIN hobbies t5 ON t4.id = t5.id
+--where t1.id = 7
+
+
+
+--SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad
+--FROM ejemplo t1
+--CROSS APPLY OPENJSON(t1.datos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
+--JOIN trabajo t3 ON t2.id = t3.id
+
+--UNION
+
+--SELECT t1.id, t1.nombre, t5.hobbie, t4.cantidad
+--FROM ejemplo t1
+--CROSS APPLY OPENJSON(t1.datos, '$.hobbies') WITH (id int '$.id', cantidad int '$.cantidad') t4
+--JOIN hobbies t5 ON t4.id = t5.id;
