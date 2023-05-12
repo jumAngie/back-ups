@@ -8,6 +8,11 @@ namespace Cine.Entities.Entities
 {
     public partial class tbCliente
     {
+        public tbCliente()
+        {
+            tbFacturas = new HashSet<tbFactura>();
+        }
+
         public int clie_Id { get; set; }
         public string clie_Nombres { get; set; }
         public string clie_Apellidos { get; set; }
@@ -20,5 +25,6 @@ namespace Cine.Entities.Entities
 
         public virtual tbUsuario clie_UserCreaNavigation { get; set; }
         public virtual tbUsuario clie_UserModificaNavigation { get; set; }
+        public virtual ICollection<tbFactura> tbFacturas { get; set; }
     }
 }

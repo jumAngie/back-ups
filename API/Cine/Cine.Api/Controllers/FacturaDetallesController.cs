@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 namespace Cine.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -33,14 +33,13 @@ namespace Cine.Api.Controllers
         [HttpPost("Insert")]
         public IActionResult Insert(FacturaDetalleViewModel item)
         {
-            tbFacturaDetalle facde = new tbFacturaDetalle();
-            facde.fade_Factura = item.fade_Factura;
-            facde.fade_ComboDetalle = item.fade_ComboDetalle;
-            facde.fade_Proyeccion = item.fade_Proyeccion;
-            facde.fade_UsuCrea = item.fade_UsuCrea;
+            tbFacturaDetalle fact = new tbFacturaDetalle();
+            item.fade_ContenidoCombo = JsonConvert.SerializeObject(item.fade_ContenidoComboS);
+            item.fade_ContenidoInsumo = JsonConvert.SerializeObject(item.fade_ContenidoInsumoS);
 
-            var listado = _cineService.InsertarFacturaDetalles(facde);
-            return Ok(listado);
+            var listado = _mapper.Map<tbFacturaDetalle>(item);
+            var Result = _cineService.InsertarFacturaDetalles(listado);
+            return Ok(Result);
         }
 
         [HttpGet("Find/{id}")]
@@ -63,6 +62,16 @@ namespace Cine.Api.Controllers
         {
             var listado = _cineService.BorrarFacturaDetalles(id);
             return Ok(listado);
+        }
+
+        //Tikets
+        [HttpPost("Tikect/Insert")]
+        public IActionResult InsertTicket(TicketViewModel item)
+        {
+
+            var listado = _mapper.Map<tbTicket>(item);
+            var Result = _cineService.InsertarTicket(listado);
+            return Ok(Result);
         }
     }
 }

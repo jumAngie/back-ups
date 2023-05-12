@@ -34,6 +34,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[cine].[tbCategoriaSala]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[cine].[tbComboDetalle]",
          "ObjectType": 0
       },
@@ -54,6 +58,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[cine].[tbHorarios]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[cine].[tbInsumos]",
          "ObjectType": 0
       },
@@ -71,6 +79,30 @@
       },
       {
          "Name": "[cine].[tbSucursales]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[cine].[tbTickets]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ejemplo]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ejemploFinal]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[hobbies]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbtempFacturaDetalle]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[trabajo]",
          "ObjectType": 0
       },
       {
@@ -119,6 +151,10 @@
       },
       {
          "Name": "[acce].[VW_Usuario]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_Proyecciones]",
          "ObjectType": 3
       },
       {
@@ -186,7 +222,7 @@
          "ObjectType": 3
       }
    ],
-   "UiHint": "PC-ANGIE\\SQLEXPRESS.db_Cine",
+   "UiHint": "DESKTOP-36LBO8D\\SQLEXPRESS.db_Cine",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

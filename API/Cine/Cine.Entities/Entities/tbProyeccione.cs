@@ -11,14 +11,18 @@ namespace Cine.Entities.Entities
         public tbProyeccione()
         {
             tbFacturaDetalles = new HashSet<tbFacturaDetalle>();
+            tbTickets = new HashSet<tbTicket>();
         }
 
         public int proy_Id { get; set; }
         public int? proy_Pelicula { get; set; }
         public int? proy_Sala { get; set; }
+        public int? proy_Horario { get; set; }
 
+        public virtual tbHorario proy_HorarioNavigation { get; set; }
         public virtual tbPelicula proy_PeliculaNavigation { get; set; }
         public virtual tbSala proy_SalaNavigation { get; set; }
         public virtual ICollection<tbFacturaDetalle> tbFacturaDetalles { get; set; }
+        public virtual ICollection<tbTicket> tbTickets { get; set; }
     }
 }

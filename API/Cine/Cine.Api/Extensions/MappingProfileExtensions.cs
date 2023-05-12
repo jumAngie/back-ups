@@ -33,6 +33,7 @@ namespace Cine.Api.Extensions
             CreateMap<RolesViewModel, tbRole>().ReverseMap();
             CreateMap<RolPantallasViewModel, tbRolesPantalla>().ReverseMap();
             CreateMap<PantallasViewModel, tbPantalla>().ReverseMap();
+            CreateMap<TicketViewModel, tbTicket>().ReverseMap();
         }
     }
 }

@@ -35,10 +35,14 @@ namespace Cine.DataAccess.Repository.Cine
             using var db = new SqlConnection(CineContext.ConnectionString);
             var parametros = new DynamicParameters();
 
-            parametros.Add("@fade_Factura ",        item.fade_Factura,      DbType.Int32,   ParameterDirection.Input);
-            parametros.Add("@fade_Proyeccion",      item.fade_Proyeccion,   DbType.Int32,  ParameterDirection.Input);
-            parametros.Add("@fade_ComboDetalle",    item.fade_ComboDetalle, DbType.Int32,   ParameterDirection.Input);
-            parametros.Add("@fade_UsuCrea",         item.fade_UsuCrea,      DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_Factura ", item.fade_Factura, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_Proyeccion", item.fade_Proyeccion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_Tickets", item.fade_Tickets, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_ContenidoCombo", item.fade_ContenidoCombo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@fade_ContenidoInsumo", item.fade_ContenidoInsumo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@fade_Pago", item.fade_Pago, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_Total", item.fade_Total, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_UsuCrea", item.fade_UsuCrea, DbType.Int32, ParameterDirection.Input);
 
 
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbFacturaDetalle_INSERT, parametros, commandType: CommandType.StoredProcedure);
@@ -57,13 +61,30 @@ namespace Cine.DataAccess.Repository.Cine
             using var db = new SqlConnection(CineContext.ConnectionString);
             var parametros = new DynamicParameters();
 
-            parametros.Add("@fade_Id",              item.fade_Id,           DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_Factura ",        item.fade_Factura,      DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_Proyeccion",      item.fade_Proyeccion,   DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_ComboDetalle",    item.fade_ComboDetalle, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_UsuMofica",       item.fade_UsuMofica,    DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_Id", item.fade_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_Factura ", item.fade_Factura, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_Proyeccion", item.fade_Proyeccion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_ContenidoCombo", item.fade_ContenidoCombo, DbType.String, ParameterDirection.Input);
+            parametros.Add("@fade_UsuMofica", item.fade_UsuMofica, DbType.Int32, ParameterDirection.Input);
 
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbFacturaDetalle_UPDATE, parametros, commandType: CommandType.StoredProcedure);
+
+        }
+
+
+        public RequestStatus InsertTickey(tbTicket item)
+        {
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            parametros.Add("@tick_Factura ", item.tick_Factura, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@tick_Proyeccion", item.tick_Proyeccion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@tick_Asiento", item.tick_Asiento, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@tick_UsuCrea", item.tick_UsuCrea, DbType.Int32, ParameterDirection.Input);
+
+
+
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbTickets_INSERT, parametros, commandType: CommandType.StoredProcedure);
 
         }
     }

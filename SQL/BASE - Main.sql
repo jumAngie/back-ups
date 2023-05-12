@@ -1600,7 +1600,7 @@ select * from cine.tbFacturaDetalle
 /*
 */
 ------------------Prueba
-drop table tbtempFacturaDetalle
+--drop table tbtempFacturaDetalle
 
 CREATE TABLE tbtempFacturaDetalle (
 		fade_Factura INT,
@@ -1719,3 +1719,4 @@ JOIN hobbies t5 ON t4.id = t5.id;
 --FROM ejemplo t1
 --CROSS APPLY OPENJSON(t1.datos, '$.hobbies') WITH (id int '$.id', cantidad int '$.cantidad') t4
 --JOIN hobbies t5 ON t4.id = t5.id;
+

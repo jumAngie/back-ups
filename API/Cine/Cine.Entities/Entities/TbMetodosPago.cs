@@ -8,6 +8,11 @@ namespace Cine.Entities.Entities
 {
     public partial class tbMetodosPago
     {
+        public tbMetodosPago()
+        {
+            tbFacturaDetalles = new HashSet<tbFacturaDetalle>();
+        }
+
         public int pago_Id { get; set; }
         public string pago_Descripcion { get; set; }
         public int? pago_Estado { get; set; }
@@ -18,5 +23,6 @@ namespace Cine.Entities.Entities
 
         public virtual tbUsuario pago_UsuarioCreadorNavigation { get; set; }
         public virtual tbUsuario pago_UsuarioModificadorNavigation { get; set; }
+        public virtual ICollection<tbFacturaDetalle> tbFacturaDetalles { get; set; }
     }
 }

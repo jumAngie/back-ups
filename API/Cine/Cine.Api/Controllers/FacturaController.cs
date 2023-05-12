@@ -31,17 +31,12 @@ namespace Cine.Api.Controllers
             return Ok(listado);
         }
 
-        [HttpPost("InsertAR")]
+        [HttpPost("Insert")]
         public IActionResult Insert(FacturaViewModel item)
         {
-            tbFactura factura = new tbFactura();
-            factura.fact_Nombres = item.fact_Nombres;
-            factura.fact_RTN = item.fact_RTN;
-            factura.fact_Apellidos = item.fact_Apellidos;
-            factura.fact_UsuCrea = item.fact_UsuCrea;
-
-            var listado = _cineService.InsertarFacturas(factura);
-            return Ok(listado);
+            var listado = _mapper.Map<tbFactura>(item);
+            var result = _cineService.InsertarFacturas(listado);
+            return Ok(result);
         }
 
         [HttpGet("Find/{id}")]

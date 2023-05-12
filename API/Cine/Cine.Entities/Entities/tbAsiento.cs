@@ -8,6 +8,11 @@ namespace Cine.Entities.Entities
 {
     public partial class tbAsiento
     {
+        public tbAsiento()
+        {
+            tbTickets = new HashSet<tbTicket>();
+        }
+
         public int asie_Id { get; set; }
         public int asie_Sala { get; set; }
         public string asie_Code { get; set; }
@@ -20,5 +25,6 @@ namespace Cine.Entities.Entities
         public virtual tbSala asie_SalaNavigation { get; set; }
         public virtual tbUsuario asie_UserCreaNavigation { get; set; }
         public virtual tbUsuario asie_UserMoficaNavigation { get; set; }
+        public virtual ICollection<tbTicket> tbTickets { get; set; }
     }
 }

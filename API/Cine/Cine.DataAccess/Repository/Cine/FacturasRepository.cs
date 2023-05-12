@@ -27,7 +27,7 @@ namespace Cine.DataAccess.Repository.Cine
             var parametros = new DynamicParameters();
             parametros.Add("@fact_Id", id, DbType.Int32, ParameterDirection.Input);
 
-            return db.QueryFirst<VW_tbFactura>(ScriptsDataBase.UDP_tbFactura_FIND, parametros, commandType: CommandType.StoredProcedure);
+            return db.QueryFirst<VW_tbFactura>(ScriptsDataBase.UDP_tbFactura_SELECT, parametros, commandType: CommandType.StoredProcedure);
 
         }
 
@@ -36,10 +36,9 @@ namespace Cine.DataAccess.Repository.Cine
             using var db = new SqlConnection(CineContext.ConnectionString);
             var parametros = new DynamicParameters();
 
-            parametros.Add("@fact_Nombres ",    item.fact_Nombres,      DbType.String,  ParameterDirection.Input);
-            parametros.Add("@fact_Apellidos",   item.fact_Apellidos,    DbType.String,  ParameterDirection.Input);
-            parametros.Add("@fact_RTN",         item.fact_RTN,          DbType.String,  ParameterDirection.Input);
-            parametros.Add("@fact_UsuCrea",     item.fact_UsuCrea,      DbType.Int32,   ParameterDirection.Input);
+
+            parametros.Add("@fact_Cliente", item.fact_Cliente, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fact_UsuCrea", item.fact_UsuCrea, DbType.Int32, ParameterDirection.Input);
 
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbFactura_INSERT, parametros, commandType: CommandType.StoredProcedure);
 
@@ -58,11 +57,10 @@ namespace Cine.DataAccess.Repository.Cine
             using var db = new SqlConnection(CineContext.ConnectionString);
             var parametros = new DynamicParameters();
 
-            parametros.Add("@fact_Id ",         item.fact_Id,           DbType.Int32,   ParameterDirection.Input);
-            parametros.Add("@fact_Nombres ",    item.fact_Nombres,      DbType.String,  ParameterDirection.Input);
-            parametros.Add("@fact_Apellidos",   item.fact_Apellidos,    DbType.String,  ParameterDirection.Input);
-            parametros.Add("@fact_RTN",         item.fact_RTN,          DbType.String,  ParameterDirection.Input);
-            parametros.Add("@fact_UsuMofica",   item.fact_UsuMofica,    DbType.Int32,   ParameterDirection.Input);
+            parametros.Add("@fact_Id ", item.fact_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fact_Cliente", item.fact_Cliente, DbType.Int32, ParameterDirection.Input);
+
+            parametros.Add("@fact_UsuMofica", item.fact_UsuMofica, DbType.Int32, ParameterDirection.Input);
 
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbFactura_UPDATE, parametros, commandType: CommandType.StoredProcedure);
 

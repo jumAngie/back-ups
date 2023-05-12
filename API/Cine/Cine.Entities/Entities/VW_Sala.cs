@@ -10,7 +10,7 @@ namespace Cine.Entities.Entities
     {
         public int sala_Id { get; set; }
         public int sala_Butacas { get; set; }
-        public string sala_Tipo { get; set; }
+        public int sala_Tipo { get; set; }
         public int sala_Sucursal { get; set; }
         public bool sala_Estado { get; set; }
         public int sala_UserCrea { get; set; }

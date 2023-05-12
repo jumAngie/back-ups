@@ -19,6 +19,7 @@ namespace Cine.BusinessLogic.Services.Cine
         private readonly CombosRepository _combosRepository;
         private readonly FacturaDetallesRepository _facturaDetallesRepository;
         private readonly FacturasRepository _facturasRepository;
+        private readonly ProyeccionesRepository _proyeccionesRepository;
         private readonly SalaRepository _salaRepository;
 
         //INYECCION DE DEPENDENCIA
@@ -29,12 +30,14 @@ namespace Cine.BusinessLogic.Services.Cine
                              CombosRepository           combosRepository,
                              FacturasRepository facturasRepository,
                              FacturaDetallesRepository facturaDetallesRepository,
-                             SalaRepository salaRepository)
+                             SalaRepository salaRepository,
+                             ProyeccionesRepository proyeccionesRepository)
         {
             _directorRepository = directorRepository;
-            _insumoRepository   = insumoRepository;
+            _insumoRepository = insumoRepository;
             _sucurdalRepository = sucurdalRepository;
             _peliculasRepository = peliculasRepository;
+            _proyeccionesRepository = proyeccionesRepository;
             _combosRepository = combosRepository;
             _salaRepository = salaRepository;
             _facturaDetallesRepository = facturaDetallesRepository;
@@ -176,6 +179,41 @@ namespace Cine.BusinessLogic.Services.Cine
         #region CombosDetalles
         #endregion
 
+        #region Proyecciones
+        public ServiceResult ListProyecciones()
+        {
+            var result = new ServiceResult();
+
+
+            try
+            {
+                var list = _proyeccionesRepository.List();
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+
+                return result.Error(e.Message);
+            }
+        }
+
+        public ServiceResult ListAsiento(int id)
+        {
+            var result = new ServiceResult();
+
+
+            try
+            {
+                var list = _proyeccionesRepository.ListAsientos(id);
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+
+                return result.Error(e.Message);
+            }
+        }
+        #endregion
 
         // 07 05 2023
         #region Factura
@@ -293,6 +331,13 @@ namespace Cine.BusinessLogic.Services.Cine
             }
         }
 
+        public ServiceResult InsertarTicket(tbTicket item)
+        {
+            var result = new ServiceResult();
+
+            var map = _facturaDetallesRepository.InsertTickey(item);
+            return result.Ok(map);
+        }
         public RequestStatus UpdateFacturaDetalles(tbFacturaDetalle tabla)
         {
             try
@@ -369,6 +414,7 @@ namespace Cine.BusinessLogic.Services.Cine
             }
         }
         #endregion
+
 
         // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
         #region Director
