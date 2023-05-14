@@ -38,6 +38,7 @@ namespace Cine.DataAccess.Repository.Acce
 
             parametros.Add("@role_Nombre", item.role_Nombre,           DbType.String, ParameterDirection.Input);
             parametros.Add("@role_UsuCreacion", item.role_UsuCreacion, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@id", DbType.Int32, direction: ParameterDirection.Output);
 
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbRol_INSERT, parametros, commandType: CommandType.StoredProcedure);
 

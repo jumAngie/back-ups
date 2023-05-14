@@ -292,8 +292,7 @@ const Categorias = () => {
         }
         return data.filter(
             (item) =>
-                item.dire_Nombres.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-                item.dire_Apellidos.toLowerCase().indexOf(value.toLowerCase()) !== -1
+                item.cate_Nombre.toLowerCase().indexOf(value.toLowerCase()) !== -1
         );
     };
 

@@ -218,13 +218,23 @@ const Insumo = () => {
         setProduct(_product);
     };
 
+    const botonStyle = {
+        backgroundImage: `url(/layout/images/combo-button-2.png)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        padding: '10px 20px',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+      };
 
     //abre el modal para crear un nuevo usuario y eliminar
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
+                    <Button label="Nuevo" icon="pi pi-plus" severity="warning" className="mr-2" onClick={openNew} />
                 </div>
             </React.Fragment>
         );
@@ -234,7 +244,7 @@ const Insumo = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                
+                <img src='/layout/images/PALOMITAS.png' width={'100px'}></img>
             </React.Fragment>
         );
     };
@@ -262,7 +272,6 @@ const Insumo = () => {
     //Encabezado
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <h5 className="m-0">Insumo</h5>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Buscar..." />
@@ -284,8 +293,8 @@ const Insumo = () => {
 
     const productDialogFooter = (
         <>
-            <Button label="Cancelar" icon="pi pi-times" text onClick={hideDialog} />
-            <Button label="Guardar" icon="pi pi-check" text onClick={saveProduct} />
+            <Button label="Cancelar" severity="danger"  className="mr-2" icon="pi pi-times" text onClick={hideDialog} />
+            <Button label="Guardar" severity="warning"  icon="pi pi-check" text onClick={saveProduct} />
         </>
     );
     const deleteProductDialogFooter = (
@@ -305,7 +314,7 @@ const Insumo = () => {
             <div className="col-12">
                 <div className="card">
                     <Toast ref={toast} />
-                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+                    <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Insumos</h2>} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable
                         ref={dt}
@@ -356,7 +365,7 @@ const Insumo = () => {
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                             {product && (
                                 <span>
-                                    ¿Está seguro que dese eliminar este registro? <b>{product.name}</b>?
+                                    ¿Está seguro que dese eliminar este registro?<b>{product.name}</b>?
                                 </span>
                             )}
                         </div>

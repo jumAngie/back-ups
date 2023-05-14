@@ -21,6 +21,16 @@ namespace Cine.DataAccess.Repository.Acce
 
         }
 
+        public RequestStatus EliminarPantallaDeRol(tbRolesPantalla rolesPantalla)
+        {
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@ropa_Id", rolesPantalla.ropa_Id, DbType.Int32, ParameterDirection.Input);
+
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_BorrarRolPorPantalla, parametros, commandType: CommandType.StoredProcedure);
+
+        }
+
         public VW_RolPantalla Find(int id)
         {
             using var db = new SqlConnection(CineContext.ConnectionString);

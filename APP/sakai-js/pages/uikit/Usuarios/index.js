@@ -12,9 +12,9 @@ import { Toast } from 'primereact/toast';
 import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
-import { ProductService } from '../../../demo/service/ProductService';
 //Importo la url de la api
 import Global from '../../api/Global';
+import { useRouter } from 'next/router';
 
 const Usuario = () => {
     let emptyProduct = {
@@ -27,7 +27,7 @@ const Usuario = () => {
 
     //products son los datos
     const [Usuario, setUsuario] = useState([]);
-
+    const router = useRouter();
     //Ni idea aun
     const [products, setProducts] = useState(null);
 
@@ -177,7 +177,7 @@ const Usuario = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
+                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={() => router.push('/uikit/Usuarios/CreateUsuarios')} />
                 </div>
             </React.Fragment>
         );

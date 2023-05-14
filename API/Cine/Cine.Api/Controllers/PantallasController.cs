@@ -30,6 +30,13 @@ namespace Cine.Api.Controllers
             return Ok(listado);
         }
 
-       
+        [HttpGet("ListarPantallasNoAsociadas/{role_Id}")]
+        public IActionResult PantallasNoAsociadas(int role_Id)
+        {
+            var listado = _accessService.PantallasNoAsociadas(role_Id);
+            return Ok(listado);
+        }
+
+
     }
 }

@@ -5,38 +5,38 @@
                    }
     Seguridad ={
         login:Hecho,
-        Usuarios:{api: hecho, editar(hecho), crear(hecho !error), borrar(hecho) },
-        rol:{api: hecho, },
-        rolXpantalla:{api: hecho, app: editar(hecho), crear(hecho !error), borrar(hecho)},
+        Usuarios:{api: hecho, app: falta},
+        rol:Hecho,
+        rolXpantalla:{api: hecho, app: falta},
     },
     pantallas = {
-        insumo:{api: hecho, app: editar(hecho), crear(hecho !error), borrar(hecho)},
-        Combo:{api: hecho, app: falta},
-        ComboDetalle:{api: hecho, app: falta},
-        Categoria:{api: hecho,  app: editar(hecho !error), crear(hecho !error), borrar(hecho)},
+        insumo:Hecho,
+        Combo:Hecho,
+        ComboDetalle:Hecho,
+        Categoria:Hecho,
         Clientes: {api: hecho, app: falta},
-        Metodo:{api: hecho, app: editar(hecho), crear(hecho !error), borrar(hecho)},
+        Metodo:Hecho,
     },
-    Extra: Graficas( 1 hecha / 4 faltantes)
+    Extra: Graficas :Hecho
 }
 
  Selvin = {
     Base_De_Datos:{
         Tablas:10%,
         UDPS:50%},
+    },
     Empleado:Hecho,
     Director:Hecho,
-    Pelicula:{api: hecho, app: editar(hecho), crear(hecho !error), borrar(hecho)},
+    Pelicula:HECHO,
     Sala:{api: hecho, app: falta},
     Sucursal: {api: hecho, app: falta},
     Proyecciones: {api: hecho, app: falta},
     Tickets:{api: hecho, app: falta},
-    Factura = {
-        factura:{api: hecho, app: falta},,
-        facturaDetalle:{api: hecho, app: falta},
-        Asientos:{api: hecho, app: falta},,
-    }
-        Extra: Reportes
+    Factura = (7) = {
+        factura:Hecho,
+        facturaDetalle:Hecho,
+        Asientos:{api: hecho, app: Hecho, Detalle:Al momento de seleccionar el asiento cambie el color },
+    },
+    Extra: Reportes
 
 }
-

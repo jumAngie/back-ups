@@ -61,6 +61,7 @@ namespace Terminal.DataAccess.Repository
 
         #region Pantallas
         public static string UDP_tbPantallas_SELECT = "acce.UDP_tbPantallas_SELECT";
+        public static string UDP_tbPantallas_NoAsociadasARol_LIST = "acce.UDP_tbRolesPantalla_PantallasNoAsociadasAlRol";
         #endregion
 
         #region Sala
@@ -104,6 +105,7 @@ namespace Terminal.DataAccess.Repository
         public static string UDP_tbRolPantallas_DELETE = "acce.UDP_tbRolPantallas_Delete";
         public static string UDP_PantallasPorRol = "acce.UDP_PantallasPorRol";
         public static string UDP_DibujadoMenu = "acce.UDP_Menu_PantallasPorRol";
+        public static string UDP_BorrarRolPorPantalla = "acce.UDP_tbRolesPantallas_EliminarRolDePantalla";
         #endregion
 
         // // n u e v o //
@@ -160,6 +162,10 @@ namespace Terminal.DataAccess.Repository
         #region Usuario
         public static string UDP_tbUsuario_Select = "acce.UDP_tbUsuario_Select";
         public static string UDP_ValidarLogIN = "acce.UDP_ValidarLogIN";
+        public static string UDP_tbUsuario_FIND = "acce.UDP_tbUsuario_FIND";
+        public static string UDP_tbUsuario_INSERT = "acce.UDP_tbUsuario_INSERT";
+        public static string UDP_tbUsuario_UPDATE = "acce.UDP_tbUsuario_UPDATE";
+        public static string UDP_tbUsuario_DELETE = "acce.UDP_tbUsuario_DELETE";
         //public static string UDP_tbSucursale_INSERT = "cine.UDP_tbSucursale_INSERT";
         //public static string UDP_tbSucursale_FIND = "cine.UDP_tbSucursale_FIND";
         //public static string UDP_tbSucursale_UPDATE = "cine.UDP_tbSucursale_UPDATE";

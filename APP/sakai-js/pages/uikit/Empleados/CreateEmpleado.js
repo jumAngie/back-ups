@@ -12,7 +12,7 @@ import { Button } from "primereact/button";
 
 import Global from "../../api/Global";
 import { classNames } from "primereact/utils";
- import { Calendar } from "primereact/calendar";
+import { Calendar } from "primereact/calendar";
 
 const CreateEmpleado = () => {
   let EmpleadoModel = {
@@ -22,14 +22,13 @@ const CreateEmpleado = () => {
     empl_Apellidos: "",
     empl_Sexo: "",
     empl_Estadocivil: null,
+    empl_Telefono: null,
     muni_depId: null,
     empl_Muni: null,
     empl_Cargo: null,
     empl_Sucursal: null,
     empl_DireccionExacta: "",
   };
-
-
 
   const [empleado, setEmpleado] = useState(EmpleadoModel);
   const [ddlDisabled, setDdlDisabled] = useState(true);
@@ -198,6 +197,7 @@ const CreateEmpleado = () => {
       empl_Sexo: empl_Sexo,
       muni_depId: selectedDepartamento,
       empl_Muni: selectedMunicipio,
+      empl_Telefono: empl_Telefono,
       empl_FechaNacimiento: empl_FechaNacimiento,
       empl_Estadocivil: estadoCivilSeleccionado,
       empl_Cargo: selectedCargo,
@@ -226,11 +226,9 @@ const CreateEmpleado = () => {
               summary: "Felicidades",
               detail: "Editaste un registro",
               life: 1500,
-              
             });
 
             router.push("/uikit/Empleados");
-
           }
         })
         .catch((error) => {
@@ -246,7 +244,6 @@ const CreateEmpleado = () => {
 
   return (
     <div className="card">
-      {" "}
       <Toast ref={toast} />
       <h5>Nuevo Empleado</h5>
       <div className="grid p-fluid">
@@ -266,7 +263,7 @@ const CreateEmpleado = () => {
             />
 
             {submitted && !empl_DNI && (
-              <small className="p-invalid">El DNI es requerido.</small>
+              <small className="p-invalid">EL DNI es requerido.</small>
             )}
           </div>
         </div>
@@ -278,13 +275,13 @@ const CreateEmpleado = () => {
               type="text"
               id="Nombre"
               onChange={(e) => setempl_Nombre(e.target.value)}
-              
+              autoFocus
               className={classNames({
                 "p-invalid": submitted && !empl_Nombre,
               })}
             />
             {submitted && !empl_Nombre && (
-              <small className="p-invalid">El Nombre es requerido.</small>
+              <small className="p-invalid">EL Nombre es requerido.</small>
             )}
           </div>
         </div>
@@ -296,13 +293,13 @@ const CreateEmpleado = () => {
               type="text"
               id="Apellido"
               onChange={(e) => setempl_Apellidos(e.target.value)}
-              
+              autoFocus
               className={classNames({
                 "p-invalid": submitted && !empl_Apellidos,
               })}
             />
             {submitted && !empl_Apellidos && (
-              <small className="p-invalid">El Apellido es requerido.</small>
+              <small className="p-invalid">EL Apellido es requerido.</small>
             )}
           </div>
         </div>
@@ -319,7 +316,7 @@ const CreateEmpleado = () => {
                     value="M"
                     checked={empl_Sexo === "M"}
                     onChange={(e) => setempl_Sexo(e.target.value)}
-                    
+                    autoFocus
                     className={classNames({
                       "p-invalid": submitted && !empl_Sexo,
                     })}
@@ -335,7 +332,7 @@ const CreateEmpleado = () => {
                     value="F"
                     checked={empl_Sexo === "F"}
                     onChange={(e) => setempl_Sexo(e.target.value)}
-                    
+                    autoFocus
                     className={classNames({
                       "p-invalid": submitted && !empl_Sexo,
                     })}
@@ -359,7 +356,7 @@ const CreateEmpleado = () => {
               showButtonBar
               onChange={(e) => setempl_FechaNacimiento(e.target.value)}
               required
-              
+              autoFocus
               className={classNames({
                 "p-invalid": submitted && !empl_FechaNacimiento,
               })}
@@ -392,7 +389,7 @@ const CreateEmpleado = () => {
               maxLength={9}
               value={empl_Telefono}
               required
-              
+              autoFocus
               className={classNames({
                 "p-invalid": submitted && !empl_Telefono,
               })}
@@ -412,7 +409,7 @@ const CreateEmpleado = () => {
               onChange={onEstadoCivilChange}
               options={estadosCiviles}
               placeholder="Seleccionar"
-              
+              autoFocus
               className={classNames({
                 "p-invalid": submitted && !estadoCivilSeleccionado,
               })}
@@ -431,7 +428,7 @@ const CreateEmpleado = () => {
               onChange={onDepartamentoChange}
               options={DepartamentoOptions || []} // inicialmente null, pero en renderizado, si es null usará el array vacío
               placeholder="Seleccionar"
-              
+              autoFocus
               className={classNames({
                 "p-invalid": submitted && !selectedDepartamento,
               })}
@@ -450,7 +447,7 @@ const CreateEmpleado = () => {
               onChange={onMunicipioChange || []}
               options={MunicipioOptions}
               placeholder="Seleccionar"
-              
+              autoFocus
               className={classNames({
                 "p-invalid": submitted && !selectedMunicipio,
               })}
@@ -470,7 +467,7 @@ const CreateEmpleado = () => {
               onChange={onCargoChange}
               options={cargoOptions}
               placeholder="Seleccionar"
-              
+              autoFocus
               className={classNames({
                 "p-invalid": submitted && !selectedCargo,
               })}
@@ -489,7 +486,7 @@ const CreateEmpleado = () => {
               onChange={onSucursalChange}
               options={sucursalOptions}
               placeholder="Seleccionar"
-              
+              autoFocus
               className={classNames({
                 "p-invalid": submitted && !selectedSucursal,
               })}
@@ -521,7 +518,7 @@ const CreateEmpleado = () => {
         </div>
       </div>
       <Button
-        label="Cancelar"
+        label="Canselar"
         severity="danger"
         icon="pi pi-times"
         onClick={() => router.push("/uikit/Empleados")}

@@ -79,5 +79,13 @@ namespace Cine.Api.Controllers
             var listado = _accessService.BorrarRolXPantalla(id);
             return Ok(listado);
         }
+
+        [HttpPost("BorrarPantalla")]
+        public IActionResult BorrarPantalla(RolPantallasViewModel item)
+        {
+            var listado = _mapper.Map<tbRolesPantalla>(item);
+            var Result = _accessService.BorrarPantalla(listado);
+            return Ok(Result);
+        }
     }
 }

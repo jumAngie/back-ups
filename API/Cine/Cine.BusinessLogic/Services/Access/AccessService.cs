@@ -31,6 +31,24 @@ namespace Cine.BusinessLogic.Services.Access
         }
 
         #region Pantallas
+
+        public ServiceResult PantallasNoAsociadas(int role_Id)
+        {
+
+            var result = new ServiceResult();
+
+            try
+            {
+
+                var list = _pantallasRepository.PantallasNoAsociadas(role_Id);
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+
+                return result.Error(e.Message);
+            }
+        }
         public ServiceResult PantallasList()
         {
 
@@ -123,6 +141,18 @@ namespace Cine.BusinessLogic.Services.Access
             try
             {
                 return _rolPantallasRepository.Delete(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public RequestStatus BorrarPantalla(tbRolesPantalla rolesPantalla)
+        {
+            try
+            {
+                return _rolPantallasRepository.EliminarPantallaDeRol(rolesPantalla);
             }
             catch (Exception)
             {

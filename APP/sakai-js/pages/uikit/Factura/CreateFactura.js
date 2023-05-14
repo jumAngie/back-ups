@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Message } from "primereact/message";
+
 import { MultiSelect } from "primereact/multiselect";
 import axios from "axios";
 import Global from "../../api/Global";
@@ -21,7 +23,6 @@ import { classNames } from "primereact/utils";
 const CreateFactura = () => {
   const router = useRouter();
   const toast = useRef(null);
-  const dt = useRef(null);
 
   const [Clie_Id, setClie_Id] = useState(null);
   const [Clie_RTN, setClie_RTN] = useState("");
@@ -49,12 +50,26 @@ const CreateFactura = () => {
 
   //Desabilito el boton de los asinetos
   const [ddlDisabled, setDdlDisabled] = useState(true);
+  const [RTNDisabled, setRTNDisabled] = useState(false);
+  const [NameDisabled, setNameDisabled] = useState(false);
+  const [ApellidoDisabled, setApellidoDisabled] = useState(false);
+
+  const [toggleInsumoValue, setToggleInsumoValue] = useState(false);
+  const [labelVisible1, setLabelVisible1] = useState(false);
+  const [labelVisible2, setLabelVisible2] = useState(false);
+
+  //validar combo
+  const [validarComida, setvalidarComida] = useState(false);
+  const [validarCombo, setvalidarCombo] = useState(false);
+  const [validarInsumo, setvalidarInsumo] = useState(false);
 
   //Sala
   const [Sala, setSala] = useState(null);
+  const [EnviarAsientos, SetEnviarAsientos] = useState(false);
 
   //boton de enviar
   const [submitted, setSubmitted] = useState(false);
+  const [AsientosCantidad, setAsientosCantidad] = useState(null);
 
   //traigo datos
   useEffect(() => {
@@ -278,101 +293,124 @@ const CreateFactura = () => {
         cantidad: parseInt(valor),
       }));
 
-    if (
-      Clie_RTN.trim() !== "" &&
-      Clien_Nombre.trim() !== "" &&
-      Clie_Apellido.trim() !== "" &&
-      selectedProyeccion !== null &&
-      selectedMetodoPago !== null
-    ) {
-      //============================== INSERT DE CLIENTE ====================================//
-      var ClientesParametros = {
-        clie_Id: 0,
-        clie_Nombres: Clien_Nombre,
-        clie_Apellidos: Clie_Apellido,
-        clie_RTN: Clie_RTN,
-        clie_UserCrea: 1,
-      };
+    if (validarComida == true) {
 
-      const response = await axios.post(
-        Global.url + `Cliente/Insert`,
-        ClientesParametros
-      );
-      if (response.data.code == 200) {
-        var idC = parseInt(response.data.data.messageStatus);
+      if(cantidadFiltrada.length !== 0 || cantidadFiltradaDetalle.length !== 0 ){
+        setvalidarComida(false);
+      }else{
+        toast.current.show({
+          severity: "warn",
+          summary: "Cuidado",
+          detail: "Aun no has ingresado un insumo ",
+          life: 3000,
+        });
+      }
 
-        //============================== INSERT DE FATURA =====================================//
+    } else if (validarComida == false) {
+      //setvalidarCombo(false);
+      //setvalidarInsumo(false);
 
-        if (idC != null || idC != undefined) {
-          var FacturaParameter = {
-            fact_Id: 0,
-            fact_Cliente: idC,
-            fact_UsuCrea: 1,
-          };
+      if (
+        Clie_RTN.trim() !== "" &&
+        Clien_Nombre.trim() !== "" &&
+        Clie_Apellido.trim() !== "" &&
+        (selectedProyeccion !== null || labelVisible1 == true) &&
+        selectedMetodoPago !== null &&
+        (parseInt(localStorage.getItem("CantidadAsiento")) > 0 ||
+          validarComida == false)
+      ) {
+        setAsientosCantidad(parseInt(localStorage.getItem("CantidadAsiento")));
+        console.log(AsientosCantidad);
+        //============================== INSERT DE CLIENTE ====================================//
+        var ClientesParametros = {
+          clie_Id: 0,
+          clie_Nombres: Clien_Nombre,
+          clie_Apellidos: Clie_Apellido,
+          clie_RTN: Clie_RTN,
+          clie_UserCrea: 1,
+        };
 
-          const response = await axios.post(
-            Global.url + `Factura/Insert`,
-            FacturaParameter
-          );
-          if (response.data.code == 200) {
-            var idF = parseInt(response.data.data.messageStatus);
-            console.log(idF);
-            //========================== INSERT DE FATURA DETALLE =================================//
+        const response = await axios.post(
+          Global.url + `Cliente/Insert`,
+          ClientesParametros
+        );
+        if (response.data.code == 200) {
+          var idC = parseInt(response.data.data.messageStatus);
 
-            if (idF != null || idF != undefined) {
-              var FacturaDetalle = {
-                fade_Id: 0,
-                fade_Factura: idF,
-                fade_Proyeccion: selectedProyeccion,
-                fade_Tickets: 1,
-                fade_ContenidoComboS: cantidadFiltrada,
-                fade_ContenidoInsumoS: cantidadFiltradaDetalle,
-                fade_Pago: selectedMetodoPago,
-                fade_Total: 10,
-                fade_UsuCrea: 1,
-              };
-              console.log(FacturaDetalle);
+          //============================== INSERT DE FATURA =====================================//
+          if (idC != null || idC != undefined) {
+            var FacturaParameter = {
+              fact_Id: 0,
+              fact_Cliente: idC,
+              fact_UsuCrea: 1,
+            };
 
-              try {
-                const response = await axios.post(
-                  Global.url + `FacturaDetalles/Insert`,
-                  FacturaDetalle
-                );
+            const response = await axios.post(
+              Global.url + `Factura/Insert`,
+              FacturaParameter
+            );
+            if (response.data.code == 200) {
+              var idF = parseInt(response.data.data.messageStatus);
+              //========================== INSERT DE FATURA DETALLE =================================//
+              setFact_Id(idF);
+              SetEnviarAsientos(true);
+              if (idF != null || idF != undefined) {
+                var FacturaDetalle = {
+                  fade_Id: 0,
+                  fade_Factura: idF,
+                  fade_Proyeccion: selectedProyeccion,
+                  fade_Tickets: parseInt(
+                    localStorage.getItem("CantidadAsiento")
+                  ),
+                  fade_ContenidoComboS: cantidadFiltrada,
+                  fade_ContenidoInsumoS: cantidadFiltradaDetalle,
+                  fade_Pago: selectedMetodoPago,
+                  fade_Total: 1,
+                  fade_UsuCrea: 1,
+                };
+                console.log(FacturaDetalle);
 
-                if (response.data.code == 200) {
+                try {
+                  const response = await axios.post(
+                    Global.url + `FacturaDetalles/Insert`,
+                    FacturaDetalle
+                  );
+
+                  if (response.data.code == 200) {
+                    toast.current.show({
+                      severity: "success",
+                      summary: "Felicidades",
+                      detail: "Editaste un registro",
+                      life: 1500,
+                    });
+                  }
+                  localStorage.clear("CantidadAsiento");
+                  setTimeout(() => {
+                    router.push("/uikit/Factura");
+                  }, 1500);
+
+                  idC = null;
+                  idF = null;
+                } catch (error) {
                   toast.current.show({
-                    severity: "success",
-                    summary: "Felicidades",
-                    detail: "Editaste un registro",
+                    severity: "error",
+                    summary: "Error",
+                    detail: "Vuelva Ingresar los datos Nuevamente",
                     life: 1500,
                   });
                 }
 
-                setTimeout(() => {
-                  router.push("/uikit/Factura");
-                }, 1500);
-
-                idC = null;
-                idF = null;
-              } catch (error) {
-                toast.current.show({
-                  severity: "error",
-                  summary: "Error",
-                  detail: "Vuelva Ingresar los datos Nuevamente",
-                  life: 1500,
-                });
+                console.log("Están llenos");
+              } else {
+                setSubmitted(true);
               }
-
-              console.log("Están llenos");
-            } else {
-              setSubmitted(true);
             }
           }
         }
+      } else {
+        console.log("Algo anda mal en factura detalle");
+        setSubmitted(true);
       }
-    } else {
-      console.log("Algo anda mal en factura detalle");
-      setSubmitted(true);
     }
   };
   //envio los datos
@@ -386,10 +424,31 @@ const CreateFactura = () => {
       setClie_RTN("1234-1234-12345");
       setClien_Nombre("Consumidor");
       setClie_Apellido("Final");
+      setRTNDisabled(true);
+      setNameDisabled(true);
+      setApellidoDisabled(true);
     } else if (!final) {
       setClie_RTN("");
       setClien_Nombre("");
       setClie_Apellido("");
+      setRTNDisabled(false);
+      setNameDisabled(false);
+      setApellidoDisabled(false);
+    }
+  };
+
+  const SoloInsumo = (e) => {
+    var Insumo = e.value;
+    setToggleInsumoValue(Insumo);
+    console.log(validarComida);
+    if (Insumo) {
+      setLabelVisible2(true);
+      setLabelVisible1(true);
+      setvalidarComida(true);
+    } else {
+      setvalidarComida(true);
+      setLabelVisible1(false);
+      setLabelVisible2(false);
     }
   };
 
@@ -406,8 +465,22 @@ const CreateFactura = () => {
             <ToggleButton
               checked={toggleValue}
               onChange={UsuarioFinal}
-              onLabel="Yes"
-              offLabel="No"
+              onLabel="SI"
+              offLabel="NO"
+              onStyle={{ backgroundColor: "darkgreen" }}
+            />
+          </div>
+        </div>
+
+        <div className="col-6">
+          <div className="field">
+            <label htmlFor="Usuario">Solo Insumo</label>
+            <br></br>
+            <ToggleButton
+              checked={toggleInsumoValue}
+              onChange={SoloInsumo}
+              onLabel="SI"
+              offLabel="NO"
               onStyle={{ backgroundColor: "darkgreen" }}
             />
           </div>
@@ -418,6 +491,7 @@ const CreateFactura = () => {
             <label htmlFor="RTN">RTN</label>
 
             <InputMask
+              disabled={RTNDisabled}
               id="inputmask"
               value={Clie_RTN}
               mask="9999-9999-99999"
@@ -437,11 +511,11 @@ const CreateFactura = () => {
           <div className="field">
             <label htmlFor="Nombre">Nombre</label>
             <InputText
+              disabled={NameDisabled}
               type="text"
               id="Nombre"
               value={Clien_Nombre}
               onChange={(e) => setClien_Nombre(e.target.value)}
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !Clien_Nombre,
               })}
@@ -456,11 +530,11 @@ const CreateFactura = () => {
           <div className="field">
             <label htmlFor="Apellido">Apellido</label>
             <InputText
+              disabled={ApellidoDisabled}
               value={Clie_Apellido}
               type="text"
               id="Apellido"
               onChange={(e) => setClie_Apellido(e.target.value)}
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !Clie_Apellido,
               })}
@@ -475,19 +549,19 @@ const CreateFactura = () => {
           <div className="field">
             <label htmlFor="Funciones">Funciones</label>
             <Dropdown
+              disabled={labelVisible1}
               value={selectedProyeccion}
               onChange={onProyeccionChange}
               options={ProyeccionOptions}
               placeholder="Seleccionar"
-              autoFocus
               filter
               filterPlaceholder="Buscar"
               onFilter={(e) => onProyeccionFilter(e, ProyeccionOptions)}
               className={classNames({
-                "p-invalid": submitted && !selectedProyeccion,
+                "p-invalid": !labelVisible1 && submitted && !selectedProyeccion,
               })}
             />
-            {submitted && !selectedProyeccion && (
+            {!labelVisible1 && submitted && !selectedProyeccion && (
               <small className="p-invalid">EL Funciones es requerido.</small>
             )}
           </div>
@@ -496,8 +570,21 @@ const CreateFactura = () => {
         <div className="col-6">
           <div className="field">
             <label htmlFor="Funciones">Asientos</label>
-            <Asientos salaId={Sala} ddlDisabled={ddlDisabled} />
+            <Asientos
+              salaId={Sala}
+              labelVisible2={labelVisible2}
+              ddlDisabled={ddlDisabled}
+              EnviarAsientos={EnviarAsientos}
+              fact_Id={Fact_Id}
+              submitted={submitted}
+              Proyeccion_Id={selectedProyeccion}
+            />
           </div>
+          {submitted && !AsientosCantidad && (
+            <small className="p-invalid">
+              Tiene que seleccionar un Asiento.
+            </small>
+          )}
         </div>
 
         <div className="col-6">
@@ -505,6 +592,7 @@ const CreateFactura = () => {
             <label htmlFor="Combos">Combos</label>
             <MultiSelect
               id="multiselect"
+              filter
               value={selectedCombo}
               onChange={valor}
               options={optionsWithCantidad}
@@ -520,6 +608,7 @@ const CreateFactura = () => {
             <label htmlFor="Extra">Extra</label>
             <MultiSelect
               id="multiselect"
+              filter
               value={selectedInsumo}
               onChange={valorInsumo}
               options={optionsWithCantidad2}
@@ -538,7 +627,6 @@ const CreateFactura = () => {
               onChange={onMetodoPagoChange}
               options={MetodoPagoOptions}
               placeholder="Seleccionar"
-              autoFocus
               filter
               filterPlaceholder="Buscar"
               className={classNames({

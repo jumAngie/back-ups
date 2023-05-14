@@ -15,10 +15,9 @@ const AppMenu = () => {
         {
             label: 'Menu General',
             items: [
-                { label: 'Categorías', icon: 'pi pi-fw pi-bookmark', to: '/uikit/Categorias' },
-                { label: 'Empleados', icon: 'pi pi-fw pi-id-card', to: '/uikit/Empleados' },
-                { label: 'Método de Pago', icon: 'pi pi-fw pi-briefcase', to: '/uikit/MetodosPago' },
-                { label: 'Prueba', icon: 'pi pi-fw pi-bookmark', to: '/uikit/table' },
+                { label: 'Categorías', icon: 'pi pi-fw pi-bars', to: '/uikit/Categorias' },
+                { label: 'Empleados', icon: 'pi pi-fw pi-user', to: '/uikit/Empleados' },
+                { label: 'Método de Pago', icon: 'pi pi-fw pi-credit-card', to: '/uikit/MetodosPago' },
               
             ]
         },
@@ -27,8 +26,8 @@ const AppMenu = () => {
             items: [
                 { label: 'Directores', icon: 'pi pi-fw pi-users', to: '/uikit/Director' },
                 { label: 'Insumos', icon: 'pi pi-fw pi-apple', to: '/uikit/Insumo' },
-                { label: 'Sucursales', icon: 'pi pi-fw pi-amazon', to: '/uikit/Sucursal' },
-                { label: 'Combos', icon: 'pi pi-fw pi-exclamation-circle', to: '/uikit/Combos' },
+                { label: 'Sucursales', icon: 'pi pi-fw pi-building', to: '/uikit/Sucursal' },
+                { label: 'Combos', icon: 'pi pi-fw pi-star-fill', to: '/uikit/Combos' },
                 { label: 'Peliculas', icon: 'pi pi-fw pi-eye', to: '/uikit/Peliculas' },
                 { label: 'Factura', icon: 'pi pi-fw pi-bookmark', to: '/uikit/Factura' },
             ]
@@ -36,8 +35,8 @@ const AppMenu = () => {
         {
             label: 'Menu Seguridad',
             items: [
-                { label: 'Roles', icon: 'pi pi-fw pi-user', to: '/uikit/Roles' },
-                { label: 'Usuario', icon: 'pi pi-fw pi-globe', to: '/uikit/Usuarios' },
+                { label: 'Roles', icon: 'pi pi-fw pi-cog', to: '/uikit/table' },
+                { label: 'Usuario', icon: 'pi pi-fw pi-id-card', to: '/uikit/Usuarios' },
             ]
         },
     ];
