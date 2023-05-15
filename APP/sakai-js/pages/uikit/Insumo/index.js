@@ -13,6 +13,7 @@ import { Toast } from 'primereact/toast';
 import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 //Importo la url de la api
@@ -20,6 +21,7 @@ import Global from '../../api/Global';
 
 
 const Insumo = () => {
+    const router = useRouter();
     let emptyInsumo = {
         insu_Id: null,
         insu_Descripcion: '',
@@ -45,6 +47,13 @@ const Insumo = () => {
     const [globalFilter, setGlobalFilter] = useState(null);
     const toast = useRef(null);
     const dt = useRef(null);
+
+    useEffect(()=>{
+        if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+            router.push('/auth/login');
+        }
+        
+    }, [])
 
     //el ProductService esta trallendo los datos de los productos
     useEffect(() => {

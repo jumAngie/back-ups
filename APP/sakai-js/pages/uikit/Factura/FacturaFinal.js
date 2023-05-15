@@ -4,6 +4,7 @@ import "jspdf-autotable";
 import axios from "axios";
 import Global from "../../api/Global";
 import { useRouter } from "next/router";
+import { Button } from "primereact/button";
 
 function PDFDocument() {
   const router = useRouter();
@@ -185,8 +186,25 @@ function PDFDocument() {
 
     // Mostramos el documento PDF en un iframe
     return (
-      <div style={{ height: "100vh" }}>
-        <iframe src={pdfUrl} style={{ width: "100%", height: "100%" }} />
+      <div className="grid crud-demo">
+        <div className="col-12">
+          <div className="card">
+            <center>
+          <Button
+                  label="Volver"
+                  severity="danger"
+                  icon="pi pi-times"
+                  onClick={() =>{router.push("/uikit/Factura")}}
+                />
+                
+            <div style={{ height: "100vh" }}>
+            <br>
+                </br>
+              <iframe src={pdfUrl} style={{ width: "100%", height: "100%" }} />
+            </div>
+            </center>
+          </div>
+        </div>
       </div>
     );
   } else {

@@ -201,6 +201,13 @@ const Empleados = () => {
 
     const router = useRouter();
 
+    useEffect(()=>{
+        if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+            router.push('/auth/login');
+        }
+        
+    }, [])
+
     //habre el modal para crear un nuevo usuario y eliminar
     const leftToolbarTemplate = () => {
         return (

@@ -169,6 +169,13 @@ const EditEmpleado = () => {
     setEstadoCivilSeleccionado(e.value);
 
   };
+  
+  useEffect(()=>{
+    if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+        router.push('/auth/login');
+    }
+    
+}, [])
 
   function ddlMunicipio(departamento_Id,Muncipio_Id){
      var codigo;

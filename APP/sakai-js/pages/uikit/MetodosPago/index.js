@@ -14,12 +14,14 @@ import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 //Importo la url de la api
 import Global from '../../api/Global';
 
 
 const Metodo = () => {
+    const router = useRouter();
     let emptyMetodo = {
 
         pago_Id: null,
@@ -54,6 +56,13 @@ const Metodo = () => {
     const [globalFilter, setGlobalFilter] = useState(null);
     const toast = useRef(null);
     const dt = useRef(null);
+
+    useEffect(()=>{
+        if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+            router.push('/auth/login');
+        }
+        
+    }, [])
 
     //el ProductService esta trallendo los datos de los productos
     useEffect(() => {
@@ -236,7 +245,7 @@ const Metodo = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
+                    <Button label="Nuevo" icon="pi pi-plus" severity="warning" className="mr-2" onClick={openNew} />
                 </div>
             </React.Fragment>
         );
@@ -246,7 +255,8 @@ const Metodo = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-               
+                      <img src='https://th.bing.com/th/id/R.b3bafa87afa5ee96f1d6cd67e44672df?rik=afaU5y6wfM3vIA&pid=ImgRaw&r=0' width={'100px'}></img>
+
             </React.Fragment>
         );
     };
@@ -296,8 +306,8 @@ const Metodo = () => {
 
     const productDialogFooter = (
         <>
-            <Button label="Cancelar" icon="pi pi-times" text onClick={hideDialog} />
-            <Button label="Guardar" icon="pi pi-check" text onClick={saveProduct} />
+            <Button label="Cancelar" severity='danger' icon="pi pi-times" text onClick={hideDialog} />
+            <Button label="Guardar" severity='warning' icon="pi pi-check" text onClick={saveProduct} />
         </>
     );
     const deleteProductDialogFooter = (
@@ -317,7 +327,7 @@ const Metodo = () => {
             <div className="col-12">
                 <div className="card">
                     <Toast ref={toast} />
-                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+                    <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Métodos de Pago</h2>} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable
                         ref={dt}

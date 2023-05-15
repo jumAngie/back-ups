@@ -95,6 +95,12 @@ const Factura = () => {
     setDeleteProductDialog(false);
   };
 
+  useEffect(()=>{
+    if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+        router.push('/auth/login');
+    }
+    
+}, [])
   //activa el modal
   const hideDialog = () => {
     setSubmitted(false);
@@ -115,7 +121,7 @@ const Factura = () => {
     return (
       <>
         <Button
-          icon="pi pi-pencil"
+          icon="pi pi-paperclip"
           severity="success"
           rounded
           className="mr-2"

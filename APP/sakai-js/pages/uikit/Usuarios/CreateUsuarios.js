@@ -43,6 +43,13 @@ const CrearUsuario = () => {
         const [user_NombreUsuario, setUser_NombreUsuario] = useState("");
         const [user_Contraseña, setUser_Contraseña] = useState("");
 
+        useEffect(()=>{
+          if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+              router.push('/auth/login');
+          }
+          
+      }, [])
+
         useEffect(() => {
             // ddl Empleado
             fetch(Global.url + "Empleado/EmpleSinUsuario")

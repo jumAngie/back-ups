@@ -46,6 +46,13 @@ const EditUsuarios = () => {
         const [user_Id, setUser_Id] = useState("");
         const [user_NombreUsuario, setUser_NombreUsuario] = useState("");
 
+        useEffect(()=>{
+          if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+              router.push('/auth/login');
+          }
+          
+      }, [])
+
         useEffect(() => {
 
             axios.get(Global.url + `Usuario/Find/${id}`)

@@ -29,6 +29,13 @@ const [picklistSourceValue, setPicklistSourceValue] = useState();
 const [picklistTargetValue, setPicklistTargetValue] = useState([]);
 const [listValue, setListValue] = useState([]);
 
+useEffect(()=>{
+  if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+      router.push('/auth/login');
+  }
+  
+}, [])
+
 useEffect(() => {
     localStorage.setItem('targetValue', JSON.stringify(picklistTargetValue));
   }, [picklistTargetValue]);
@@ -132,15 +139,13 @@ return (
             <Toast ref={toast} />
                <center><h2>Crear Rol</h2></center>
             </div>
-            <label htmlFor="name">Descripción: </label>
-            <div className="formgrid grid">
+          <br></br>
+          <div className="card">
+          <h6 htmlFor="name">Descripción: </h6>
         <div className="field col-12">
             <InputText id="name" value={roles.role_Nombre} autoFocus onChange={(e) => role_NombreChange(e, 'role_Nombre')} required className={classNames({ 'p-invalid': submitted && !roles.role_Nombre})} />
             {submitted && !roles.role_Nombre && <small className="p-invalid">La descripción es requerida.</small>}
           </div>
-          </div>
-          <br></br>
-          <div className="card">
             <center>
               <h5>Listado de Pantallas</h5>
             </center>

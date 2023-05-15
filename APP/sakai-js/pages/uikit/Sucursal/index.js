@@ -13,10 +13,12 @@ import { Toolbar } from "primereact/toolbar";
 import { classNames } from "primereact/utils";
 import React, { useEffect, useRef, useState } from "react";
 import { ProductService } from "../../../demo/service/ProductService";
+import { useRouter } from 'next/router';
 //Importo la url de la api
 import Global from "../../api/Global";
 
 const Sucursal = () => {
+  const router = useRouter();
   let emptySucursal = {
     sucu_Id: null,
     sucu_Nombre: "",
@@ -52,6 +54,13 @@ const Sucursal = () => {
   const [globalFilter, setGlobalFilter] = useState(null);
   const toast = useRef(null);
   const dt = useRef(null);
+
+  useEffect(()=>{
+    if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+        router.push('/auth/login');
+    }
+    
+}, [])
 
   //el ProductService esta trallendo los datos de los productos
   useEffect(() => {
@@ -400,8 +409,8 @@ const Sucursal = () => {
 
   const productDialogFooter = (
     <>
-      <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
+      <Button label="Cancelar" severity="danger" icon="pi pi-times" text onClick={hideDialog} />
+      <Button label="Guardar" severity="warning" icon="pi pi-check" text onClick={saveProduct} />
     </>
   );
   const deleteProductDialogFooter = (
@@ -496,7 +505,6 @@ const Sucursal = () => {
           <Dialog
             visible={productDialog}
             style={{ width: "450px" }}
-            header="Product Details"
             modal
             className="p-fluid"
             footer={productDialogFooter}
@@ -519,7 +527,7 @@ const Sucursal = () => {
                     })}
                   />
                   {submitted && !product.sucu_Nombre && (
-                    <small className="p-invalid">Name is required.</small>
+                    <small className="p-invalid">El nombre es requerido.</small>
                   )}
                 </div>
               </div>
@@ -538,7 +546,7 @@ const Sucursal = () => {
                   />
                   {submitted && !selectedDepartamento && (
                     <small className="p-invalid">
-                      EL Estado Civil es requerido.
+                      El Departamento es requerido.
                     </small>
                   )}
                 </div>
@@ -567,7 +575,7 @@ const Sucursal = () => {
               </div>
               <div className="col-6">
                 <div className="field">
-                  <label htmlFor="description">Description</label>
+                  <label htmlFor="description">Descripción</label>
                   <InputTextarea
                     id="description"
                     value={product.sucu_Direccion}
@@ -584,7 +592,7 @@ const Sucursal = () => {
           <Dialog
             visible={deleteProductDialog}
             style={{ width: "450px" }}
-            header="Confirm"
+            header="Confirmar"
             modal
             footer={deleteProductDialogFooter}
             onHide={hideDeleteProductDialog}
@@ -596,7 +604,7 @@ const Sucursal = () => {
               />
               {product && (
                 <span>
-                  Estas seguro de querer eliminar a <b>{product.sucu_Nombre}</b>?
+               ¿ Estas seguro de querer eliminar a <b>{product.sucu_Nombre}</b>?
                 </span>
               )}
             </div>

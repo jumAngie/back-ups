@@ -28,6 +28,13 @@ const EditarRoles = () => {
         const [picklistTargetValue, setPicklistTargetValue] = useState([]);
         const [listValue, setListValue] = useState([]);
 
+        useEffect(()=>{
+          if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+              router.push('/auth/login');
+          }
+          
+      }, [])
+
         useEffect(() => {
             localStorage.setItem('targetValue', JSON.stringify(picklistTargetValue));
           }, [picklistTargetValue]);

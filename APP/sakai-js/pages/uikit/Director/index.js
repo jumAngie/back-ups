@@ -13,6 +13,7 @@ import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 //Importo la url de la api
 import Global from '../../api/Global';
@@ -30,6 +31,7 @@ const Director = () => {
           
     };
 
+    const router = useRouter();
     //products son los datos
     const [director, setdirector] = useState([]);
     const [calendarValue, setCalendarValue] = useState(null);
@@ -54,6 +56,13 @@ const Director = () => {
     const [globalFilter, setGlobalFilter] = useState(null);
     const toast = useRef(null);
     const dt = useRef(null);
+
+    useEffect(()=>{
+        if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+            router.push('/auth/login');
+        }
+        
+    }, [])
 
     //el ProductService esta trallendo los datos de los productos
     useEffect(() => {

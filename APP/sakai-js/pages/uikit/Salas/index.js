@@ -15,6 +15,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ProductService } from "../../../demo/service/ProductService";
 //Importo la url de la api
 import Global from "../../api/Global";
+import { useRouter } from 'next/router';
 
 const options = [
   { label: "Normal", value: 1 },
@@ -22,6 +23,7 @@ const options = [
 ];
 
 const Salas = () => {
+  const router = useRouter();
   let emptySalas = {
     proy_Id: null,
     proy_Pelicula: null,
@@ -59,6 +61,13 @@ const Salas = () => {
   const [globalFilter, setGlobalFilter] = useState(null);
   const toast = useRef(null);
   const dt = useRef(null);
+
+  useEffect(()=>{
+    if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+        router.push('/auth/login');
+    }
+    
+}, [])
 
   //el ProductService esta trallendo los datos de los productos
 

@@ -137,6 +137,13 @@ const CreateEmpleado = () => {
     setEmpleado(_Empleado);
   };
 
+  useEffect(()=>{
+    if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+        router.push('/auth/login');
+    }
+    
+}, [])
+
   const onDepartamentoChange = (e) => {
     setselectedDepartamento(e.value);
     console.log(e.value);

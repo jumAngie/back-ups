@@ -24,7 +24,12 @@ const TableDemo = () => {
     const [globalFilter, setGlobalFilter] = useState(null);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     
-
+    useEffect(()=>{
+        if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+            router.push('/auth/login');
+        }
+        
+    }, [])
     useEffect(() => {
             axios.get(Global.url + 'Roles/List')
                 .then(response => {

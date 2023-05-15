@@ -13,6 +13,7 @@ import { Toast } from 'primereact/toast';
 import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 //Importo la url de la api
@@ -22,6 +23,7 @@ import Global from '../../api/Global';
 
 
 const Peliculas = () => {
+    const router = useRouter();
     let emptyPeliculas = {
 
         peli_Id: null,
@@ -70,6 +72,13 @@ const Peliculas = () => {
     const [globalFilter, setGlobalFilter] = useState(null);
     const toast = useRef(null);
     const dt = useRef(null);
+
+    useEffect(()=>{
+        if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+            router.push('/auth/login');
+        }
+        
+    }, [])
 
     //el ProductService esta trallendo los datos de los productos
     useEffect(() => {
@@ -330,7 +339,7 @@ const Peliculas = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
+                    <Button label="Nuevo" icon="pi pi-plus" severity="warning" className="mr-2" onClick={openNew} />
                 </div>
             </React.Fragment>
         );
@@ -340,7 +349,8 @@ const Peliculas = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                
+ <img src='https://www.alabamacounties.org/wp-content/uploads/2018/12/cine_icono.png' width={'100px'}></img>
+
             </React.Fragment>
         );
     };
@@ -394,8 +404,8 @@ const Peliculas = () => {
 
     const productDialogFooter = (
         <>
-            <Button label="Cancelar" icon="pi pi-times" text onClick={hideDialog} />
-            <Button label="Guardar" icon="pi pi-check" text onClick={saveProduct} />
+            <Button label="Cancelar" severity='danger' icon="pi pi-times" text onClick={hideDialog} />
+            <Button label="Guardar" severity='warning' icon="pi pi-check" text onClick={saveProduct} />
         </>
     );
     const deleteProductDialogFooter = (
@@ -415,7 +425,8 @@ const Peliculas = () => {
             <div className="col-12">
                 <div className="card">
                     <Toast ref={toast} />
-                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+                    <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Películas</h2>} right={rightToolbarTemplate}></Toolbar>
+
 
                     <DataTable
                         ref={dt}

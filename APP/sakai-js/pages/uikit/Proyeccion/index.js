@@ -12,10 +12,12 @@ import { Toast } from "primereact/toast";
 import { Toolbar } from "primereact/toolbar";
 import { classNames } from "primereact/utils";
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from 'next/router';
 //Importo la url de la api
 import Global from "../../api/Global";
 
 const Proyecciones = () => {
+  const router = useRouter();
   let emptyProyecciones = {
     proy_Id: null,
     proy_Pelicula: null,
@@ -28,6 +30,12 @@ const Proyecciones = () => {
   const [ddlDisabled, setDdlDisabled] = useState(true);
   const [headerDialog, setheaderDialog] = useState("");
 
+  useEffect(()=>{
+    if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+        router.push('/auth/login');
+    }
+    
+}, [])
   //Ni idea aun
   const [products, setProducts] = useState(null);
 
@@ -381,8 +389,8 @@ const Proyecciones = () => {
 
   const productDialogFooter = (
     <>
-      <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
+      <Button label="Cancelar" severity="danger" icon="pi pi-times" text onClick={hideDialog} />
+      <Button label="Guardar" severity="warning" icon="pi pi-check" text onClick={saveProduct} />
     </>
   );
 

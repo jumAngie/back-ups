@@ -45,6 +45,12 @@ const Usuario = () => {
     const toast = useRef(null);
     const dt = useRef(null);
 
+    useEffect(()=>{
+        if(localStorage.getItem('usuario') == "" || localStorage.getItem('usuario') == null || localStorage.getItem('usuario') == undefined){
+            router.push('/auth/login');
+        }
+        
+    }, [])
     //el ProductService esta trallendo los datos de los productos
     useEffect(() => {
         fetch(Global.url + 'Usuario/List')
