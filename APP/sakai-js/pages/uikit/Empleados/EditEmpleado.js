@@ -272,7 +272,9 @@ const EditEmpleado = () => {
               life: 1500,
             });
 
-            router.push("/uikit/Empleados");
+            setTimeout(() => {
+              router.push("/uikit/Empleados");
+            }, 1500);
           }
         })
         .catch((error) => {

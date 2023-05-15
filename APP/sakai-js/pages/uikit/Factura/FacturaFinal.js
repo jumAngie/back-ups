@@ -45,7 +45,6 @@ function PDFDocument() {
       doc.setTextColor(40);
 
       // Agregar texto
-      doc.text("Reporte de Servicios", data.settings.margin.left + 0, 22);
     };
 
     const footer = function (data) {
@@ -58,12 +57,12 @@ function PDFDocument() {
         month: "long",
         day: "numeric",
       });
-      const text = `Documento informatico de Cine MAx ${date}`;
+      const text = `Documento informatico de MegaFilms ${date}`;
       const textWidth = doc.getTextWidth(text);
       const textX = pageWidth * 1.3 - textWidth;
       doc.setFontSize(10);
       doc.text(
-        `Página ${currentPage}`,
+        `      Página ${1}`,
         data.settings.margin.left,
         doc.internal.pageSize.height - 10
       );
@@ -163,7 +162,7 @@ function PDFDocument() {
         90,
         y
       );
-      doc.text(`${servicio.fade_Total_Combo ?? ""}`, 150, y);
+      doc.text(`${servicio.fade_Total_Combo ?? "N/A"}`, 150, y);
       total += servicio.fade_Total_Combo ?? 0;
       y += 10;
       

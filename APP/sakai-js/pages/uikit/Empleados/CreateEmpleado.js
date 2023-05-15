@@ -227,8 +227,12 @@ const CreateEmpleado = () => {
               life: 1500,
             });
 
-            router.push("/uikit/Empleados");
+            setTimeout(() => {
+              router.push("/uikit/Empleados");
+            }, 1500);
           }
+           
+          
         })
         .catch((error) => {
           toast.current.show({

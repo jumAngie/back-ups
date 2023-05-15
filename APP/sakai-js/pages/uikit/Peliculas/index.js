@@ -145,21 +145,21 @@ const Peliculas = () => {
 
         setSubmitted(true);
 
-        if (test.peli_Id != "" && test.peli_Id != 0 && test.peli_Id != null) {
+        console.log(selectedCategoria)
+        console.log(selectedDirector)
 
-            
-            console.log("siiiiiiii");
+        if (test.peli_Id != "" && test.peli_Id != 0 && test.peli_Id != null) {
 
          
             //Tomo los datos de mi modelo
             var parameterEdit = {
                 "peli_Id": test.peli_Id,
                 "peli_Titulo": test.peli_Titulo,
-                "peli_TitulOriginal": test.peli_TitulOriginal,
-                "peli_AnioEstreno": test.peli_AnioEstreno,
-                "peli_Duracion": test.peli_Duracion,
-                "peli_Categoria": selectedCategoria,
-                "peli_Director": selectedDirector,
+                "peli_TitulOriginal":test.peli_Titulo,
+                "peli_AnioEstreno": parseInt(test.peli_AnioEstreno),
+                "peli_Categoria": parseInt(selectedCategoria),
+                "peli_Duracion": parseInt(test.peli_Duracion),
+                "peli_Director": parseInt(selectedDirector),
                 "peli_UsuMofica": 1
             }
 
@@ -182,22 +182,21 @@ const Peliculas = () => {
 
                 });
         }
-        else if (test.peli_Titulo != "" && test.peli_TitulOriginal != "" && test.peli_AnioEstreno != "" && test.peli_Categoria != "" && test.peli_Director != "" && test.peli_Duracion != "") {
+        else if (test.peli_Titulo != ""  && parseInt(test.peli_AnioEstreno)  > 0 && parseInt(selectedCategoria)  > 0  &&  parseInt(selectedDirector) > 0  && parseInt(test.peli_Duracion) > 0 ) {
 
-           
             
             //Tomo los datos de mi modelo
             var parameterInsert = {
 
                 "peli_Titulo": test.peli_Titulo,
-                "peli_TitulOriginal": test.peli_TitulOriginal,
-                "peli_AnioEstreno": test.peli_AnioEstreno,
-                "peli_Categoria": selectedCategoria,
-                "peli_Duracion": test.peli_Duracion,
-                "peli_Director": selectedDirector,
+                "peli_TitulOriginal": test.peli_Titulo,
+                "peli_AnioEstreno": parseInt(test.peli_AnioEstreno),
+                "peli_Categoria": parseInt(selectedCategoria),
+                "peli_Duracion": parseInt(test.peli_Duracion),
+                "peli_Director": parseInt(selectedDirector),
                 "peli_UsuCrea": 1
             }
-
+            console.log
             axios.post(Global.url + `Peliculas/Insert`, parameterInsert)
                 .then((response) => {
                     if (response.data.code == 200) {
@@ -213,6 +212,7 @@ const Peliculas = () => {
                 });
         } else {
             console.log(test);
+            console.log("dentra al else")
         }
     };
 
@@ -330,7 +330,7 @@ const Peliculas = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                    <Button label="Nuevo" icon="pi pi-plus" severity="warning" className="mr-2" onClick={openNew} />
+                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
                 </div>
             </React.Fragment>
         );
@@ -340,7 +340,7 @@ const Peliculas = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-             <img src='https://th.bing.com/th/id/R.f362aeab7bccfbb6f6cd8fc7a894213a?rik=V7HnboVgOWUq6Q&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f5%2fMovie-PNG-Image.png&ehk=%2fumio4t09y9STFf20eSdXl2dIS1ZDaGJrTSDSZqsZZY%3d&risl=&pid=ImgRaw&r=0' width={'100px'}></img>
+                
             </React.Fragment>
         );
     };
@@ -369,6 +369,7 @@ const Peliculas = () => {
     //Encabezado
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 className="m-0">Peliculas</h5>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Buscar..." />
@@ -414,7 +415,7 @@ const Peliculas = () => {
             <div className="col-12">
                 <div className="card">
                     <Toast ref={toast} />
-                    <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Películas</h2>} right={rightToolbarTemplate}></Toolbar>
+                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable
                         ref={dt}
@@ -454,11 +455,7 @@ const Peliculas = () => {
                                 <InputText id="name" value={product.peli_Titulo} autoFocus onChange={(e) => peli_TituloChange(e, 'peli_Titulo')} required className={classNames({ 'p-invalid': submitted && !product.peli_Titulo })} />
                                 {submitted && !product.peli_Titulo && <small className="p-invalid">Titulo es requerido.</small>}
                             </div>
-                            <div className="field col">
-                                <label htmlFor="Titulo Original">Titulo Original</label>
-                                <InputText id="Original" value={product.peli_TitulOriginal} onChange={(e) => peli_TitulOriginalChange(e, 'peli_TitulOriginal')}  className={classNames({ 'p-invalid': submitted && !product.peli_TitulOriginal })} />
-                                {submitted && !product.peli_TitulOriginal && <small className="p-invalid">Titulo Original es requerido.</small>}
-                            </div>
+                           
                         </div>
                         <div className="formgrid grid">
                             <div className="field col-6 mr-2" >
@@ -493,7 +490,7 @@ const Peliculas = () => {
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                             {product && (
                                 <span>
-                                    ¿Está seguro que dese eliminar este registro?
+                                    ¿Está seguro que dese eliminar este registro? <b>{product.name}</b>?
                                 </span>
                             )}
                         </div>

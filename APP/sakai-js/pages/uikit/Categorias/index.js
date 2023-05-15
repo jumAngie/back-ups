@@ -101,8 +101,8 @@ const Categorias = () => {
 
             //Tomo los datos de mi modelo
             var parameterEdit = {
-                "cate_Id": null,
-                "cate_Nombre": "",
+                "cate_Id": test.cate_Id,
+                "cate_Nombre": test.cate_Nombre,
                 "cate_UsuarioModificador": 1,
             }
 
@@ -131,10 +131,12 @@ const Categorias = () => {
             
             //Tomo los datos de mi modelo
             var parameterInsert = {
-                "cate_Id": null,
-                "cate_Nombre": "",
+                "cate_Id": 0,
+                "cate_Nombre": test.cate_Nombre,
                 "cate_UsuarioCreador": 1,
             }
+
+            console.log(parameterInsert)
 
             axios.post(Global.url + 'Categoria/Insert', parameterInsert)
                 .then((response) => {
@@ -142,7 +144,6 @@ const Categorias = () => {
                         toast.current.show({ severity: 'success', summary: 'Felicidades', detail: 'Ingresaste un nuevo registro', life: 1500 });
                         setProductDialog(false);
                         product.cate_Id = "";
-                        console.log("hola")
                     }
                 })
                 .catch((error) => {
@@ -186,7 +187,7 @@ const Categorias = () => {
         if (_products.cate_Id != "") {
 
 
-            axios.post(Global.url + `Categoria/Delete/{id}/${_products.cate_Id}`)
+            axios.post(Global.url + `Categoria/Delete/${_products.cate_Id}`)
                 .then((response) => {
 
                     if (response.data.codeStatus == 1) {
@@ -209,9 +210,7 @@ const Categorias = () => {
         dt.current.exportCSV();
     };
 
-    const confirmDeleteSelected = () => {
-        setDeleteProductsDialog(true);
-    };
+
 
     const deleteSelectedProducts = () => {
         let _products = products.filter((val) => !selectedProducts.includes(val));
@@ -353,7 +352,7 @@ const Categorias = () => {
                             <div className="field col">
                                 <label htmlFor="name">Descripción</label>
                                 <InputText id="name" value={product.cate_Nombre} autoFocus onChange={(e) => cate_NombreChange(e, 'cate_Nombre')} required className={classNames({ 'p-invalid': submitted && !product.cate_Nombre })} />
-                                {submitted && !product.cate_Nombre && <small style={colors.danger} className="p-invalid">La descripción es requerida.</small>}
+                                {submitted && !product.cate_Nombre && <small className="p-invalid">La descripción es requerida.</small>}
                             </div>
                         </div>
                     </Dialog>

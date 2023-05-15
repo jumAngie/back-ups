@@ -126,13 +126,11 @@ const Metodo = () => {
 
                 });
         }
-        else if (test.pago_Descripcion != "" && test.pago_UsuarioCreador != "") {
+        else if (test.pago_Descripcion != "" ) {
 
-           
             
             //Tomo los datos de mi modelo
             var parameterInsert = {
-                "pago_Id": test.pago_Id,
                 "pago_Descripcion": test.pago_Descripcion,
                 "pago_UsuarioCreador": 1,
             }

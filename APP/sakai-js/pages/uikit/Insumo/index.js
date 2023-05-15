@@ -52,7 +52,7 @@ const Insumo = () => {
             .then(response => response.json())
             .then(data => setInsumo(data.data))
             .catch(error => console.error(error));
-    }, []);
+    }, [Insumo]);
 
 
     //abre el modal
@@ -111,17 +111,18 @@ const Insumo = () => {
 
                 });
         }
-        else if (test.insu_Descripcion != "" && test.insu_UserCrea != "") {
+        else if (test.insu_Descripcion != ""  &&  parseInt(test.insu_Precio ) > 0 ) {
 
            
             
             //Tomo los datos de mi modelo
             var parameterInsert = {
-                "insu_Id": test.insu_Id,
                 "insu_Descripcion": test.insu_Descripcion,
-                "insu_Precio": test.insu_Precio,
+                "insu_Precio": parseInt(test.insu_Precio),
                 "insu_UserCrea": 1
             }
+
+            console.log(parameterInsert)
 
             axios.post(Global.url + 'Insumo/Insert', parameterInsert)
                 .then((response) => {
@@ -213,8 +214,7 @@ const Insumo = () => {
     const insu_PrecioChange = (e, insu_Precio) => {
         const val = (e.target && e.target.value) || '';
         let _product = { ...product };
-        _product[`${insu_Precio}`] = val;
-
+        _product[`${insu_Precio}`] = e.value;
         setProduct(_product);
     };
 
