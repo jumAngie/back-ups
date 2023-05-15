@@ -497,7 +497,7 @@ const Proyecciones = () => {
                     options={SalaOptions || []} // inicialmente null, pero en renderizado, si es null usará el array vacío
                     placeholder="Seleccionar"
                     className={classNames({
-                      "p-invalid": submitted && !selectedPeliculas,
+                      "p-invalid": submitted && !selectedSala,
                     })}
                   />
                   {submitted && !selectedSala && (
