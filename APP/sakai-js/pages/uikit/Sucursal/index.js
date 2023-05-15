@@ -111,8 +111,11 @@ const Sucursal = () => {
     setselectedMunicipio(e.value);
   };
 
+
   //abre el modal
   const openNew = () => {
+    setselectedDepartamento(0);
+    setselectedMunicipio(0);
     setProduct(emptySucursal);
     setSubmitted(false);
     setProductDialog(true);
