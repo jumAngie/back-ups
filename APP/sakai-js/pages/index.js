@@ -25,7 +25,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('https://localhost:44312/api/Director/List');
+            const response = await axios.get('http://www.megafilms.somee.com/api/Director/List');
             setDirectorData(response.data.data);
           } catch (error) {
             console.error(error);

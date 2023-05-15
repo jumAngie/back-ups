@@ -29,6 +29,12 @@ const AppMenu = () => {
             </br>
             <center style={{color: 'gray', fontWeight: 'bold'}}><h4>Menú</h4></center>
             <ul className="layout-menu">
+                <li key="" className='menu-item'>
+                    <Link href="/">
+                    <i style={{color: 'black', fontWeight: 'bold'}} className='pi pi-home'></i>
+                            <span style={{color: 'gray', fontWeight: 'bold'}}>Principal</span>
+                    </Link>
+                </li>
                 {menuItems && menuItems.map(item => (
                     <li key={item.panta_Id} className="menu-item">
                         <Link href={{ pathname: item.panta_to }}>

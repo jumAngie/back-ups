@@ -159,7 +159,7 @@ return (
             ></PickList>
           </div>
           <center><Button label="Guardar" icon="pi pi-check" severity="warning" className="mr-2" onClick={handleSubmit} />
-          <Button label="Cancelar" icon="pi pi-times" severity="danger" className="mr-2"  /></center>
+          <Button label="Cancelar" icon="pi pi-times" severity="danger" className="mr-2" onClick={() => router.push('/uikit/table')}  /></center>
         </div>
       </div>
     </div>
