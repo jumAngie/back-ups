@@ -357,7 +357,7 @@ const Sucursal = () => {
           <Button
             label="Nuevo"
             icon="pi pi-plus"
-            severity="sucess"
+            severity="warning"
             className="mr-2"
             onClick={openNew}
           />
@@ -371,7 +371,8 @@ const Sucursal = () => {
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
-        
+       <img src='https://cdn1.iconfinder.com/data/icons/e-commerce-or-online-shoping/64/01-_store-shop-_building-_commerce-finance-1024.png' width={'100px'}></img>
+
       </React.Fragment>
     );
   };
@@ -405,25 +406,40 @@ const Sucursal = () => {
 
   const productDialogFooter = (
     <>
-      <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
+      <Button label="Cancelar" severity="danger" icon="pi pi-times" text onClick={hideDialog} />
+      <Button label="Guardar" severity="warning" icon="pi pi-check" text onClick={saveProduct} />
     </>
   );
   const deleteProductDialogFooter = (
     <>
-       
-     </>
-  );
-  const deleteProductsDialogFooter = (
-    <>
       <Button
         label="No"
+        severity="danger"
         icon="pi pi-times"
         text
         onClick={hideDeleteProductsDialog}
       />
       <Button
-        label="Yes"
+        label="Sí"
+        severity="warning"
+        icon="pi pi-check"
+        text
+        onClick={deleteProduct}
+      />
+    </>
+  );
+  const deleteProductsDialogFooter = (
+    <>
+      <Button
+        label="No"
+        severity="danger"
+        icon="pi pi-times"
+        text
+        onClick={hideDeleteProductsDialog}
+      />
+      <Button
+        label="Sí"
+        severity="warning"
         icon="pi pi-check"
         text
         onClick={deleteSelectedProducts}
@@ -463,11 +479,8 @@ const Sucursal = () => {
       <div className="col-12">
         <div className="card">
           <Toast ref={toast} />
-          <Toolbar
-            className="mb-4"
-            left={leftToolbarTemplate}
-            right={rightToolbarTemplate}
-          ></Toolbar>
+          <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Sucursales</h2>} right={rightToolbarTemplate}></Toolbar>
+
 
           <DataTable
             value={filterByNameOrAddress(globalFilter, Sucursal)}
@@ -497,7 +510,6 @@ const Sucursal = () => {
           <Dialog
             visible={productDialog}
             style={{ width: "450px" }}
-            header="Product Details"
             modal
             className="p-fluid"
             footer={productDialogFooter}
@@ -520,7 +532,7 @@ const Sucursal = () => {
                     })}
                   />
                   {submitted && !product.sucu_Nombre && (
-                    <small className="p-invalid">Name is required.</small>
+                    <small className="p-invalid">El nombre es requerido.</small>
                   )}
                 </div>
               </div>
@@ -539,7 +551,7 @@ const Sucursal = () => {
                   />
                   {submitted && !selectedDepartamento && (
                     <small className="p-invalid">
-                      EL Estado Civil es requerido.
+                      El Estado Civil es requerido.
                     </small>
                   )}
                 </div>
@@ -561,14 +573,14 @@ const Sucursal = () => {
                   />
                   {submitted && !selectedMunicipio && (
                     <small className="p-invalid">
-                      EL Municipio es requerido.
+                      El Municipio es requerido.
                     </small>
                   )}
                 </div>
               </div>
               <div className="col-6">
                 <div className="field">
-                  <label htmlFor="description">Description</label>
+                  <label htmlFor="description">Descripción</label>
                   <InputTextarea
                     id="description"
                     value={product.sucu_Direccion}
@@ -585,9 +597,9 @@ const Sucursal = () => {
           <Dialog
             visible={deleteProductDialog}
             style={{ width: "450px" }}
-            header="Confirm"
+            header="Confirmar"
             modal
-            footer={deleteProductDialogFooter}
+            footer={deleteProductsDialogFooter}
             onHide={hideDeleteProductDialog}
           >
             <div className="flex align-items-center justify-content-center">

@@ -317,7 +317,7 @@ const Proyecciones = () => {
           <Button
             label="Nuevo"
             icon="pi pi-plus"
-            severity="sucess"
+            severity="warning"
             className="mr-2"
             onClick={openNew}
           />
@@ -328,13 +328,15 @@ const Proyecciones = () => {
 
   //redimenciona la  imagen
   const rightToolbarTemplate = () => {
-    return <React.Fragment></React.Fragment>;
+    return <React.Fragment>
+                   <img src='https://th.bing.com/th/id/R.852516d3cb3bba41307210ee0b5ad5af?rik=mHOh4GrC0DOuLg&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f6%2fTicket-PNG-Free-Download.png&ehk=1dCr1FEPLnhx1tU8a1AFqJ%2bl2fJfdFBzPvAt2XMm5fg%3d&risl=&pid=ImgRaw&r=0' width={'100px'}></img>
+    </React.Fragment>;
   };
 
   if (headerDialog == "1") {
-    var Titulo = "Ingresar una Proyecciones";
+    var Titulo = "Ingresar una Proyeccion";
   } else if (headerDialog == "2") {
-    var Titulo = "Editar una Proyecciones";
+    var Titulo = "Editar una Proyeccion";
   }
 
   //Botones de editar y eliminar
@@ -363,12 +365,14 @@ const Proyecciones = () => {
       <Button
         label="No"
         icon="pi pi-times"
+        severity="danger"
         text
         onClick={hideDeleteProductsDialog}
       />
       <Button
         label="Si"
         icon="pi pi-check"
+        severity="warning"
         text
         onClick={deleteProduct}
       />
@@ -416,11 +420,8 @@ const Proyecciones = () => {
       <div className="col-12">
         <div className="card">
           <Toast ref={toast} />
-          <Toolbar
-            className="mb-4"
-            left={leftToolbarTemplate}
-            right={rightToolbarTemplate}
-          ></Toolbar>
+          <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Proyecciones</h2>} right={rightToolbarTemplate}></Toolbar>
+
 
           <DataTable
             value={filterByNameOrAddress(globalFilter, Proyecciones)}
@@ -530,7 +531,7 @@ const Proyecciones = () => {
           <Dialog
             visible={deleteProductDialog}
             style={{ width: "450px" }}
-            header="Confirm"
+            header="Confirmar"
             modal
             footer={deleteProductsDialogFooter}
             onHide={hideDeleteProductDialog}
@@ -542,7 +543,7 @@ const Proyecciones = () => {
               />
               {product && (
                 <span>
-                  Estas seguro de querer eliminar este regiostro?
+                 ¿Está seguro de querer eliminar esta proyección?
                 </span>
               )}
             </div>

@@ -118,7 +118,8 @@ const Asientos = ({ salaId, ddlDisabled, Proyeccion_Id, EnviarAsientos, fact_Id,
         fullScreen
         onDragExit={false}
       >
-        <h1 style={{ fontWeight: "normal" }}>Asientos</h1>
+        <center><h1 style={{ fontWeight: "normal" }}>Asientos</h1></center>
+        <center><img src='/layout/images/TVCINE.png' width={'30%'}></img></center>
         <div className="sala-cine-asientos">
           {asientos.length > 0 ? (
             asientos.map((asiento) => (
@@ -146,8 +147,12 @@ const Asientos = ({ salaId, ddlDisabled, Proyeccion_Id, EnviarAsientos, fact_Id,
             <p>Cargando asientos...</p>
           )}
         </div>
+        <br>
+        </br>
+        <center>
         <Button
-        label="Seleccione una un Asiento"
+        label="Volver"
+        severity="warning"
         type="button"
         disabled={ddlDisabled}
         onClick={() => {setVisibleFullScreen(false)}}
@@ -155,9 +160,10 @@ const Asientos = ({ salaId, ddlDisabled, Proyeccion_Id, EnviarAsientos, fact_Id,
           "p-invalid": !labelVisible2 && submitted && !selectedAsientos,
         })}
       />
+      </center>
       </Sidebar>
       <Button
-        label="Seleccione una un Asiento"
+        label="Seleccione un Asiento"
         type="button"
         disabled={ddlDisabled}
         onClick={() => setVisibleFullScreen(true)}

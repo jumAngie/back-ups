@@ -201,7 +201,7 @@ const Usuario = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={() => router.push('/uikit/Usuarios/CreateUsuarios')} />
+                    <Button label="Nuevo" icon="pi pi-plus" severity="warning" className="mr-2" onClick={() => router.push('/uikit/Usuarios/CreateUsuarios')} />
                 </div>
             </React.Fragment>
         );
@@ -211,7 +211,7 @@ const Usuario = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                
+            <img src='https://cdn2.iconfinder.com/data/icons/color-svg-vector-icons-2/512/users_group_people_friends-1024.png' width={'100px'}></img>
             </React.Fragment>
         );
     };
@@ -321,7 +321,7 @@ const Usuario = () => {
             <div className="col-12">
                 <div className="card">
                     <Toast ref={toast} />
-                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+                    <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Usuarios</h2>} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable
                         ref={dt}
