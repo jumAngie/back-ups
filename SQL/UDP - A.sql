@@ -7,6 +7,7 @@ go
 
 --*****************************************************--
 --*************** VISTA DE ROL ******************--
+
 GO
 CREATE OR ALTER VIEW acce.VW_tbRoles
 AS
@@ -66,11 +67,12 @@ BEGIN
 
 END
 
---*************** INSERT DE ROL ******************-
 GO
+--*************** INSERT DE ROL ******************-
 CREATE OR ALTER PROCEDURE acce.UDP_tbROL_INSERT
  @role_Nombre nvarchar(100),
- @role_UsuCreacion int
+ @role_UsuCreacion int,
+ @id int OUTPUT
  AS
 BEGIN
 BEGIN TRY		
@@ -79,7 +81,9 @@ INSERT INTO [acce].[tbRoles]
      VALUES
            (@role_Nombre,@role_UsuCreacion)
  
-			SELECT 1 CodeStatus
+SET @id = SCOPE_IDENTITY()
+
+SELECT @id CodeStatus
 END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus
@@ -249,8 +253,8 @@ SELECT TOP (1000) [user_Id]
       ,[user_Contrasenia]
       ,[user_Empleado]
 	  ,t2.empl_Nombre + ' ' + t2.empl_Apellidos AS 'Nombre'
-      ,[user_Rol]
-	  ,role_Nombre
+      ,ISNULL([user_Rol], 0) AS 'user_Rol'
+	  ,ISNULL(role_Nombre, 'N/A') AS 'role_Nombre'
       ,[user_EsAdmin]
       ,[user_Estado]
       ,[user_UsuarioCrea]
@@ -258,8 +262,9 @@ SELECT TOP (1000) [user_Id]
       ,[user_UsuarioModifica]
       ,[user_FechaModifica]
   FROM [db_Cine].[acce].[tbUsuarios] T1 INNER JOIN gral.tbEmpleados t2
-  ON	t1.user_Empleado = t2.empl_Id  INNER JOIN acce.tbRoles t3
+  ON	t1.user_Empleado = t2.empl_Id  LEFT JOIN acce.tbRoles t3
   ON	t1.user_Rol = t3.role_Id
+
 
 
 
@@ -294,7 +299,7 @@ CREATE OR ALTER PROCEDURE acce.UDP_tbUsuario_FIND
 @user_Id    INT
 AS
 BEGIN
-	
+	BEGIN TRY
 	SELECT TOP (1000) [user_Id]
       ,[user_NombreUsuario]
       ,[user_Contrasenia]
@@ -311,14 +316,22 @@ BEGIN
   FROM [db_Cine].[acce].[VW_Usuario]
   WHERE user_Estado = 1
   AND   user_Id = @user_Id
+  	IF @@ROWCOUNT = 0
+	BEGIN
+		SELECT 2 AS codeStatus
+	END
+END TRY
+BEGIN CATCH
+	SELECT 0 AS codeStatus
+END CATCH
 
 END
 
 --*************** INSERT DE Usuario ******************--
  GO
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuario_INSERT
-@user_NombreUsuario		nvarchar(150),
-@user_Contrasenia		nvarchar(150),
+@user_NombreUsuario		NVARCHAR(200),
+@user_Contrasenia		VARCHAR(250),
 @user_Empleado				int,
 @user_Rol					int,
 @user_EsAdmin				bit,
@@ -326,14 +339,15 @@ CREATE OR ALTER PROCEDURE acce.UDP_tbUsuario_INSERT
 AS
 BEGIN
 
- BEGIN TRY
- 
-DECLARE @password NVARCHAR(MAX)=(SELECT HASHBYTES('Sha2_512', @user_Contrasenia));
+BEGIN TRY
+
+DECLARE @CLAVE2 VARBINARY (MAX) = HASHBYTES('SHA2_512', @user_Contrasenia)
+DECLARE @INCRI2 VARCHAR(MAX) = CONVERT(VARCHAR(MAX),@CLAVE2,2)
 
 INSERT INTO [acce].[tbUsuarios]
 						(user_NombreUsuario, user_Contrasenia, user_Empleado, user_Rol, user_EsAdmin, user_UsuarioCrea)
 						VALUES
-						(@user_NombreUsuario,               @password,          @user_Empleado,          @user_Rol,			@user_EsAdmin,             @user_UsuarioCrea)
+						(@user_NombreUsuario,               @INCRI2,          @user_Empleado,          @user_Rol,			@user_EsAdmin,             @user_UsuarioCrea)
 
 
  	   SELECT 1 CodeStatus
@@ -341,16 +355,12 @@ INSERT INTO [acce].[tbUsuarios]
 	BEGIN CATCH
 		   SELECT 0 CodeStatus
 	END CATCH
-
-
 END
-
 --*************** UPDATE DE Usuario ******************--
  GO
 CREATE OR ALTER PROCEDURE acce.UDP_tbUsuario_UPDATE
 @user_Id				int,
 @user_NombreUsuario		nvarchar(150),
-@user_Contrasenia		nvarchar(150),
 @user_Empleado				int,
 @user_Rol					int,
 @user_EsAdmin				bit,
@@ -362,7 +372,6 @@ BEGIN
  
 		UPDATE [acce].[tbUsuarios]
    SET [user_NombreUsuario] = @user_NombreUsuario
-      ,[user_Contrasenia] = @user_Contrasenia
       ,[user_Empleado] = @user_Empleado
       ,[user_Rol] = @user_Rol
       ,[user_EsAdmin] = @user_EsAdmin
@@ -478,7 +487,7 @@ BEGIN
 
 END
 
- --EXECUTE gral.UDP_tbClientes_Insert   'Juan', 'P�rez', '22222522222', 1;
+ --EXECUTE gral.UDP_tbClientes_Insert   'Juan', 'Pérez', '22222522222', 1;
 
 
 -- --*************** FIND DE FACTURA ******************--
@@ -560,25 +569,155 @@ END
 GO
 CREATE OR ALTER VIEW cine.VW_tbFacturaDetalle
 AS
+SELECT t1.fade_Factura
+	  ,t3.clie_RTN
+	  ,t3.clie_Nombres
+	  ,t3.clie_Apellidos
+	  ,t5.peli_Titulo
+	  ,[fade_Tickets]
+  FROM [db_Cine].[cine].[tbFacturaDetalle] t1
+	INNER JOIN cine.tbFacturas t2
+  	ON t1.fade_Factura = t2.fact_Id
+	INNER JOIN gral.tbClientes t3
+  	ON t2.fact_Cliente = t3.clie_Id
+	INNER JOIN cine.tbProyecciones t4
+  	ON t1.fade_Proyeccion = t4.proy_Id
+	INNER JOIN cine.tbPeliculas t5
+  	ON t4.proy_Pelicula = t5.peli_Id
+GROUP BY  t1.fade_Factura,t3.clie_RTN, t5.peli_Titulo, [fade_Tickets], t3.clie_Nombres, t3.clie_Apellidos
+GO
+CREATE OR ALTER VIEW cine.VW_tbFacturaDetalle1
+AS
 SELECT TOP (1000) [fade_Id]
-      ,[fade_Factura]
-      ,[fade_Proyeccion]
-      ,[fade_Tickets]
-      ,[fade_Combo_Id]
-      ,[fade_Combo_Cantidad]
-      ,[fade_ComboDetalle]
-      ,[fade_ComboDetalle_Cantidad]
+ ,[fade_Factura]
+  ,t3.clie_RTN
+	  ,t3.clie_Nombres
+	  ,t3.clie_Apellidos
+	    ,[fade_Proyeccion]
+		  ,t5.peli_Titulo
+	  ,t6.sala_Id
+	  ,t7.casa_Categoria
+	    ,[fade_Tickets]
+    ,CAST(t7.casa_Precio AS decimal(10,2)) AS casa_Precio
+      ,CASE WHEN [fade_Combo_Id] IS NULL THEN 'N/A' ELSE CAST([fade_Combo_Id] AS varchar(10)) END AS [fade_Combo_Id]
+      ,CASE WHEN [fade_Combo_Cantidad] IS NULL THEN 'N/A' ELSE CAST([fade_Combo_Cantidad] AS varchar(10)) END AS [fade_Combo_Cantidad]
+	  ,t9.comb_Descripcion
+      ,CASE WHEN [fade_ComboDetalle] IS NULL THEN 'N/A' ELSE CAST([fade_ComboDetalle] AS varchar(10)) END AS [fade_ComboDetalle]
+      ,CASE WHEN [fade_ComboDetalle_Cantidad] IS NULL THEN 'N/A' ELSE CAST([fade_ComboDetalle_Cantidad] AS varchar(10)) END AS [fade_ComboDetalle_Cantidad]
       ,[fade_Pago]
-      ,[fade_Total]
+	  ,t8.pago_Descripcion
+      , [fade_Tickets] * t7.casa_Precio as [fade_Total_Tickets]
+      , fade_Combo_Cantidad * t9.comb_Precio as [fade_Total_Combo]
+      ,([fade_Tickets] * t7.casa_Precio) + (fade_Combo_Cantidad * t9.comb_Precio) as [fade_Total]
       ,[fade_Estado]
       ,[fade_UsuCrea]
       ,[fade_FechaCrea]
       ,[fade_UsuMofica]
       ,[fade_FechaModifica]
-  FROM [db_Cine].[cine].[tbFacturaDetalle] t1 INNER JOIN cine.tbFacturas t2
-  ON	t1.fade_Id = t2.fact_Id				  INNER JOIN gral.tbClientes t3
-  ON	t2.fact_Cliente = t3.clie_Id
-
+  FROM [db_Cine].[cine].[tbFacturaDetalle] t1
+  INNER JOIN cine.tbFacturas t2
+  	ON t1.fade_Factura = t2.fact_Id
+  INNER JOIN gral.tbClientes t3
+  	ON t2.fact_Cliente = t3.clie_Id
+  INNER JOIN cine.tbProyecciones t4
+  	ON t1.fade_Proyeccion = t4.proy_Id
+  INNER JOIN cine.tbPeliculas t5
+  	ON t4.proy_Pelicula = t5.peli_Id
+  INNER JOIN cine.tbSalas t6
+	  ON t4.proy_Sala = t6.sala_Id
+  INNER JOIN cine.tbCategoriaSala t7
+	  ON t6.sala_Tipo = t7.casa_Id
+  INNER JOIN gral.tbMetodosPago t8
+	  ON  t1.fade_Pago = t8.pago_Id
+  INNER JOIN cine.tbCombos t9
+     on t1.fade_Combo_Id = t9.comb_Id
+UNION ALL
+SELECT TOP (1000) [fade_Id]
+      ,[fade_Factura]
+	  ,t3.clie_RTN
+	  ,t3.clie_Nombres
+	  ,t3.clie_Apellidos
+      ,[fade_Proyeccion]
+	  ,t5.peli_Titulo
+	  ,t6.sala_Id
+	  ,t7.casa_Categoria
+      ,[fade_Tickets]
+	  ,CAST(t7.casa_Precio AS decimal(10,2)) AS casa_Precio
+      ,CASE WHEN [fade_Combo_Id] IS NULL THEN 'N/A' ELSE CAST([fade_Combo_Id] AS varchar(10)) END AS [fade_Combo_Id]
+      ,CASE WHEN [fade_Combo_Cantidad] IS NULL THEN 'N/A' ELSE CAST([fade_Combo_Cantidad] AS varchar(10)) END AS [fade_Combo_Cantidad]
+      ,CASE WHEN [fade_ComboDetalle] IS NULL THEN 'N/A' ELSE CAST([fade_ComboDetalle] AS varchar(10)) END AS [fade_ComboDetalle]
+	  ,t9.insu_Descripcion
+      ,CASE WHEN [fade_ComboDetalle_Cantidad] IS NULL THEN 'N/A' ELSE CAST([fade_ComboDetalle_Cantidad] AS varchar(10)) END AS [fade_ComboDetalle_Cantidad]
+      ,[fade_Pago]
+	  ,t8.pago_Descripcion
+      ,[fade_Tickets] * t7.casa_Precio as [fade_Total_Tickets]
+      , [fade_ComboDetalle] * t9.insu_Precio as [fade_Total_Combo]
+      ,([fade_Tickets] * t7.casa_Precio) + ([fade_ComboDetalle] * t9.insu_Precio) as [fade_Total]
+      ,[fade_Estado]
+      ,[fade_UsuCrea]
+      ,[fade_FechaCrea]
+      ,[fade_UsuMofica]
+      ,[fade_FechaModifica]
+  FROM [db_Cine].[cine].[tbFacturaDetalle] t1
+  INNER JOIN cine.tbFacturas t2
+  	ON t1.fade_Factura = t2.fact_Id
+  INNER JOIN gral.tbClientes t3
+  	ON t2.fact_Cliente = t3.clie_Id
+  INNER JOIN cine.tbProyecciones t4
+  	ON t1.fade_Proyeccion = t4.proy_Id
+  INNER JOIN cine.tbPeliculas t5
+  	ON t4.proy_Pelicula = t5.peli_Id
+  INNER JOIN cine.tbSalas t6
+	  ON t4.proy_Sala = t6.sala_Id
+  INNER JOIN cine.tbCategoriaSala t7
+	  ON t6.sala_Tipo = t7.casa_Id
+  INNER JOIN gral.tbMetodosPago t8
+	  ON  t1.fade_Pago = t8.pago_Id
+  INNER JOIN cine.tbInsumos t9
+     on t1.fade_ComboDetalle = t9.insu_Id
+UNION ALL
+SELECT TOP (1000) [fade_Id]
+      ,[fade_Factura]
+	  ,t3.clie_RTN
+	  ,t3.clie_Nombres
+	  ,t3.clie_Apellidos
+      ,[fade_Proyeccion]
+	  ,t5.peli_Titulo
+	  ,t6.sala_Id
+	  ,t7.casa_Categoria
+      ,[fade_Tickets]
+	  ,t7.casa_Precio
+      ,CASE WHEN [fade_Combo_Id] IS NULL THEN 'N/A' ELSE CAST([fade_Combo_Id] AS varchar(10)) END AS [fade_Combo_Id]
+      ,CASE WHEN [fade_Combo_Cantidad] IS NULL THEN 'N/A' ELSE CAST([fade_Combo_Cantidad] AS varchar(10)) END AS [fade_Combo_Cantidad]
+      ,CASE WHEN [fade_ComboDetalle] IS NULL THEN 'N/A' ELSE CAST([fade_ComboDetalle] AS varchar(10)) END AS [fade_ComboDetalle]
+	  ,NULL AS col4
+      ,CASE WHEN [fade_ComboDetalle_Cantidad] IS NULL THEN 'N/A' ELSE CAST([fade_ComboDetalle_Cantidad] AS varchar(10)) END AS [fade_ComboDetalle_Cantidad]
+	   ,[fade_Pago]
+	     ,t8.pago_Descripcion
+      ,[fade_Tickets] * t7.casa_Precio as [fade_Total_Tickets]
+      , null as [fade_Total_Combo]
+      ,([fade_Tickets] * t7.casa_Precio) as [fade_Total]
+	      ,[fade_Estado]
+      ,[fade_UsuCrea]
+      ,[fade_FechaCrea]
+      ,[fade_UsuMofica]
+      ,[fade_FechaModifica]
+	   FROM [db_Cine].[cine].[tbFacturaDetalle] t1
+  INNER JOIN cine.tbFacturas t2
+  	ON t1.fade_Factura = t2.fact_Id
+  INNER JOIN gral.tbClientes t3
+  	ON t2.fact_Cliente = t3.clie_Id
+  INNER JOIN cine.tbProyecciones t4
+  	ON t1.fade_Proyeccion = t4.proy_Id
+  INNER JOIN cine.tbPeliculas t5
+  	ON t4.proy_Pelicula = t5.peli_Id
+  INNER JOIN cine.tbSalas t6
+	  ON t4.proy_Sala = t6.sala_Id
+  INNER JOIN cine.tbCategoriaSala t7
+	  ON t6.sala_Tipo = t7.casa_Id
+  INNER JOIN gral.tbMetodosPago t8
+	  ON  t1.fade_Pago = t8.pago_Id
+WHERE [fade_Combo_Cantidad] IS NULL AND [fade_ComboDetalle] IS NULL
 
 
 
@@ -587,9 +726,54 @@ GO
 CREATE OR ALTER PROCEDURE cine.UDP_tbFacturaDetalle_SELECT
 AS
 BEGIN
-	SELECT TOP (1000)*
-  FROM [db_Cine].[cine].[VW_tbFacturaDetalle]
-  WHERE fade_Estado = 1
+	SELECT TOP (1000)  fade_Factura
+		,[clie_RTN]
+      ,[clie_Nombres]
+      ,[clie_Apellidos]
+      ,[peli_Titulo]
+      ,[fade_Tickets]
+	  FROM [db_Cine].[cine].[VW_tbFacturaDetalle]
+END
+
+GO
+CREATE OR ALTER PROCEDURE cine.UDP_tbFacturaDetalleFinal_SELECT 
+@clie_RTN VARCHAR(200),
+@fade_Factura int 
+AS
+BEGIN
+	DECLARE @tikets decimal(16,2) = (SELECT TOP (1) fade_Tickets * [casa_Precio] FROM cine.VW_tbFacturaDetalle1 WHERE clie_RTN = @clie_RTN AND fade_Factura = @fade_Factura)
+DECLARE @combo decimal(16,2) = (SELECT SUM([fade_Total_Combo]) FROM cine.VW_tbFacturaDetalle1 WHERE clie_RTN = @clie_RTN AND fade_Factura = @fade_Factura)
+DECLARE @Total decimal(16,2) = COALESCE(@combo, @tikets)
+IF @Total = 0
+    SET @Total = COALESCE(@combo, @tikets)
+	SELECT TOP (1000) [fade_Id]
+      ,[fade_Factura]
+      ,[clie_RTN]
+      ,[clie_Nombres]
+      ,[clie_Apellidos]
+      ,[fade_Proyeccion]
+      ,[peli_Titulo]
+      ,[sala_Id]
+      ,[casa_Categoria]
+      ,[fade_Tickets]
+      ,[casa_Precio]
+      ,[fade_Combo_Id]
+      ,[fade_Combo_Cantidad]
+      ,[comb_Descripcion]
+      ,[fade_ComboDetalle]
+      ,[fade_ComboDetalle_Cantidad]
+      ,[fade_Pago]
+      ,[pago_Descripcion]
+      ,[fade_Total_Tickets]
+      ,[fade_Total_Combo]
+      ,@Total as [fade_Total]
+      ,[fade_Estado]
+      ,[fade_UsuCrea]
+      ,[fade_FechaCrea]
+      ,[fade_UsuMofica]
+      ,[fade_FechaModifica]
+  FROM [db_Cine].[cine].[VW_tbFacturaDetalle1]
+  where clie_RTN = @clie_RTN and fade_Factura = @fade_Factura
 END
 
 /*
@@ -857,7 +1041,10 @@ AS
 SELECT [sucu_Id]
       ,[sucu_Nombre]
       ,[sucu_Direccion]
+	    ,t5.dept_Id
+	  ,t5.dept_Descripcion
       ,[sucu_Ciudad]
+	    ,t4.muni_Descripcion
       ,[sucu_Estado]
       ,[sucu_UserCrea]
 	  ,t2.user_Empleado
@@ -867,7 +1054,9 @@ SELECT [sucu_Id]
       ,[sucu_FechaModifica]
   FROM [cine].[tbSucursales] T1 INNER JOIN acce.tbUsuarios t2
   ON	T1.sucu_UserCrea = t2.user_Id INNER JOIN gral.tbEmpleados t3
-  ON	t2.user_Empleado = t3.empl_Id  
+  ON	t2.user_Empleado = t3.empl_Id  INNER JOIN gral.tbMunicipios t4
+  on t1.sucu_Ciudad = t4.muni_Id	INNER JOIN gral.tbDepartamentos t5
+  on t4.muni_depId = t5.dept_Id
 
 
  --*************** SELECT DE SUCURSAL ******************--
@@ -880,11 +1069,14 @@ BEGIN
 	SELECT TOP (1000) [sucu_Id]
       ,[sucu_Nombre]
       ,[sucu_Direccion]
+	   ,[dept_Id]
+      ,[dept_Descripcion]
       ,[sucu_Ciudad]
+	     ,[muni_Descripcion]
       ,[sucu_Estado]
-      ,[Nombre]
       ,[sucu_UserCrea]
       ,[user_Empleado]
+	  ,[Nombre]
       ,[sucu_FechaCrea]
       ,[sucu_UsuarioModifica]
       ,[sucu_FechaModifica]
@@ -930,7 +1122,7 @@ BEGIN
 END
 --*************** FIND DE SUCURSAL ******************--
 GO
-CREATE OR ALTER PROCEDURE cine.UDP_tbSucursale_FIND
+CREATE OR ALTER PROCEDURE cine.UDP_tbSucursale_FIND 
 @sucu_Id INT
 AS
 BEGIN
@@ -938,11 +1130,14 @@ BEGIN
 	SELECT TOP (1000) [sucu_Id]
       ,[sucu_Nombre]
       ,[sucu_Direccion]
+	    ,[dept_Id]
+      ,[dept_Descripcion]
       ,[sucu_Ciudad]
+	   ,[muni_Descripcion]
       ,[sucu_Estado]
-      ,[Nombre]
       ,[sucu_UserCrea]
       ,[user_Empleado]
+	   ,[Nombre]
       ,[sucu_FechaCrea]
       ,[sucu_UsuarioModifica]
       ,[sucu_FechaModifica]
@@ -1231,7 +1426,7 @@ END
 				,NULL
 				,NULL)
 
-	SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+	SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 	END TRY
 	BEGIN CATCH
 	SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -1380,7 +1575,7 @@ END
 			,@cdet_UserCrea
 			,NULL
 			,NULL)
-		SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 	END TRY
 	BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -1408,7 +1603,7 @@ BEGIN
   FROM  [cine].[VW_tbComboDetalles]
   WHERE [cdet_Estado] = 1
   AND	[cdet_Id] = @cdet_Id
-  		SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+  		SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 	END TRY
 	BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -1452,7 +1647,7 @@ BEGIN
 		UPDATE [cine].[tbComboDetalle]
 		SET [cdet_Estado] = 0
 		WHERE [cdet_Id] = @cdet_Id
-		SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 	END TRY
 	BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -1794,7 +1989,7 @@ UPDATE [cine].[tbPeliculas]
  
     WHERE peli_Id = @peli_Id
 
-	SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+	SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -1936,7 +2131,7 @@ SELECT  [empl_Id]
            NULL,
            NULL)
 
-		   SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		   SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -1980,7 +2175,7 @@ END CATCH
 	WHERE	empl_Estado = 1 
 	AND		[empl_Id] = @empl_Id
 	
-		   SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		   SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2144,7 +2339,7 @@ END
       VALUES
            (@carg_Cargo, @carg_UsuarioCreador)
 
-		   SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		   SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 		END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2204,7 +2399,7 @@ BEGIN
 		SET		car_Estado = 0
 		WHERE	carg_Id = @carg_Id
 
-		SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2255,7 +2450,7 @@ END
 	
 	INSERT INTO [gral].[tbMetodosPago] (pago_Descripcion,[pago_UsuarioCreador] )
     VALUES							   (@pago_Descripcion, @pago_UsuarioCreador)
-		   SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		   SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 			SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2292,7 +2487,7 @@ END
 						pago_FechaModificacion= GETDATE()
  			WHERE		pago_Id = @pago_Id
 
-			SELECT 1 CodeStatus, 'Operacion completada exitosamente' messageStatus
+			SELECT 1 CodeStatus, 'Operación completada exitosamente.' messageStatus
 	END TRY
 	BEGIN CATCH
 		   SELECT 0 CodeStatus, 'No se pudo completar el proceso.' messageStatus
@@ -2315,7 +2510,7 @@ BEGIN
 		SET		[pago_Estado] = 0
 		WHERE	[pago_Id]= @pago_Id
 
-		SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2365,7 +2560,7 @@ END
 	
 	INSERT INTO [gral].[tbCategorias] ([cate_Nombre], [cate_UsuarioCreador])
     VALUES							   (@cate_Nombre, @cate_UsuarioCreador)
-		   SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		   SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 			SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2402,7 +2597,7 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbCategoria_UPDATE
 						cate_UsuarioModificador = @cate_UsuarioModificador,
 						cate_FechaModificacion= GETDATE()
  			WHERE		cate_Id = @cate_Id
-			SELECT 1 CodeStatus, 'Operacion completada exitosamente' messageStatus
+			SELECT 1 CodeStatus, 'Operación completada exitosamente.' messageStatus
 	END TRY
 	BEGIN CATCH
 			SELECT 0 CodeStatus, 'No se pudo completar el proceso.' messageStatus
@@ -2410,7 +2605,7 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbCategoria_UPDATE
 
 	 END
 
---*************** DELETE DE CATEGOR�A ******************--
+--*************** DELETE DE CATEGORÍA ******************--
 GO 
 CREATE OR ALTER PROCEDURE gral.UDP_tbCategoria_Delete  
 @cate_Id INT
@@ -2420,7 +2615,7 @@ BEGIN
 		UPDATE	[gral].[tbCategorias]
 		SET		cate_Estado = 0
 		WHERE	cate_Id= @cate_Id
-		SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2435,13 +2630,16 @@ AS
 SELECT TOP (1000) [sala_Id]
       ,[sala_Butacas]
       ,[sala_Tipo]
+	    ,t2.casa_Categoria
+	  ,t2.casa_Precio
       ,[sala_Sucursal]
       ,[sala_Estado]
       ,[sala_UserCrea]
       ,[sala_FechaCrea]
       ,[sala_UserMofica]
       ,[sala_FechaModifica]
-  FROM [db_Cine].[cine].[tbSalas]
+   FROM [db_Cine].[cine].[tbSalas] t1 INNER JOIN cine.tbCategoriaSala t2
+  ON	t1.sala_Tipo = t2.casa_Id
 
 --*************** SELECT DE SALAS ******************--
 GO
@@ -2451,13 +2649,15 @@ BEGIN
 SELECT TOP (1000) [sala_Id]
       ,[sala_Butacas]
       ,[sala_Tipo]
+	   ,[casa_Categoria]
+      ,[casa_Precio]
       ,[sala_Sucursal]
       ,[sala_Estado]
       ,[sala_UserCrea]
       ,[sala_FechaCrea]
       ,[sala_UserMofica]
       ,[sala_FechaModifica]
-  FROM [db_Cine].[cine].[tbSalas]
+ FROM [db_Cine].[cine].[VW_Salas]
   WHERE sala_Estado = 1
 END
 
@@ -2465,7 +2665,7 @@ END
   GO
  CREATE OR ALTER PROCEDURE cine.UDP_tbSalas_Insert  
  @sala_Butacas	INT, 
- @sala_Tipo     CHAR(3), 
+ @sala_Tipo     INT,  
  @sala_Sucursal INT, 
  @sala_UserCrea INT
  AS
@@ -2473,7 +2673,7 @@ END
  BEGIN TRY
 	INSERT INTO [cine].[tbSalas] ([sala_Butacas],[sala_Tipo],[sala_Sucursal],[sala_UserCrea])
     VALUES						 (@sala_Butacas, @sala_Tipo, @sala_Sucursal, @sala_UserCrea)
-		   SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		   SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 			SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2487,9 +2687,19 @@ END
   AS
   BEGIN
 		BEGIN TRY
-			SELECT *  
-			FROM	cine.VW_Salas
-			WHERE	sala_Estado = 1 
+			SELECT TOP (1000) [sala_Id]
+      ,[sala_Butacas]
+      ,[sala_Tipo]
+      ,[casa_Categoria]
+      ,[casa_Precio]
+      ,[sala_Sucursal]
+      ,[sala_Estado]
+      ,[sala_UserCrea]
+      ,[sala_FechaCrea]
+      ,[sala_UserMofica]
+      ,[sala_FechaModifica]
+		FROM [db_Cine].[cine].[VW_Salas]
+		WHERE	sala_Estado = 1 
 			AND		sala_Id = @sala_Id
 		END TRY
 		BEGIN CATCH
@@ -2514,7 +2724,7 @@ CREATE OR ALTER PROCEDURE cine.UDP_tbSalas_UPDATE
 						sala_UserMofica = @sala_UserMofica,
 						sala_FechaModifica = GETDATE()
  			WHERE		sala_Id = @sala_Id
-			SELECT 1 CodeStatus, 'Operacion completada exitosamente' messageStatus
+			SELECT 1 CodeStatus, 'Operación completada exitosamente.' messageStatus
 	END TRY
 	BEGIN CATCH
 			SELECT 0 CodeStatus, 'No se pudo completar el proceso.' messageStatus
@@ -2532,7 +2742,7 @@ BEGIN
 		UPDATE	[cine].[tbSalas]
 		SET		sala_Estado = 0
 		WHERE	sala_Id= @sala_Id
-		SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2576,33 +2786,42 @@ END
 
   --*************** INSERT DE CLIENTES ******************--
  GO
-CREATE OR ALTER PROCEDURE gral.UDP_tbClientes_Insert  
-	@clie_Nombres NVARCHAR(100),
-	@clie_Apellidos NVARCHAR(100),
-	@clie_RTN VARCHAR(14),
-	@clie_UserCrea INT
+CREATE OR ALTER PROCEDURE gral.UDP_tbClientes_Insert 
+@clie_Nombres NVARCHAR(100),
+@clie_Apellidos NVARCHAR(100),
+@clie_RTN VARCHAR(14),
+@clie_UserCrea INT
 AS
 BEGIN
-	SET NOCOUNT ON;
+SET NOCOUNT ON;
 
 	BEGIN TRY
-		BEGIN TRANSACTION;
-
+	BEGIN TRANSACTION;
+	-- Validar si el cliente ya existe en la tabla gral.tbClientes (insensible a mayúsculas y minúsculas)
+	DECLARE @clienteId INT;
+	SELECT @clienteId = clie_Id 
+	FROM gral.tbClientes 
+	WHERE LOWER(clie_Nombres) = LOWER(@clie_Nombres) 
+		AND LOWER(clie_Apellidos) = LOWER(@clie_Apellidos) 
+		AND clie_RTN = @clie_RTN;
+	IF @clienteId IS NULL
+	BEGIN
 		-- Insertar en la tabla gral.tbClientes
 		INSERT INTO gral.tbClientes (clie_Nombres, clie_Apellidos, clie_RTN, clie_UserCrea)
 		VALUES (@clie_Nombres, @clie_Apellidos, @clie_RTN, @clie_UserCrea);
-
-		DECLARE @clienteId INT;
+	
 		SET @clienteId = SCOPE_IDENTITY();
+	END
 
- 		COMMIT TRANSACTION;
- 	     SELECT 1 CodeStatus , @clienteId messageStatus
- 	END TRY
+		COMMIT TRANSACTION;
+		 SELECT 1 CodeStatus , @clienteId messageStatus
+	END TRY
 	BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
 		ROLLBACK TRANSACTION;
 		THROW;
 	END CATCH;
+
 END;
 GO
 
@@ -2642,7 +2861,7 @@ CREATE OR ALTER PROCEDURE gral.UDP_tbClientes_UPDATE
 						clie_UserModifica = @clie_UserModifica,
 						clie_FechaModifica = GETDATE()
  			WHERE		clie_Id = @clie_Id
-			SELECT 1 CodeStatus, 'Operacion completada exitosamente' messageStatus
+			SELECT 1 CodeStatus, 'Operación completada exitosamente.' messageStatus
 	END TRY
 	BEGIN CATCH
 			SELECT 0 CodeStatus, 'No se pudo completar el proceso.' messageStatus
@@ -2660,7 +2879,7 @@ BEGIN
 		UPDATE	[gral].[tbClientes]
 		SET		clie_Estado = 0
 		WHERE	clie_Id= @clie_Id
-		SELECT 1 CodeStatus , 'Operacion completada exitosamente' messageStatus
+		SELECT 1 CodeStatus , 'Operación completada exitosamente.' messageStatus
 END TRY
 BEGIN CATCH
 		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
@@ -2674,9 +2893,10 @@ CREATE OR ALTER VIEW acce.VW_Pantallas
 AS
 SELECT TOP (1000) [panta_Id]
       ,[panta_Descripcion]
-      ,[panta_URL]
+      ,panta_label
       ,[panta_Menu]
-      ,[panta_Item]
+      ,panta_to
+	  ,icon
       ,[panta_Estado]
       ,[panta_UserCrea]
       ,[panta_FechaCrea]
@@ -2691,9 +2911,10 @@ AS
 BEGIN
 SELECT TOP (1000) [panta_Id]
       ,[panta_Descripcion]
-      ,[panta_URL]
+      ,panta_label
       ,[panta_Menu]
-      ,[panta_Item]
+      ,panta_to
+	  ,icon
       ,[panta_Estado]
       ,[panta_UserCrea]
       ,[panta_FechaCrea]
@@ -2833,11 +3054,11 @@ AS
 BEGIN
 	IF @EsAdmin = 1
 		BEGIN
-			SELECT DISTINCT panta_Id, panta_Descripcion, panta_URL, panta_Menu, panta_Item, @rol_Id AS role_Id, @EsAdmin AS EsAdmin 
+			SELECT DISTINCT panta_Id, panta_Descripcion, panta_to, panta_Menu, panta_label, icon, @rol_Id AS role_Id, @EsAdmin AS EsAdmin 
 			FROM acce.tbPantallas
 		END
 	ELSE
-			SELECT DISTINCT pant.panta_Id, panta_Descripcion, panta_URL, panta_Menu, panta_Item, @rol_Id AS role_Id, @EsAdmin AS esAdmin 
+			SELECT DISTINCT pant.panta_Id, panta_Descripcion, panta_to, panta_Menu, panta_label, icon, @rol_Id AS role_Id, @EsAdmin AS esAdmin 
 			FROM acce.tbPantallas pant
 			INNER JOIN acce.tbRolesPantallas pantrol
 			ON		   pant.panta_Id = pantrol.ropa_Pantalla
@@ -2881,7 +3102,7 @@ BEGIN
 END
 GO
 
---*************** VALIDACI�N LOGIN ******************--
+--*************** VALIDACIÓN LOGIN ******************--
 GO
 CREATE or alter PROCEDURE acce.UDP_ValidarLogIN  
     @correoElectronico NVARCHAR(50),
@@ -2959,7 +3180,19 @@ BEGIN
     END
 END
 GO
+---------------
+CREATE OR ALTER PROC acce.UDP_PantallasPorRol
+	@role_Id		INT
+AS
+BEGIN
+SELECT	ropa_Id, ropa_Rol, ropa_Pantalla, pants.panta_Descripcion, roles.role_Nombre FROM acce.tbRolesPantallas ropa INNER JOIN acce.tbPantallas pants
+ON		pants.panta_Id = ropa.ropa_Pantalla INNER JOIN acce.tbRoles roles
+ON		ropa.ropa_Rol = roles.role_Id
+WHERE	ropa_Rol = @role_Id
+END
+GO
 
+---------------
 
 --*****************************************************--
 --*************** VISTA DE PROYECCIONES ******************--
@@ -2975,7 +3208,8 @@ SELECT	[proy_Id],
 		t5.casa_Precio,
 		[proy_Horario],
 		CONVERT(varchar, t4.hor_HoraInicio, 100) AS hor_HoraInicio,
-		CONVERT(varchar, t4.hor_HoraFin, 100) AS hor_HoraFin
+		CONVERT(varchar, t4.hor_HoraFin, 100) AS hor_HoraFin,
+		[proy_Estado]
 FROM	cine.tbProyecciones t1
 INNER JOIN cine.tbPeliculas t2 ON t1.proy_Pelicula = t2.peli_Id
 INNER JOIN cine.tbSalas t3 ON t1.proy_Sala = t3.sala_Id
@@ -2987,9 +3221,142 @@ GO
 CREATE OR ALTER PROCEDURE cine.UDP_tbProyecciones_SELECT
 AS 
 BEGIN
-	SELECT * FROM cine.VW_Proyecciones
+	DECLARE @AsientosDisponibles INT;
+	SELECT @AsientosDisponibles = COUNT(*)
+	FROM cine.tbAsientos
+	WHERE asie_Reservado = 0;
+	SELECT TOP (1000) [proy_Id]
+      ,[proy_Pelicula]
+      ,[peli_Titulo]
+      ,[proy_Sala]
+      ,[sala_Butacas]
+      ,[sala_Tipo]
+      ,[casa_Categoria]
+      ,[casa_Precio]
+      ,[proy_Horario]
+      ,[hor_HoraInicio]
+      ,[hor_HoraFin]
+	FROM [db_Cine].[cine].[VW_Proyecciones]
+	WHERE proy_Estado = 1 and [proy_Sala] NOT IN (
+	SELECT DISTINCT [asie_Sala]
+		FROM cine.tbAsientos
+		WHERE asie_Reservado = 0
+		GROUP BY [asie_Sala]
+		HAVING COUNT(*) = [sala_Butacas]
+	)
 END
 
+--*******************************************************--
+--*************** find DE PROYECCIONES ******************--
+GO
+CREATE OR ALTER PROCEDURE cine.UDP_tbProyecciones_FIND 
+    @proy_Id INT
+AS 
+BEGIN
+	
+	 
+	 BEGIN TRY
+		 
+	SELECT TOP (1000) [proy_Id]
+      ,[proy_Pelicula]
+      ,[peli_Titulo]
+      ,[proy_Sala]
+      ,[sala_Butacas]
+      ,[sala_Tipo]
+      ,[casa_Categoria]
+      ,[casa_Precio]
+      ,[proy_Horario]
+      ,[hor_HoraInicio]
+      ,[hor_HoraFin]
+	FROM [db_Cine].[cine].[VW_Proyecciones]
+	WHERE proy_Estado = 1 AND proy_Id = @proy_Id
+	   SELECT 1 CodeStatus
+	END TRY
+	BEGIN CATCH
+		SELECT 0 CodeStatus
+	END CATCH   
+END
+--*****************************************************--
+--*************** INSER DE PROYECCIONES ******************--
+go
+CREATE OR ALTER PROCEDURE cine.UDP_tbProyecciones_INSERT
+	@proy_Pelicula INT,
+	@proy_Sala INT,
+	@proy_Horario INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+	BEGIN TRY
+		 
+	INSERT INTO cine.tbProyecciones (proy_Pelicula, proy_Sala, proy_Horario)
+	VALUES (@proy_Pelicula, @proy_Sala, @proy_Horario);
+	   SELECT 1 CodeStatus
+	END TRY
+	BEGIN CATCH
+		SELECT 0 CodeStatus
+	END CATCH   
+END
+--*******************************************************--
+--*************** UPDATE DE PROYECCIONES ******************--
+go
+CREATE OR ALTER PROCEDURE cine.UDP_tbProyecciones_UPDATE (
+    @proy_Id INT,
+    @proy_Pelicula INT,
+    @proy_Sala INT,
+    @proy_Horario INT
+)
+AS
+BEGIN
+BEGIN TRY
+		 
+    UPDATE cine.tbProyecciones
+    SET proy_Pelicula = @proy_Pelicula,
+        proy_Sala = @proy_Sala,
+        proy_Horario = @proy_Horario
+    WHERE proy_Id = @proy_Id;
+	   SELECT 1 CodeStatus
+	END TRY
+	BEGIN CATCH
+		SELECT 0 CodeStatus
+	END CATCH   
+END;
+--*******************************************************--
+--*************** DELETE DE PROYECCIONES ******************--
+go
+CREATE OR ALTER PROCEDURE cine.UDP_tbProyecciones_DELETE (
+    @proy_Id INT
+)
+AS
+BEGIN
+BEGIN TRY
+		 
+    UPDATE cine.tbProyecciones
+    SET proy_Estado = 0
+    WHERE proy_Id = @proy_Id;
+	   SELECT 1 CodeStatus
+	END TRY
+	BEGIN CATCH
+		SELECT 0 CodeStatus
+	END CATCH   
+END;
+--*****************************************************--
+--*************** VISTA DE HORARIOS ******************--
+go
+CREATE OR ALTER VIEW cine.VW_tbHorario
+as
+SELECT hor_Id, 
+       CONVERT(VARCHAR(15), hor_HoraInicio, 100) AS HoraInicio, 
+       CONVERT(VARCHAR(15), hor_HoraFin, 100) AS HoraFin 
+FROM CINE.tbHorarios;
+GO
+CREATE OR ALTER PROCEDURE cine.UDP_tbHorario_SELECT
+AS
+BEGIN
+SELECT TOP (1000) [hor_Id]
+      ,[HoraInicio]
+      ,[HoraFin]
+  FROM [db_Cine].[cine].[VW_tbHorario]
+END
 
 --/////////////////--PRUEBA DE FACTURA--//////////////////////--
 GO
@@ -3008,15 +3375,66 @@ BEGIN
   FROM	[db_Cine].[cine].[tbAsientos]
   WHERE [asie_Sala] = @asie_Sala
 END
-GO
 
-CREATE OR ALTER PROC acce.UDP_PantallasPorRol
-	@role_Id		INT
+GO
+------ NUEVO -------
+CREATE OR ALTER PROCEDURE acce.UDP_tbRolesPantalla_PantallasNoAsociadasAlRol
+    @rol_Id INT
 AS
 BEGIN
-SELECT	ropa_Id, ropa_Rol, ropa_Pantalla, pants.panta_Descripcion, roles.role_Nombre FROM acce.tbRolesPantallas ropa INNER JOIN acce.tbPantallas pants
-ON		pants.panta_Id = ropa.ropa_Pantalla INNER JOIN acce.tbRoles roles
-ON		ropa.ropa_Rol = roles.role_Id
-WHERE	ropa_Rol = @role_Id
+    SELECT DISTINCT Pantallas.panta_Id, Pantallas.panta_Descripcion
+    FROM acce.tbPantallas Pantallas
+    WHERE NOT EXISTS (
+        SELECT 1 FROM acce.tbRolesPantallas rolpan
+        WHERE rolpan.ropa_Rol = @rol_Id AND rolpan.ropa_Pantalla = Pantallas.panta_Id
+    )
 END
+GO
+CREATE OR ALTER PROCEDURE acce.UDP_tbRolesPantallas_EliminarRolDePantalla
+	@ropa_Id INT
+AS
+BEGIN
+  BEGIN TRY
+	DELETE FROM acce.tbRolesPantallas
+	WHERE	ropa_Id = @ropa_Id
 
+	SELECT 1 codeStatus
+  END TRY
+  BEGIN CATCH
+	SELECT 0 codeStatus
+  END CATCH
+END
+GO
+GO
+CREATE OR ALTER PROCEDURE acce.UDP_tbEmpleadosSinUsuarios
+AS
+BEGIN
+	SELECT empl_Id, empl_Nombre + ' ' + empl_Apellidos AS empl_Nombre 
+	FROM gral.tbEmpleados emple
+	LEFT JOIN acce.tbUsuarios usu
+	ON usu.user_Empleado = emple.empl_Id
+	WHERE emple.empl_Estado = 1
+	AND usu.user_Empleado IS NULL
+END
+GO
+CREATE OR ALTER PROCEDURE acce.UDP_tbEmpleadoSinUsuario_Editar
+@user_Id	 INT
+AS
+BEGIN
+	BEGIN TRY
+		DECLARE @EmpleadoId INT 
+		SET @EmpleadoId = (SELECT user_Empleado FROM acce.tbUsuarios WHERE user_Id = @user_Id);
+
+		SELECT empl_Id, empl_Nombre + ' ' + empl_Apellidos AS empl_Nombre FROM gral.tbEmpleados WHERE empl_Id = @EmpleadoId
+		UNION ALL
+		SELECT empl_Id, empl_Nombre + ' ' + empl_Apellidos AS empl_Nombre 
+		FROM gral.tbEmpleados emple
+		LEFT JOIN acce.tbUsuarios usu
+		ON usu.user_Empleado = emple.empl_Id
+		WHERE emple.empl_Estado = 1
+		AND usu.user_Empleado IS NULL
+	END TRY
+	BEGIN CATCH
+		SELECT 0 codeStatus
+	END CATCH
+END

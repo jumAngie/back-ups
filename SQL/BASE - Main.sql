@@ -31,8 +31,8 @@ CREATE TABLE acce.tbUsuarios(
 	user_NombreUsuario			NVARCHAR(200)		NOT	NULL,
 	user_Contrasenia			VARCHAR(250)		NOT NULL,
 	user_Empleado				INT					NOT NULL,
-	user_Rol					INT					NOT NULL,
-	user_EsAdmin				BIT					NOT NULL,
+	user_Rol					INT					,
+	user_EsAdmin				BIT					,
 
 	user_Estado					BIT DEFAULT 1		NOT NULL,
 	user_UsuarioCrea		    INT					NOT NULL,
@@ -96,9 +96,10 @@ GO
 CREATE TABLE acce.tbPantallas(
 		panta_Id				INT IDENTITY(1,1),
 		panta_Descripcion		NVARCHAR(MAX)			NOT NULL,
-		panta_URL				NVARCHAR(MAX)			,
 		panta_Menu				NVARCHAR(MAX)			,
-		panta_Item				NVARCHAR(MAX)			,
+		panta_label				NVARCHAR(MAX)			,
+		panta_to				NVARCHAR(MAX)			,
+		icon					NVARCHAR(MAX)			,
 
 		panta_Estado			BIT DEFAULT 1			,
 		panta_UserCrea			INT						NOT NULL,
@@ -110,26 +111,21 @@ CREATE TABLE acce.tbPantallas(
 );
 GO
 				--///***************** INSERTS DE PANTALLAS --///*****************
-INSERT INTO acce.tbPantallas(panta_Descripcion, panta_UserCrea)
+INSERT INTO acce.tbPantallas(panta_Descripcion, panta_UserCrea, panta_Menu, panta_label, panta_to, icon)
 VALUES
-							('Empleados', 1),
-							('Clientes', 1),
-							('Salas', 1),
-							('Asientos', 1),
-							('Insumos', 1),
-							('Combos', 1),
-							('Combos Detalle', 1),
-							('Metodos de Pago', 1),
-							('Peliculas', 1),
-							('Actores', 1),
-							('Categorias', 1),
-							('Proyecciones', 1),
-							('Sucursal', 1),
-							('Facturas', 1),
-							('Facturas Detalle', 1),
-							('Usuarios', 1),
-							('Roles', 1),
-							('Roles Por Pantalla', 1);
+							('Empleados', 1, 'Menu General', 'Empleados', '/uikit/Empleados', 'pi pi-fw pi-user'),
+							('Salas', 1, '', '', '', ''),
+							('Insumos', 1, 'Menu Administraivo', 'Insumos', '/uikit/Insumo', 'pi pi-fw pi-apple'),
+							('Combos', 1, 'Menu Administraivo', 'Combos', '/uikit/Combos', 'pi pi-fw pi-star-fill'),
+							('Metodos de Pago', 1, 'Menu General', 'Método de Pago', '/uikit/MetodosPago', 'pi pi-fw pi-credit-card'),
+							('Peliculas', 1, 'Menu Administraivo', 'Peliculas', '/uikit/Peliculas', 'pi pi-fw pi-eye'),
+							('Directores', 1, 'Menu Administraivo', 'Directores', '/uikit/Director', 'pi pi-fw pi-users'),
+							('Categorias', 1, 'Menu General', 'Categorías', '/uikit/Categorias', 'pi pi-fw pi-bars'),
+							('Proyecciones', 1, '', '', '', ''),
+							('Sucursales', 1, 'Menu Administraivo', 'Sucursales', '/uikit/Sucursal', 'pi pi-fw pi-building'),
+							('Facturas', 1, 'Menu Administraivo', 'Factura', '/uikit/Factura', 'pi pi-fw pi-bookmark'),
+							('Usuarios', 1, 'Menu Seguridad', 'Usuario', '/uikit/Usuarios', 'pi pi-fw pi-id-card'),
+							('Roles', 1, 'Menu Seguridad', 'Roles', '/uikit/table', 'pi pi-fw pi-cog');
 GO
 
 ---------------------------------------tbRolesPantallas-------------------------------------
@@ -153,6 +149,7 @@ CREATE TABLE acce.tbRolesPantallas(
 	CONSTRAINT FK_acce_tbRolesPantallas_ropa_UserCrea_acce_tbUsuarios_userId			FOREIGN KEY (ropa_UserCrea)		REFERENCES acce.tbUsuarios (user_Id),
 	CONSTRAINT FK_acce_tbRolesPantallas_ropa_UsuarioModifica_acce_tbUsuarios_userId		FOREIGN KEY (ropa_UserMofica)	REFERENCES acce.tbUsuarios (user_Id)
   );
+
 			--///***************** INSERTS DE ROLES X PANTALLAS --///*****************
  INSERT INTO acce.tbRolesPantallas(ropa_Rol, ropa_Pantalla, ropa_UserCrea)
  VALUES								(1,           1,              1),
@@ -160,8 +157,6 @@ CREATE TABLE acce.tbRolesPantallas(
 									(1,           3,              1),
 									(1,           4,              1),
 									(1,           5,              1),
-									(1,           17,              1),
-									(1,           18,              1),
 
 									(2,           6,              1),
 									(2,           8,              1),
@@ -171,10 +166,7 @@ CREATE TABLE acce.tbRolesPantallas(
 
 									(3,           11,              1),
 									(3,           12,              1),
-									(3,           13,              1),
-									(3,           14,              1),
-									(3,           15,              1),
-									(3,			  16,               1)
+									(3,           13,              1);
 
  GO
 -------------------------------------tbDepartamentos----------------------------------
@@ -594,6 +586,8 @@ INSERT INTO cine.tbSucursales (sucu_Nombre, sucu_Direccion, sucu_Ciudad, sucu_Us
 							   ('MegaFilms Galaxy',		'Plaza de las Estrellas, 789',	68,		1),
 							   ('MegaFilms Infinity',	'Calle del Cosmos, 321',		137,	1),
 							   ('MegaFilms Eclipse',	'Avenida del Sol, 987',			205,	1); 
+
+ -------------------------------------tbMetodoDePago---------------------------------
 
 CREATE TABLE gral.tbMetodosPago(
 	pago_Id						INT IDENTITY(1,1),
@@ -1479,6 +1473,7 @@ CREATE TABLE cine.tbProyecciones(
 	proy_Pelicula		INT,
 	proy_Sala			INT,
 	proy_Horario		INT,
+	proy_Estado			bit DEFAULT 1
 
 	CONSTRAINT PK_cine_tbProyecciones_proy_Id			 PRIMARY KEY (proy_Id),
 	CONSTRAINT FK_cine_tbPeliculas_proy_Pelicula_peli_Id FOREIGN KEY (proy_Pelicula) REFERENCES cine.tbPeliculas(peli_Id),
@@ -1595,128 +1590,3 @@ CREATE TABLE cine.tbTickets(
 	CONSTRAINT FK_cine_tbTickets_tick_Asiento			FOREIGN KEY (tick_Asiento)		REFERENCES [cine].[tbAsientos] 	 ([asie_Id]),
 
 );
-
-select * from cine.tbFacturaDetalle
-/*
-*/
-------------------Prueba
---drop table tbtempFacturaDetalle
-
-CREATE TABLE tbtempFacturaDetalle (
-		fade_Factura INT,
-		fade_Proyeccion INT,
-		fade_Tickets INT,
-		fade_ContenidoCombo NVARCHAR(MAX),
-		fade_ContenidoInsumo NVARCHAR(MAX),
-		fade_Pago INT,
-		fade_Total INT,
-		fade_UsuCrea INT
-		)
-
-create table hobbies(
-	id INT Identity(1,1) PRIMARY KEY,
-    hobbie VARCHAR(50)
-);
-
-INSERT INTO hobbies (hobbie) VALUES ('lavar'),('trapear'),('lavar carro'),('pasear perros');
-
-CREATE TABLE trabajo  (
-    id INT Identity(1,1) PRIMARY KEY,
-    trabajo VARCHAR(50)
-);
-
-INSERT INTO trabajo (trabajo) VALUES ('reportero'),('Albanil'),('Cantero'),('Visepresidente');
-
-CREATE TABLE ejemplo  (
-    id INT Identity(1,1) PRIMARY KEY,
-    nombre VARCHAR(50),
-    Trabajodatos NVARCHAR(max),
-    Hobiedatos NVARCHAR(max),
-);
-
-CREATE TABLE ejemploFinal  (
-    id INT Identity(1,1) PRIMARY KEY,
-    nombre VARCHAR(50),
-    trabajo NVARCHAR(max),
-    cantidaTrabajo int,
-	Hobbie NVARCHAR(max),
-	cantidaHobies int,
-
-);
-
-INSERT INTO ejemplo (nombre, Trabajodatos,Hobiedatos) 
-VALUES ('Carlito', '[{"id": 1, "cantidad": 3}, {"id": 2, "cantidad": 2}, {"id": 3, "cantidad": 1}]', '[{"id":1, "cantidad":2}, {"id":3, "cantidad":1}]');
-
-
-
-SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad, null AS hobbie, null AS hobbie_cantidad
-FROM ejemplo t1
-CROSS APPLY OPENJSON(t1.Trabajodatos) WITH (id int '$.id', cantidad int '$.cantidad') t2
-JOIN trabajo t3 ON t2.id = t3.id
-
-UNION ALL
-SELECT t1.id, t1.nombre, null AS trabajo, null AS cantidad, t5.hobbie, t4.cantidad
-FROM ejemplo t1
-CROSS APPLY OPENJSON(t1.Hobiedatos) WITH (id int '$.id', cantidad int '$.cantidad') t4
-JOIN hobbies t5 ON t4.id = t5.id;
-
-
-
-
---INSERT INTO ejemplo (nombre, Trabajodatos,Hobiedatos) 
---VALUES ('juen', '{"trabajos": [{"id": 1, "cantidad": 3}, {"id": 2, "cantidad": 2}, {"id": 3, "cantidad": 1}]}', '{ "hobbies":[{"id":1, "cantidad":2}, {"id":3, "cantidad":1}]}');
-
-
-INSERT INTO ejemploFinal (nombre, trabajo, cantidaTrabajo, Hobbie, cantidaHobies)
-SELECT t1.nombre, t3.trabajo, t2.cantidad, null AS hobbie, null AS hobbie_cantidad
-FROM ejemplo t1
-CROSS APPLY OPENJSON(t1.Trabajodatos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
-JOIN trabajo t3 ON t2.id = t3.id
-UNION ALL
-SELECT t1.nombre, null AS trabajo, null AS cantidad, t5.hobbie, t4.cantidad
-FROM ejemplo t1
-CROSS APPLY OPENJSON(t1.Hobiedatos, '$.hobbies') WITH (id int '$.id', cantidad int '$.cantidad') t4
-JOIN hobbies t5 ON t4.id = t5.id;
-
-
-
---SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad, t5.hobbie, t4.cantidad
---FROM ejemplo t1
---CROSS APPLY OPENJSON(t1.Trabajodatos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
---JOIN trabajo t3 ON t2.id = t3.id
---CROSS APPLY OPENJSON(t1.Hobiedatos, '$.hobbies') WITH (id int '$.id', cantidad int '$.cantidad') t4
---JOIN hobbies t5 ON t4.id = t5.id;
-
-
-
-
---INSERT INTO ejemplo (nombre, Trabajodatos,Hobiedatos) 
---VALUES ('Leonardo2', '{"trabajos": [{"id": 2, "cantidad": 2}, {"id": 4, "cantidad": 2}], "hobbies":[{"id":1, "cantidad":2}, {"id":3, "cantidad":1}, {"id":4, "cantidad":1}] }');
-
---SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad
---FROM ejemplo t1
---CROSS APPLY OPENJSON(t1.datos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
---JOIN trabajo t3 ON t2.id = t3.id
-
---SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad, t5.hobbie, t4.cantidad
---FROM ejemplo t1
---CROSS APPLY OPENJSON(t1.datos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
---JOIN trabajo t3 ON t2.id = t3.id
---CROSS APPLY OPENJSON(t1.datos, '$.hobbies') WITH (id int '$.id', cantidad int '$.cantidad') t4
---JOIN hobbies t5 ON t4.id = t5.id
---where t1.id = 7
-
-
-
---SELECT t1.id, t1.nombre, t3.trabajo, t2.cantidad
---FROM ejemplo t1
---CROSS APPLY OPENJSON(t1.datos, '$.trabajos') WITH (id int '$.id', cantidad int '$.cantidad') t2
---JOIN trabajo t3 ON t2.id = t3.id
-
---UNION
-
---SELECT t1.id, t1.nombre, t5.hobbie, t4.cantidad
---FROM ejemplo t1
---CROSS APPLY OPENJSON(t1.datos, '$.hobbies') WITH (id int '$.id', cantidad int '$.cantidad') t4
---JOIN hobbies t5 ON t4.id = t5.id;
-
