@@ -330,7 +330,7 @@ const Peliculas = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
+                    <Button label="Nuevo" icon="pi pi-plus" severity="warning" className="mr-2" onClick={openNew} />
                 </div>
             </React.Fragment>
         );
@@ -340,7 +340,7 @@ const Peliculas = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                
+             <img src='https://th.bing.com/th/id/R.f362aeab7bccfbb6f6cd8fc7a894213a?rik=V7HnboVgOWUq6Q&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f5%2fMovie-PNG-Image.png&ehk=%2fumio4t09y9STFf20eSdXl2dIS1ZDaGJrTSDSZqsZZY%3d&risl=&pid=ImgRaw&r=0' width={'100px'}></img>
             </React.Fragment>
         );
     };
@@ -369,7 +369,6 @@ const Peliculas = () => {
     //Encabezado
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <h5 className="m-0">Peliculas</h5>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Buscar..." />
@@ -415,7 +414,7 @@ const Peliculas = () => {
             <div className="col-12">
                 <div className="card">
                     <Toast ref={toast} />
-                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+                    <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Películas</h2>} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable
                         ref={dt}
@@ -494,7 +493,7 @@ const Peliculas = () => {
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                             {product && (
                                 <span>
-                                    ¿Está seguro que dese eliminar este registro? <b>{product.name}</b>?
+                                    ¿Está seguro que dese eliminar este registro?
                                 </span>
                             )}
                         </div>
