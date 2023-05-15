@@ -6,8 +6,7 @@ import { Dropdown } from "primereact/dropdown";
 import axios from "axios";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Toast } from "primereact/toast";
-import { Toolbar } from "primereact/toolbar";
-import Select from "react-select";
+ import Select from "react-select";
 import { Button } from "primereact/button";
 
 import Global from "../../api/Global";
@@ -224,7 +223,7 @@ const CreateEmpleado = () => {
             toast.current.show({
               severity: "success",
               summary: "Felicidades",
-              detail: "Creaste un registro",
+              detail: "Editaste un registro",
               life: 1500,
             });
 
@@ -235,7 +234,7 @@ const CreateEmpleado = () => {
           toast.current.show({
             severity: "error",
             summary: "Error",
-            detail: "Vuelva  a ingresar los datos nuevamente",
+            detail: "Vuelva Ingresar los datos Nuevamente",
             life: 1500,
           });
         });
@@ -286,23 +285,23 @@ const CreateEmpleado = () => {
           </div>
         </div>
 
-        <div className="col-6">
-          <div className="field">
-            <label htmlFor="Apellido">Apellido</label>
-            <InputText
-              type="text"
-              id="Apellido"
-              onChange={(e) => setempl_Apellidos(e.target.value)}
-              autoFocus
-              className={classNames({
-                "p-invalid": submitted && !empl_Apellidos,
-              })}
-            />
-            {submitted && !empl_Apellidos && (
-              <small className="p-invalid">EL Apellido es requerido.</small>
-            )}
+          <div className="col-6">
+            <div className="field">
+              <label htmlFor="Apellido">Apellido</label>
+              <InputText
+                type="text"
+                id="Apellido"
+                onChange={(e) => setempl_Apellidos(e.target.value)}
+                autoFocus
+                className={classNames({
+                  "p-invalid": submitted && !empl_Apellidos,
+                })}
+              />
+              {submitted && !empl_Apellidos && (
+                <small className="p-invalid">EL Apellido es requerido.</small>
+              )}
+            </div>
           </div>
-        </div>
 
         <div className="col-6">
           <div className="field ">
@@ -517,21 +516,20 @@ const CreateEmpleado = () => {
           </div>
         </div>
       </div>
-      <center>
       <Button
-        label="Cancelar"
+        label="Canselar"
         severity="danger"
         icon="pi pi-times"
         onClick={() => router.push("/uikit/Empleados")}
       />
       <Button
         type="button"
-        label="Enviar"
-        severity="warning"
+        label="Save"
+        severity="success"
         className="ml-4"
         icon="pi pi-check"
         onClick={saveProduct}
-      /></center>
+      />
     </div>
   );
 };

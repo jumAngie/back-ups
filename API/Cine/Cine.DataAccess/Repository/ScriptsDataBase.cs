@@ -82,6 +82,7 @@ namespace Terminal.DataAccess.Repository
 
         #region Factura Detalles
         public static string UDP_tbFacturaDetalle_SELECT = "cine.UDP_tbFacturaDetalle_SELECT";
+        public static string UDP_tbFacturaDetalleFinal_SELECT = "cine.UDP_tbFacturaDetalleFinal_SELECT";
         public static string UDP_tbFacturaDetalle_INSERT = "cine.UDP_tbFacturaDetalle_INSERT";
         public static string UDP_tbTickets_INSERT = "cine.UDP_tbTickets_INSERT";
         public static string UDP_tbFacturaDetalle_FIND = "cine.UDP_tbFacturaDetalle_FIND";
@@ -186,9 +187,14 @@ namespace Terminal.DataAccess.Repository
 
         #endregion
 
-        #region Factura
+        #region Proyecciones
         public static string UDP_tbProyecciones_SELECT = "cine.UDP_tbProyecciones_SELECT";
         public static string UDP_tbAsientos_SELECT = "cine.UDP_tbAsientos_SELECT ";
+        public static string UDP_tbProyecciones_FIND = "cine.UDP_tbProyecciones_FIND";
+        public static string UDP_tbProyecciones_INSERT = "cine.UDP_tbProyecciones_INSERT";
+        public static string UDP_tbProyecciones_UPDATE = "cine.UDP_tbProyecciones_UPDATE";
+        public static string UDP_tbProyecciones_DELETE = "cine.UDP_tbProyecciones_DELETE";
+        public static string UDP_tbHorario_SELECT = "cine.UDP_tbHorario_SELECT";
         #endregion
 
 

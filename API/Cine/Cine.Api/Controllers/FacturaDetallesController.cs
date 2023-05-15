@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Cine.DataAccess.Repository.Cine;
+
 namespace Cine.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -30,6 +32,16 @@ namespace Cine.Api.Controllers
             return Ok(listado);
         }
 
+        [HttpPost("Factura")]
+        public IActionResult FacturaFinal(FacturaFinalVIewModel item)
+        {
+            string clie_RTN = item.clie_RTN;
+            int fade_Factura = (int)item.fade_Factura;
+
+            var listado = _cineService.FacturaDetalleFinalList(clie_RTN, fade_Factura);
+            return Ok(listado);
+        }
+
         [HttpPost("Insert")]
         public IActionResult Insert(FacturaDetalleViewModel item)
         {
@@ -37,7 +49,7 @@ namespace Cine.Api.Controllers
             item.fade_ContenidoCombo = JsonConvert.SerializeObject(item.fade_ContenidoComboS);
             item.fade_ContenidoInsumo = JsonConvert.SerializeObject(item.fade_ContenidoInsumoS);
 
-            var listado = _mapper.Map<tbFacturaDetalle>(item);
+            var listado = _mapper.Map<tbFacturaDetalles>(item);
             var Result = _cineService.InsertarFacturaDetalles(listado);
             return Ok(Result);
         }

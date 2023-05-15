@@ -11,7 +11,10 @@ namespace Cine.Entities.Entities
         public int sucu_Id { get; set; }
         public string sucu_Nombre { get; set; }
         public string sucu_Direccion { get; set; }
+        public int dept_Id { get; set; }
+        public string dept_Descripcion { get; set; }
         public int sucu_Ciudad { get; set; }
+        public string muni_Descripcion { get; set; }
         public bool sucu_Estado { get; set; }
         public int sucu_UserCrea { get; set; }
         public int user_Empleado { get; set; }

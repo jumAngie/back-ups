@@ -235,6 +235,8 @@ namespace Cine.BusinessLogic.Services.Cine
             }
         }
 
+
+
         public ServiceResult InsertarFacturas(tbFactura item)
         {
             var result = new ServiceResult();
@@ -299,11 +301,25 @@ namespace Cine.BusinessLogic.Services.Cine
             }
         }
 
-        public ServiceResult InsertarFacturaDetalles(tbFacturaDetalle item)
+        public ServiceResult FacturaDetalleFinalList(string clie_RTN, int fade_Factura)
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _facturaDetallesRepository.ListFinal(clie_RTN, fade_Factura);
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+                return result.Error(e.Message);
+            }
+        }
+
+        public ServiceResult InsertarFacturaDetalles(tbFacturaDetalles item)
         {
             var result = new ServiceResult();
 
-            var map = _facturaDetallesRepository.Insert(item);
+            var map = _facturaDetallesRepository.Insert2(item);
             return result.Ok(map);
         }
 
@@ -411,6 +427,65 @@ namespace Cine.BusinessLogic.Services.Cine
             catch (Exception)
             {
                 return null;
+            }
+        }
+        #endregion
+
+
+        #region Proyecciones
+        public ServiceResult InsertarProyeccion(tbProyeccione item)
+        {
+            var result = new ServiceResult();
+            var map = _proyeccionesRepository.Insert(item);
+            return result.Ok(map);
+        }
+        public VW_Proyeccione BuscarProyeccion(int id)
+        {
+            try
+            {
+                return _proyeccionesRepository.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public RequestStatus BorrarProyeccion(int id)
+        {
+            try
+            {
+                return _proyeccionesRepository.Delete(id);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public RequestStatus UpdateProyeccion(tbProyeccione item)
+        {
+            try
+            {
+                return _proyeccionesRepository.Update(item);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Horarios
+        public ServiceResult ListHorario()
+        {
+            var result = new ServiceResult();
+            try
+            {
+                var list = _proyeccionesRepository.ListHorario();
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+                return result.Error(e.Message);
             }
         }
         #endregion
@@ -562,6 +637,46 @@ namespace Cine.BusinessLogic.Services.Cine
             {
 
                 return result.Error(e.Message);
+            }
+        }
+
+        public ServiceResult InsertarSucursal(tbSucursale item)
+        {
+            var result = new ServiceResult();
+            var map = _sucurdalRepository.Insert(item);
+            return result.Ok(map);
+        }
+        public VW_tbSUCURSAL BuscarSucursal(int id)
+        {
+            try
+            {
+                return _sucurdalRepository.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public RequestStatus BorrarSucursal(int id)
+        {
+            try
+            {
+                return _sucurdalRepository.Delete(id);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public RequestStatus UpdateSucursal(tbSucursale item)
+        {
+            try
+            {
+                return _sucurdalRepository.Update(item);
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
         #endregion

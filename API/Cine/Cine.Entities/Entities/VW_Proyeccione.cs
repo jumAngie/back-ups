@@ -19,5 +19,6 @@ namespace Cine.Entities.Entities
         public int? proy_Horario { get; set; }
         public string hor_HoraInicio { get; set; }
         public string hor_HoraFin { get; set; }
+        public bool? proy_Estado { get; set; }
     }
 }

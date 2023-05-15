@@ -35,7 +35,7 @@ namespace Cine.Api.Controllers
         {
             var listado = _mapper.Map<tbSala>(item);
             var Result = _cineService.InsertarSalas(listado);
-            return Ok(listado);
+            return Ok(Result);
         }
 
         [HttpGet("Find/{id}")]

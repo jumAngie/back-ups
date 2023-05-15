@@ -18,6 +18,7 @@ namespace Cine.Entities.Entities
         public int? proy_Pelicula { get; set; }
         public int? proy_Sala { get; set; }
         public int? proy_Horario { get; set; }
+        public bool? proy_Estado { get; set; }
 
         public virtual tbHorario proy_HorarioNavigation { get; set; }
         public virtual tbPelicula proy_PeliculaNavigation { get; set; }

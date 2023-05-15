@@ -2,6 +2,7 @@
 using Cine.Api.Models;
 using Cine.Entities.Entities;
 using System;
+using Cine.DataAccess.Repository.Cine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace Cine.Api.Extensions
             CreateMap<SucursalViewModel, tbSucursale>().ReverseMap();
             CreateMap<PeliculaViewModel, tbPelicula>().ReverseMap();
             CreateMap<UserViewModel, tbUsuario>().ReverseMap();
+            CreateMap<ProyeccionViewModel, tbProyeccione>().ReverseMap();
+            CreateMap<FacturaDetalleViewModel, tbFacturaDetalles>().ReverseMap();
 
             // 07 05 2023
             CreateMap<CombosDetalleViewModel, tbComboDetalle>().ReverseMap();

@@ -73,6 +73,7 @@ const Asientos = ({ salaId, ddlDisabled, Proyeccion_Id, EnviarAsientos, fact_Id,
     }
     var cantidadSeleccionada = selectedAsientos.length + 1;
     localStorage.setItem('CantidadAsiento', cantidadSeleccionada);
+    console.log(localStorage.getItem("CantidadAsiento"));
   };
   
 
@@ -115,6 +116,7 @@ const Asientos = ({ salaId, ddlDisabled, Proyeccion_Id, EnviarAsientos, fact_Id,
         onHide={() => setVisibleFullScreen(false)}
         baseZIndex={1000}
         fullScreen
+        onDragExit={false}
       >
         <h1 style={{ fontWeight: "normal" }}>Asientos</h1>
         <div className="sala-cine-asientos">
@@ -144,9 +146,18 @@ const Asientos = ({ salaId, ddlDisabled, Proyeccion_Id, EnviarAsientos, fact_Id,
             <p>Cargando asientos...</p>
           )}
         </div>
+        <Button
+        label="Seleccione una un Asiento"
+        type="button"
+        disabled={ddlDisabled}
+        onClick={() => {setVisibleFullScreen(false)}}
+        className={classNames({
+          "p-invalid": !labelVisible2 && submitted && !selectedAsientos,
+        })}
+      />
       </Sidebar>
       <Button
-        label={Titulo}
+        label="Seleccione una un Asiento"
         type="button"
         disabled={ddlDisabled}
         onClick={() => setVisibleFullScreen(true)}

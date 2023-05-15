@@ -8,20 +8,11 @@ namespace Cine.Entities.Entities
 {
     public partial class VW_tbFacturaDetalle
     {
-        public int fade_Id { get; set; }
         public int? fade_Factura { get; set; }
-        public int? fade_Proyeccion { get; set; }
+        public string clie_RTN { get; set; }
+        public string clie_Nombres { get; set; }
+        public string clie_Apellidos { get; set; }
+        public string peli_Titulo { get; set; }
         public int? fade_Tickets { get; set; }
-        public int? fade_Combo_Id { get; set; }
-        public int? fade_Combo_Cantidad { get; set; }
-        public int? fade_ComboDetalle { get; set; }
-        public int? fade_ComboDetalle_Cantidad { get; set; }
-        public int? fade_Pago { get; set; }
-        public int? fade_Total { get; set; }
-        public bool? fade_Estado { get; set; }
-        public int fade_UsuCrea { get; set; }
-        public DateTime? fade_FechaCrea { get; set; }
-        public int? fade_UsuMofica { get; set; }
-        public DateTime? fade_FechaModifica { get; set; }
     }
 }

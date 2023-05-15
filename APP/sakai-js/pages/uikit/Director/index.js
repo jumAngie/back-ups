@@ -57,9 +57,10 @@ const Director = () => {
 
     //el ProductService esta trallendo los datos de los productos
     useEffect(() => {
-
+        
         axios.get(Global.url + 'Director/List')
             .then(response => {
+                
                 setdirector(response.data.data);
             })
             .catch(error => {
@@ -100,8 +101,7 @@ const Director = () => {
 
         if(test.dire_Id != "" && test.dire_Id != 0 && test.dire_Id != null){
 
-            console.log("siiiiiiii");
-            var fecha = new Date(test.dire_FechaNacimiento)
+             var fecha = new Date(test.dire_FechaNacimiento)
             var dire_FechaNacimiento = test.dire_FechaNacimiento = fecha;
              //Tomo los datos de mi modelo
             var parameter = {
@@ -215,7 +215,7 @@ const Director = () => {
             .then((response) => {
 
                  if(response.data.codeStatus == 1){
-                    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Director Eliminado', life: 3000 });
+                    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
                     setDeleteProductDialog(false);
                 }
  
@@ -289,6 +289,7 @@ const Director = () => {
             <React.Fragment>
                 <div className="my-2">
                     <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
+                    <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
                 </div>
             </React.Fragment>
         );
@@ -298,7 +299,8 @@ const Director = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-             
+                <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="mr-2 inline-block" />
+                <Button label="Export" icon="pi pi-upload" severity="help" onClick={exportCSV} />
             </React.Fragment>
         );
     };
@@ -376,7 +378,7 @@ const Director = () => {
                     <DataTable
                         ref={dt}
                         value={filterByNameOrAddress(globalFilter,director)}
-                         selection={selectedProducts}
+                        selection={selectedProducts}
                         onSelectionChange={(e) => setSelectedProducts(e.value)}
                         dataKey="id"
                         paginator

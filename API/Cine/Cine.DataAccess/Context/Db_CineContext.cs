@@ -36,13 +36,12 @@ namespace Cine.DataAccess.Context
         public virtual DbSet<VW_tbEmpleado> VW_tbEmpleados { get; set; }
         public virtual DbSet<VW_tbFactura> VW_tbFacturas { get; set; }
         public virtual DbSet<VW_tbFacturaDetalle> VW_tbFacturaDetalles { get; set; }
+        public virtual DbSet<VW_tbFacturaDetalle1> VW_tbFacturaDetalle1s { get; set; }
+        public virtual DbSet<VW_tbHorario> VW_tbHorarios { get; set; }
         public virtual DbSet<VW_tbInsumo> VW_tbInsumos { get; set; }
         public virtual DbSet<VW_tbPelicula> VW_tbPeliculas { get; set; }
         public virtual DbSet<VW_tbRole> VW_tbRoles { get; set; }
         public virtual DbSet<VW_tbSUCURSAL> VW_tbSUCURSALs { get; set; }
-        public virtual DbSet<ejemplo> ejemplos { get; set; }
-        public virtual DbSet<ejemploFinal> ejemploFinals { get; set; }
-        public virtual DbSet<hobby> hobbies { get; set; }
         public virtual DbSet<tbAsiento> tbAsientos { get; set; }
         public virtual DbSet<tbCargo> tbCargos { get; set; }
         public virtual DbSet<tbCategoria> tbCategorias { get; set; }
@@ -69,12 +68,10 @@ namespace Cine.DataAccess.Context
         public virtual DbSet<tbSucursale> tbSucursales { get; set; }
         public virtual DbSet<tbTicket> tbTickets { get; set; }
         public virtual DbSet<tbUsuario> tbUsuarios { get; set; }
-        public virtual DbSet<tbtempFacturaDetalle> tbtempFacturaDetalles { get; set; }
-        public virtual DbSet<trabajo> trabajos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<VW_Cargo>(entity =>
             {
@@ -238,11 +235,13 @@ namespace Cine.DataAccess.Context
 
                 entity.ToView("VW_Salas", "cine");
 
+                entity.Property(e => e.casa_Categoria)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.sala_FechaCrea).HasColumnType("datetime");
 
                 entity.Property(e => e.sala_FechaModifica).HasColumnType("datetime");
-
-                entity.Property(e => e.sala_Id).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<VW_Usuario>(entity =>
@@ -436,9 +435,91 @@ namespace Cine.DataAccess.Context
 
                 entity.ToView("VW_tbFacturaDetalle", "cine");
 
+                entity.Property(e => e.clie_Apellidos)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.clie_Nombres)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.clie_RTN)
+                    .IsRequired()
+                    .HasMaxLength(14)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.peli_Titulo)
+                    .IsRequired()
+                    .HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<VW_tbFacturaDetalle1>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_tbFacturaDetalle1", "cine");
+
+                entity.Property(e => e.casa_Categoria)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.casa_Precio).HasColumnType("decimal(12, 2)");
+
+                entity.Property(e => e.clie_Apellidos)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.clie_Nombres)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.clie_RTN)
+                    .IsRequired()
+                    .HasMaxLength(14)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.fade_ComboDetalle_Cantidad)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.fade_Combo_Cantidad)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.fade_Combo_Id)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.fade_FechaCrea).HasColumnType("datetime");
 
                 entity.Property(e => e.fade_FechaModifica).HasColumnType("datetime");
+
+                entity.Property(e => e.fade_Total).HasColumnType("decimal(30, 2)");
+
+                entity.Property(e => e.fade_Total_Combo).HasColumnType("decimal(29, 2)");
+
+                entity.Property(e => e.pago_Descripcion).HasMaxLength(200);
+
+                entity.Property(e => e.peli_Titulo)
+                    .IsRequired()
+                    .HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<VW_tbHorario>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("VW_tbHorario", "cine");
+
+                entity.Property(e => e.HoraFin)
+                    .HasMaxLength(15)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.HoraInicio)
+                    .HasMaxLength(15)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.hor_Id).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<VW_tbInsumo>(entity =>
@@ -520,6 +601,14 @@ namespace Cine.DataAccess.Context
                     .IsRequired()
                     .HasMaxLength(511);
 
+                entity.Property(e => e.dept_Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.muni_Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
                 entity.Property(e => e.sucu_Direccion).IsRequired();
 
                 entity.Property(e => e.sucu_FechaCrea).HasColumnType("datetime");
@@ -527,31 +616,6 @@ namespace Cine.DataAccess.Context
                 entity.Property(e => e.sucu_FechaModifica).HasColumnType("datetime");
 
                 entity.Property(e => e.sucu_Nombre).IsRequired();
-            });
-
-            modelBuilder.Entity<ejemplo>(entity =>
-            {
-                entity.ToTable("ejemplo");
-
-                entity.Property(e => e.nombre)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<ejemploFinal>(entity =>
-            {
-                entity.ToTable("ejemploFinal");
-
-                entity.Property(e => e.nombre)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<hobby>(entity =>
-            {
-                entity.Property(e => e.hobbie)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<tbAsiento>(entity =>
@@ -1002,7 +1066,10 @@ namespace Cine.DataAccess.Context
 
                 entity.Property(e => e.fade_FechaModifica).HasColumnType("datetime");
 
-               
+                entity.HasOne(d => d.fade_ComboDetalleNavigation)
+                    .WithMany(p => p.tbFacturaDetalles)
+                    .HasForeignKey(d => d.fade_ComboDetalle)
+                    .HasConstraintName("FK_cine_tbComboDetalle_fade_ComboDetalle");
 
                 entity.HasOne(d => d.fade_FacturaNavigation)
                     .WithMany(p => p.tbFacturaDetalles)
@@ -1201,6 +1268,8 @@ namespace Cine.DataAccess.Context
                     .HasName("PK_cine_tbProyecciones_proy_Id");
 
                 entity.ToTable("tbProyecciones", "cine");
+
+                entity.Property(e => e.proy_Estado).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.proy_HorarioNavigation)
                     .WithMany(p => p.tbProyecciones)
@@ -1441,7 +1510,6 @@ namespace Cine.DataAccess.Context
                 entity.HasOne(d => d.user_RolNavigation)
                     .WithMany(p => p.tbUsuarios)
                     .HasForeignKey(d => d.user_Rol)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_gral_tbUsuarios_user_Rol_acce_tbRoles_role_Id");
 
                 entity.HasOne(d => d.user_UsuarioCreaNavigation)
@@ -1454,23 +1522,6 @@ namespace Cine.DataAccess.Context
                     .WithMany(p => p.Inverseuser_UsuarioModificaNavigation)
                     .HasForeignKey(d => d.user_UsuarioModifica)
                     .HasConstraintName("FK_gral_tbUsuarios_user_UsuarioModifica_acce_tbUsuarios_userId");
-            });
-
-            modelBuilder.Entity<tbtempFacturaDetalle>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("tbtempFacturaDetalle");
-            });
-
-            modelBuilder.Entity<trabajo>(entity =>
-            {
-                entity.ToTable("trabajo");
-
-                entity.Property(e => e.trabajo1)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("trabajo");
             });
 
             OnModelCreatingPartial(modelBuilder);

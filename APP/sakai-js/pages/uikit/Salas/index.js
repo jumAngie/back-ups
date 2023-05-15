@@ -16,15 +16,21 @@ import { ProductService } from "../../../demo/service/ProductService";
 //Importo la url de la api
 import Global from "../../api/Global";
 
-const Sucursal = () => {
-  let emptySucursal = {
-    sucu_Id: null,
-    sucu_Nombre: "",
-    sucu_Direccion: "",
+const options = [
+  { label: "Normal", value: 1 },
+  { label: "VIP", value: 2 },
+];
+
+const Salas = () => {
+  let emptySalas = {
+    proy_Id: null,
+    proy_Pelicula: null,
+    proy_Sala: null,
+    proy_Horario: null,
   };
 
   //products son los datos
-  const [Sucursal, setSucursal] = useState([]);
+  const [Salas, setSalas] = useState([]);
   const [ddlDisabled, setDdlDisabled] = useState(true);
   const [headerDialog, setheaderDialog] = useState("");
 
@@ -35,15 +41,16 @@ const Sucursal = () => {
   const [deleteProductDialog, setDeleteProductDialog] = useState(false);
   const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
   //es mi model
-  const [product, setProduct] = useState(emptySucursal);
+  const [product, setProduct] = useState(emptySalas);
 
-  //ddl de Departamento
-  const [DepartamentoOptions, setDepartamentoOptions] = useState([]);
-  const [selectedDepartamento, setselectedDepartamento] = useState(null);
+  //ddl de Categoria
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [sala_Butacas, setsala_Butacas] = useState(null);
+  const [sala_Id, setsala_Id] = useState(null);
 
-  //ddl de Municipio
-  const [MunicipioOptions, setMunicipioOptions] = useState([]);
-  const [selectedMunicipio, setselectedMunicipio] = useState(null);
+  //ddl de sucursal
+  const [sucursalOptions, setSucursalOptions] = useState([]);
+  const [selectedSucursal, setSelectedSucursal] = useState(null);
 
   const [selectedProducts, setSelectedProducts] = useState(null);
   const [submitted, setSubmitted] = useState(false);
@@ -54,57 +61,39 @@ const Sucursal = () => {
   const dt = useRef(null);
 
   //el ProductService esta trallendo los datos de los productos
+
   useEffect(() => {
-    fetch(Global.url + "Sucursal/List")
+    fetch(Global.url + "Sala/List")
       .then((response) => response.json())
-      .then((data) => setSucursal(data.data))
+      .then((data) => setSalas(data.data))
       .catch((error) => console.error(error));
 
-      //Departamento DDL
-      fetch(Global.url + "Departamento/List")
-        .then((response) => response.json())
-        .then((data) =>
-          setDepartamentoOptions(
-            data.map((d) => ({ value: d.dept_Id, label: d.dept_Descripcion }))
-          )
+    //Sucursal DDL
+    fetch(Global.url + "Sucursal/List")
+      .then((response) => response.json())
+      .then((data) =>
+        setSucursalOptions(
+          data.data.map((s) => ({ value: s.sucu_Id, label: s.sucu_Nombre }))
         )
-        .catch((error) => console.error(error));
-  }, [Sucursal]);
+      )
+      .catch((error) => console.error(error));
+  }, [Salas]);
 
-  const onDepartamentoChange = (e) => {
-    setselectedDepartamento(e.value);
-    console.log(e.value);
-
-    if (e.value != 0 && e.value != null) {
-      // Verifica el nuevo valor seleccionado
-      axios
-        .get(`${Global.url}Municipio/FindState/${e.value}`) // Usa el nuevo valor seleccionado
-        .then((response) => {
-          setMunicipioOptions(
-            response.data.map((c) => ({
-              value: c.muni_Id,
-              label: c.muni_Descripcion,
-            }))
-          );
-          setDdlDisabled(false);
-        })
-        .catch((error) => {
-          console.error(error);
-          console.log("Error en el servidor");
-        });
-    } else {
-      setMunicipioOptions([]); // si no hay valor seleccionado, vacía las opciones del dropdown
-      setDdlDisabled(true); // deshabilita dropdown
-    }
+  const onSucursalChange = (e) => {
+    setSelectedSucursal(e.value);
   };
 
-  const onMunicipioChange = (e) => {
-    setselectedMunicipio(e.value);
+  const onOptionChange = (e) => {
+    setSelectedOption(e.value);
   };
 
   //abre el modal
   const openNew = () => {
-    setProduct(emptySucursal);
+    setSelectedOption("");
+    setsala_Id("");
+    setsala_Butacas("");
+    setSelectedSucursal("");
+    setProduct(emptySalas);
     setSubmitted(false);
     setProductDialog(true);
     setheaderDialog(1);
@@ -120,7 +109,7 @@ const Sucursal = () => {
   };
 
   const hideDeleteProductsDialog = () => {
-    setDeleteProductsDialog(false);
+    setDeleteProductDialog(false);
   };
 
   //Guarda los datos
@@ -130,20 +119,18 @@ const Sucursal = () => {
 
     setSubmitted(true);
 
-    if (test.sucu_Id != "" && test.sucu_Id != 0 && test.sucu_Id != null) {
-      var fecha = new Date(test.dire_FechaNacimiento);
-      var dire_FechaNacimiento = (test.dire_FechaNacimiento = fecha);
+    if (sala_Id > 0 && sala_Butacas > 0 && selectedOption > 0 && selectedSucursal > 0) {
       //Tomo los datos de mi modelo
       var parameter = {
-        sucu_Id: test.sucu_Id,
-        sucu_Nombre: test.sucu_Nombre,
-        sucu_Direccion: test.sucu_Direccion,
-        sucu_Ciudad: selectedMunicipio,
-        sucu_UserCrea: 1,
+        sala_Id:sala_Id,
+        sala_Butacas:parseInt(sala_Butacas) ,
+        sala_Tipo: parseInt(selectedOption),
+        sala_Sucursal: parseInt(selectedSucursal) ,
+        sala_UserMofica: 1,
       };
-      console.log(parameter)
+      console.log(parameter);
       axios
-        .put(Global.url + `Sucursal/Update`, parameter)
+        .put(Global.url + `Sala/Update`, parameter)
         .then((response) => {
           if (response.data.codeStatus == 1) {
             toast.current.show({
@@ -153,14 +140,13 @@ const Sucursal = () => {
               life: 1500,
             });
             setProductDialog(false);
-             console.log(response.data);
           } else {
             toast.current.show({
-                severity: "Warning",
-                summary: "Felicidades",
-                detail: "Editaste un registro",
-                life: 1500,
-              });
+              severity: "Warning",
+              summary: "Felicidades",
+              detail: "Editaste un registro",
+              life: 1500,
+            });
             console.log(response.data);
           }
         })
@@ -173,20 +159,22 @@ const Sucursal = () => {
             life: 1500,
           });
         });
-    } else if (test.sucu_Nombre.trim() !== "" && test.sucu_Direccion !== "") {
-
-      console.log("Dentro al insertar");
-
+    } else if (
+      sala_Butacas > 0 &&
+      selectedOption > 0 &&
+      selectedSucursal > 0
+    ) {
       var parameter = {
-        sucu_Nombre: test.sucu_Nombre,
-        sucu_Direccion: test.sucu_Direccion,
-        sucu_Ciudad: parseInt(selectedMunicipio),
-        sucu_UserCrea: 1,
+        sala_Butacas:parseInt(sala_Butacas) ,
+        sala_Tipo: parseInt(selectedOption),
+        sala_Sucursal: parseInt(selectedSucursal) ,
+        sala_UserCrea: 1,
       };
 
       axios
-        .post(Global.url + `Sucursal/Insert`, parameter)
+        .post(Global.url + `Sala/Insert`, parameter)
         .then((response) => {
+          console.log(response.data)
           if (response.data.code == 200) {
             toast.current.show({
               severity: "success",
@@ -195,13 +183,11 @@ const Sucursal = () => {
               life: 1500,
             });
             setProductDialog(false);
-            product.sucu_Id = "";
-
+ 
             console.log("hola");
           }
         })
         .catch((error) => {
-          console.log(error.response.data.errors);
           toast.current.show({
             severity: "error",
             summary: "Error",
@@ -215,18 +201,18 @@ const Sucursal = () => {
   };
 
   const editProduct = (product) => {
-    console.log(product.sucu_Id)
+    console.log(product.sala_Id);
     setheaderDialog(2);
     axios
-      .get(Global.url + `Sucursal/Find/${product.sucu_Id}`)
+      .get(Global.url + `Sala/Find/${product.sala_Id}`)
       .then((response) => {
         const product = response.data;
-        setselectedDepartamento(response.data.dept_Id)
-        console.log(response.data)
-        console.log(response.data.sucu_Ciudad)
-
-        ddlMunicipio(response.data.dept_Id, response.data.sucu_Ciudad);
-
+        console.log(product)
+        setsala_Id(response.data.sala_Id);
+        setsala_Butacas(response.data.sala_Butacas);
+        setSelectedOption(response.data.sala_Tipo);
+        setSelectedSucursal(response.data.sala_Sucursal);
+        console.log(response.data.sala_Sucursal);
         setProduct({ ...product });
       })
       .catch((error) => {
@@ -234,54 +220,28 @@ const Sucursal = () => {
         toast.current.show({
           severity: "error",
           summary: "Error",
-          detail: "Vuelva Ingresar los datos Nuevamente",
+          detail: "El dato que escogio no esta disponible en estos momentos",
           life: 1500,
         });
       });
     setProductDialog(true);
   };
 
-  function ddlMunicipio(departamento_Id,Muncipio_Id){
-    var codigo;
-    console.log(departamento_Id)
-   axios
-       .get(`${Global.url}Municipio/FindState/${departamento_Id}`) // Usa el nuevo valor seleccionado
-       .then((response) => {
-           codigo = response.empl_Muni;
-         setMunicipioOptions(
-           response.data.map((c) => ({
-             value: c.muni_Id,
-             label: c.muni_Descripcion,
-           }))
-         );
-         setDdlDisabled(false);
-         console.log("dentro en el departamento")
-         
-       })
-       .catch((error) => {
-         console.error(error);
-         console.log("Error en el servidor");
-       });
-       
-       setselectedMunicipio(Muncipio_Id);
- }
-
   const confirmDeleteProduct = (product) => {
-    setProduct(product);
+    setsala_Id(product.sala_Id)
     setDeleteProductDialog(true);
   };
 
   const deleteProduct = () => {
     let _products = product;
-    console.log(_products);
     setProducts(_products);
 
     //setDeleteProductDialog(false);
-    setProduct(emptySucursal);
+    setProduct(emptySalas);
 
-    if (_products.sucu_Id != "") {
+    if (sala_Id != "") {
       axios
-        .post(Global.url + `Sucursal/Delete/${_products.sucu_Id}`)
+        .post(Global.url + `Sala/Delete/${sala_Id}`)
         .then((response) => {
           if (response.data.codeStatus == 1) {
             toast.current.show({
@@ -303,15 +263,6 @@ const Sucursal = () => {
           });
         });
     }
-
-  };
-
-  const exportCSV = () => {
-    dt.current.exportCSV();
-  };
-
-  const confirmDeleteSelected = () => {
-    setDeleteProductsDialog(true);
   };
 
   const deleteSelectedProducts = () => {
@@ -327,28 +278,6 @@ const Sucursal = () => {
     });
   };
 
-  const onCategoryChange = (e) => {
-    let _product = { ...product };
-    _product["sucu_Id"] = e.value;
-    setProduct(_product);
-  };
-
-  //Seteo los valores
-  const onNombreChange = (e, sucu_Nombre) => {
-    const val = (e.target && e.target.value) || "";
-    let _product = { ...product };
-    _product[`${sucu_Nombre}`] = val;
-    setProduct(_product);
-  };
-
-  const onDireccionChange = (e, sucu_Direccion) => {
-    const val = (e.target && e.target.value) || "";
-    let _product = { ...product };
-    _product[`${sucu_Direccion}`] = val;
-
-    setProduct(_product);
-  };
-
   //habre el modal para crear un nuevo usuario y eliminar
   const leftToolbarTemplate = () => {
     return (
@@ -361,7 +290,6 @@ const Sucursal = () => {
             className="mr-2"
             onClick={openNew}
           />
-         
         </div>
       </React.Fragment>
     );
@@ -369,17 +297,13 @@ const Sucursal = () => {
 
   //redimenciona la  imagen
   const rightToolbarTemplate = () => {
-    return (
-      <React.Fragment>
-        
-      </React.Fragment>
-    );
+    return <React.Fragment></React.Fragment>;
   };
 
   if (headerDialog == "1") {
-    var Titulo = "Ingresar una Sucursal";
+    var Titulo = "Ingresar una Salas";
   } else if (headerDialog == "2") {
-    var Titulo = "Editar una Sucursal";
+    var Titulo = "Editar una Salas";
   }
 
   //Botones de editar y eliminar
@@ -403,17 +327,6 @@ const Sucursal = () => {
     );
   };
 
-  const productDialogFooter = (
-    <>
-      <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
-    </>
-  );
-  const deleteProductDialogFooter = (
-    <>
-       
-     </>
-  );
   const deleteProductsDialogFooter = (
     <>
       <Button
@@ -422,12 +335,14 @@ const Sucursal = () => {
         text
         onClick={hideDeleteProductsDialog}
       />
-      <Button
-        label="Yes"
-        icon="pi pi-check"
-        text
-        onClick={deleteSelectedProducts}
-      />
+      <Button label="Si" icon="pi pi-check" text onClick={deleteProduct} />
+    </>
+  );
+
+  const productDialogFooter = (
+    <>
+      <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
+      <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
     </>
   );
 
@@ -453,8 +368,7 @@ const Sucursal = () => {
     }
     return data.filter(
       (item) =>
-        item.sucu_Nombre.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-        item.sucu_Direccion.toLowerCase().indexOf(value.toLowerCase()) !== -1
+        item.casa_Categoria.toLowerCase().indexOf(value.toLowerCase()) !== -1 
     );
   };
 
@@ -470,24 +384,25 @@ const Sucursal = () => {
           ></Toolbar>
 
           <DataTable
-            value={filterByNameOrAddress(globalFilter, Sucursal)}
+            value={filterByNameOrAddress(globalFilter, Salas)}
             selection={selectedProducts}
             onSelectionChange={(e) => setSelectedProducts(e.value)}
-            dataKey="sucu_Id"
+            dataKey="proy_Id"
             paginator
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}
             className="datatable-responsive"
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
-            emptyMessage={`No hay sucursales que coincidan con "${globalFilter}".`}
+            emptyMessage={`No hay Salases que coincidan con "${globalFilter}".`}
             header={header}
             responsiveLayout="scroll"
             globalFilter={globalFilter}
           >
-            <Column field="sucu_Id" header="ID" sortable />
-            <Column field="sucu_Nombre" header="Sucursal" sortable />
-            <Column field="sucu_Direccion" header="Direccion" sortable />
+            <Column field="sala_Id" header="ID" sortable />
+            <Column field="sala_Id" header="Salas" sortable />
+            <Column field="casa_Categoria" header="Categoria" sortable />
+            <Column field="casa_Precio" header="Precio de Ticket" sortable />
             <Column
               body={actionBodyTemplate}
               headerStyle={{ minWidth: "10rem" }}
@@ -508,38 +423,23 @@ const Sucursal = () => {
             <div className="grid p-fluid">
               <div className="col-6">
                 <div className="field">
-                  <label htmlFor="name">Nombre</label>
+                  <label htmlFor="Butacas">Numero de Butacas</label>
                   <InputText
-                    id="name"
-                    value={product.sucu_Nombre}
-                    onChange={(e) => onNombreChange(e, "sucu_Nombre")}
+                    id="Butacas"
+                    onChange={(e) => {
+                      setsala_Butacas(e.target.value)
+                    }}
+                    maxLength={2}
+                    value={sala_Butacas}
                     required
-                    autoFocus
                     className={classNames({
-                      "p-invalid": submitted && !product.sucu_Nombre,
+                      "p-invalid": submitted && !sala_Butacas,
                     })}
                   />
-                  {submitted && !product.sucu_Nombre && (
-                    <small className="p-invalid">Name is required.</small>
-                  )}
-                </div>
-              </div>
-              <div className="col-6">
-                <div className="field">
-                  <label htmlFor="Departamento">Departamento</label>
-                  <Dropdown
-                    value={selectedDepartamento}
-                    onChange={onDepartamentoChange}
-                    options={DepartamentoOptions || []} // inicialmente null, pero en renderizado, si es null usará el array vacío
-                    placeholder="Seleccionar"
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": submitted && !selectedDepartamento,
-                    })}
-                  />
-                  {submitted && !selectedDepartamento && (
+
+                  {submitted && !sala_Butacas && (
                     <small className="p-invalid">
-                      EL Estado Civil es requerido.
+                      El numero de Butacas es requerido.
                     </small>
                   )}
                 </div>
@@ -547,36 +447,42 @@ const Sucursal = () => {
 
               <div className="col-6">
                 <div className="field">
-                  <label htmlFor="Municipio">Municipio</label>
+                  <label htmlFor="Butacas">Categoria</label>
                   <Dropdown
-                    value={selectedMunicipio}
-                    onChange={onMunicipioChange || []}
-                    options={MunicipioOptions}
-                    placeholder="Seleccionar"
-                    autoFocus
+                    value={selectedOption}
+                    options={options}
+                    onChange={onOptionChange}
+                    placeholder="Seleccione una opción"
                     className={classNames({
-                      "p-invalid": submitted && !selectedMunicipio,
+                      "p-invalid": submitted && !selectedOption,
                     })}
-                    disabled={ddlDisabled} // agregar propiedad disabled
                   />
-                  {submitted && !selectedMunicipio && (
+
+                  {submitted && !selectedOption && (
                     <small className="p-invalid">
-                      EL Municipio es requerido.
+                     La categoria es requerido.
                     </small>
                   )}
                 </div>
               </div>
               <div className="col-6">
                 <div className="field">
-                  <label htmlFor="description">Description</label>
-                  <InputTextarea
-                    id="description"
-                    value={product.sucu_Direccion}
-                    onChange={(e) => onDireccionChange(e, "sucu_Direccion")}
-                    required
-                    rows={3}
-                    cols={20}
+                  <label htmlFor="sucursal">Sucursal</label>
+                  <Dropdown
+                    value={selectedSucursal}
+                    onChange={onSucursalChange}
+                    options={sucursalOptions}
+                    placeholder="Selecione una Sucursal"
+                    
+                    className={classNames({
+                      "p-invalid": submitted && !selectedSucursal,
+                    })}
                   />
+                  {submitted && !selectedSucursal && (
+                    <small className="p-invalid">
+                      La Sucursal es requerido.
+                    </small>
+                  )}
                 </div>
               </div>
             </div>
@@ -587,7 +493,7 @@ const Sucursal = () => {
             style={{ width: "450px" }}
             header="Confirm"
             modal
-            footer={deleteProductDialogFooter}
+            footer={deleteProductsDialogFooter}
             onHide={hideDeleteProductDialog}
           >
             <div className="flex align-items-center justify-content-center">
@@ -596,9 +502,7 @@ const Sucursal = () => {
                 style={{ fontSize: "2rem" }}
               />
               {product && (
-                <span>
-                  Estas seguro de querer eliminar a <b>{product.sucu_Nombre}</b>?
-                </span>
+                <span>Estas seguro de querer eliminar este regiostro?</span>
               )}
             </div>
           </Dialog>
@@ -608,4 +512,4 @@ const Sucursal = () => {
   );
 };
 
-export default Sucursal;
+export default Salas;

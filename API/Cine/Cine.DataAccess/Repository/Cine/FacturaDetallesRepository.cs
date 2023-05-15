@@ -30,19 +30,19 @@ namespace Cine.DataAccess.Repository.Cine
             return db.QueryFirst<VW_tbFacturaDetalle>(ScriptsDataBase.UDP_tbFacturaDetalle_FIND, parametros, commandType: CommandType.StoredProcedure);
         }
 
-        public RequestStatus Insert(tbFacturaDetalle item)
+        public RequestStatus Insert2(tbFacturaDetalles item)
         {
             using var db = new SqlConnection(CineContext.ConnectionString);
             var parametros = new DynamicParameters();
 
-            parametros.Add("@fade_Factura ", item.fade_Factura, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_Proyeccion", item.fade_Proyeccion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_Tickets", item.fade_Tickets, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_ContenidoCombo", item.fade_ContenidoCombo, DbType.String, ParameterDirection.Input);
-            parametros.Add("@fade_ContenidoInsumo", item.fade_ContenidoInsumo, DbType.String, ParameterDirection.Input);
-            parametros.Add("@fade_Pago", item.fade_Pago, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_Total", item.fade_Total, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_UsuCrea", item.fade_UsuCrea, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@fade_Factura ",        item.fade_Factura,          DbType.Int32,   ParameterDirection.Input);
+            parametros.Add("@fade_Proyeccion",      item.fade_Proyeccion,       DbType.Int32,   ParameterDirection.Input);
+            parametros.Add("@fade_Tickets",         item.fade_Tickets,          DbType.Int32,   ParameterDirection.Input);
+            parametros.Add("@fade_ContenidoCombo",  item.fade_ContenidoCombo,   DbType.String,   ParameterDirection.Input);
+            parametros.Add("@fade_ContenidoInsumo", item.fade_ContenidoInsumo,   DbType.String,   ParameterDirection.Input);
+            parametros.Add("@fade_Pago",            item.fade_Pago,             DbType.Int32,   ParameterDirection.Input);
+            parametros.Add("@fade_Total",           item.fade_Total,            DbType.Int32,   ParameterDirection.Input);
+            parametros.Add("@fade_UsuCrea",         item.fade_UsuCrea,          DbType.Int32,   ParameterDirection.Input);
 
 
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbFacturaDetalle_INSERT, parametros, commandType: CommandType.StoredProcedure);
@@ -56,16 +56,21 @@ namespace Cine.DataAccess.Repository.Cine
             return db.Query<VW_tbFacturaDetalle>(ScriptsDataBase.UDP_tbFacturaDetalle_SELECT, null, commandType: CommandType.StoredProcedure);
         }
 
+        public IEnumerable<VW_tbFacturaDetalle1> ListFinal(string clie_RTN , int fade_Factura)
+        {
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@clie_RTN", clie_RTN, DbType.String, ParameterDirection.Input);
+            parametros.Add("@fade_Factura", fade_Factura, DbType.Int32, ParameterDirection.Input);
+            return db.Query<VW_tbFacturaDetalle1>(ScriptsDataBase.UDP_tbFacturaDetalleFinal_SELECT, parametros, commandType: CommandType.StoredProcedure);
+        }
+
         public RequestStatus Update(tbFacturaDetalle item)
         {
             using var db = new SqlConnection(CineContext.ConnectionString);
             var parametros = new DynamicParameters();
 
-            parametros.Add("@fade_Id", item.fade_Id, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_Factura ", item.fade_Factura, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_Proyeccion", item.fade_Proyeccion, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@fade_ContenidoCombo", item.fade_ContenidoCombo, DbType.String, ParameterDirection.Input);
-            parametros.Add("@fade_UsuMofica", item.fade_UsuMofica, DbType.Int32, ParameterDirection.Input);
+           
 
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbFacturaDetalle_UPDATE, parametros, commandType: CommandType.StoredProcedure);
 
@@ -86,6 +91,11 @@ namespace Cine.DataAccess.Repository.Cine
 
             return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbTickets_INSERT, parametros, commandType: CommandType.StoredProcedure);
 
+        }
+
+        public RequestStatus Insert(tbFacturaDetalle item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

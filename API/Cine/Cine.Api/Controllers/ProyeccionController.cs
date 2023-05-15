@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Cine.Api.Models;
 using Cine.BusinessLogic.Services.Cine;
+using Cine.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -28,10 +30,49 @@ namespace Cine.Api.Controllers
             return Ok(listado);
         }
 
+        [HttpPost("Insert")]
+        public IActionResult Insert(ProyeccionViewModel item)
+        {
+
+            var listado = _mapper.Map<tbProyeccione>(item);
+            var result = _cineService.InsertarProyeccion(listado);
+            return Ok(result);
+        }
+
+
+        [HttpGet("Find/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var listado = _cineService.BuscarProyeccion(id);
+            return Ok(listado);
+        }
+
+        [HttpPut("Update")]
+        public IActionResult Edit(ProyeccionViewModel item)
+        {
+            var listado = _mapper.Map<tbProyeccione>(item);
+            var Result = _cineService.UpdateProyeccion(listado);
+            return Ok(Result);
+        }
+
+        [HttpPost("Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var listado = _cineService.BorrarProyeccion(id);
+            return Ok(listado);
+        }
+
         [HttpGet("Asientos/{id}")]
         public IActionResult ListAsientos(int id)
         {
             var listado = _cineService.ListAsiento(id);
+            return Ok(listado);
+        }
+
+        [HttpGet("Horaio")]
+        public IActionResult ListHoraio()
+        {
+            var listado = _cineService.ListHorario();
             return Ok(listado);
         }
     }

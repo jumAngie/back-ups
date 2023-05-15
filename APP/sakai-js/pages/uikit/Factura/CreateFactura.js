@@ -24,6 +24,13 @@ const CreateFactura = () => {
   const router = useRouter();
   const toast = useRef(null);
 
+  const [AsientosCantidad, setAsientosCantidad] = useState(false);
+try {
+  var cantidad = parseInt(localStorage.getItem("CantidadAsiento"));
+} catch (error) {
+}
+  
+  
   const [Clie_Id, setClie_Id] = useState(null);
   const [Clie_RTN, setClie_RTN] = useState("");
   const [Clien_Nombre, setClien_Nombre] = useState("");
@@ -69,7 +76,6 @@ const CreateFactura = () => {
 
   //boton de enviar
   const [submitted, setSubmitted] = useState(false);
-  const [AsientosCantidad, setAsientosCantidad] = useState(null);
 
   //traigo datos
   useEffect(() => {
@@ -130,6 +136,9 @@ const CreateFactura = () => {
         );
       })
       .catch((error) => console.error(error));
+
+
+      
   }, []);
 
   //Seteo Datos
@@ -293,11 +302,23 @@ const CreateFactura = () => {
         cantidad: parseInt(valor),
       }));
 
-    if (validarComida == true) {
-
-      if(cantidadFiltrada.length !== 0 || cantidadFiltradaDetalle.length !== 0 ){
-        setvalidarComida(false);
+ 
+      if(localStorage.getItem("CantidadAsiento") == null){
+        setAsientosCantidad(true);
       }else{
+        setAsientosCantidad(false);
+
+        console.log("ya no es nullo")
+      }
+      
+
+    if (validarComida == true) {
+      if (
+        cantidadFiltrada.length !== 0 ||
+        cantidadFiltradaDetalle.length !== 0
+      ) {
+        setvalidarComida(false);
+      } else {
         toast.current.show({
           severity: "warn",
           summary: "Cuidado",
@@ -305,7 +326,6 @@ const CreateFactura = () => {
           life: 3000,
         });
       }
-
     } else if (validarComida == false) {
       //setvalidarCombo(false);
       //setvalidarInsumo(false);
@@ -316,11 +336,10 @@ const CreateFactura = () => {
         Clie_Apellido.trim() !== "" &&
         (selectedProyeccion !== null || labelVisible1 == true) &&
         selectedMetodoPago !== null &&
-        (parseInt(localStorage.getItem("CantidadAsiento")) > 0 ||
-          validarComida == false)
+        (localStorage.getItem("CantidadAsiento") != null ||
+          validarComida == false)  
       ) {
-        setAsientosCantidad(parseInt(localStorage.getItem("CantidadAsiento")));
-        console.log(AsientosCantidad);
+        console.log(cantidad);
         //============================== INSERT DE CLIENTE ====================================//
         var ClientesParametros = {
           clie_Id: 0,
@@ -359,9 +378,7 @@ const CreateFactura = () => {
                   fade_Id: 0,
                   fade_Factura: idF,
                   fade_Proyeccion: selectedProyeccion,
-                  fade_Tickets: parseInt(
-                    localStorage.getItem("CantidadAsiento")
-                  ),
+                  fade_Tickets: cantidad,
                   fade_ContenidoComboS: cantidadFiltrada,
                   fade_ContenidoInsumoS: cantidadFiltradaDetalle,
                   fade_Pago: selectedMetodoPago,
@@ -392,12 +409,17 @@ const CreateFactura = () => {
                   idC = null;
                   idF = null;
                 } catch (error) {
-                  toast.current.show({
-                    severity: "error",
-                    summary: "Error",
-                    detail: "Vuelva Ingresar los datos Nuevamente",
-                    life: 1500,
-                  });
+                  try {
+                    toast.current.show({
+                      severity: "error",
+                      summary: "Error",
+                      detail: "Vuelva Ingresar los datos Nuevamente",
+                      life: 1500,
+                    });
+                  } catch (error) {
+                    console.log("A ocurrido algun error")
+                  }
+                  
                 }
 
                 console.log("Están llenos");
@@ -416,11 +438,16 @@ const CreateFactura = () => {
   //envio los datos
 
   const [toggleValue, setToggleValue] = useState(false);
+  const [showContent, setShowContent] = useState(true);
+  const [showContent2, setShowContent2] = useState(true);
+
   const UsuarioFinal = (e) => {
     var final = e.value;
     console.log(final);
     setToggleValue(final);
     if (final) {
+      setShowContent(!final);
+
       setClie_RTN("1234-1234-12345");
       setClien_Nombre("Consumidor");
       setClie_Apellido("Final");
@@ -428,6 +455,8 @@ const CreateFactura = () => {
       setNameDisabled(true);
       setApellidoDisabled(true);
     } else if (!final) {
+      setShowContent(!final);
+
       setClie_RTN("");
       setClien_Nombre("");
       setClie_Apellido("");
@@ -442,16 +471,21 @@ const CreateFactura = () => {
     setToggleInsumoValue(Insumo);
     console.log(validarComida);
     if (Insumo) {
+      setShowContent2(!Insumo);
+
       setLabelVisible2(true);
       setLabelVisible1(true);
       setvalidarComida(true);
     } else {
+      setShowContent2(!Insumo);
+
       setvalidarComida(true);
       setLabelVisible1(false);
       setLabelVisible2(false);
     }
   };
 
+  
   return (
     <div className="card">
       <Toast ref={toast} />
@@ -486,106 +520,122 @@ const CreateFactura = () => {
           </div>
         </div>
 
-        <div className="col-6">
-          <div className="field">
-            <label htmlFor="RTN">RTN</label>
+        {showContent && (
+          <div className="col-12">
+            <div className="grid p-fluid">
+              <div className="col-6">
+                <div className="field">
+                  <label htmlFor="RTN">RTN</label>
 
-            <InputMask
-              disabled={RTNDisabled}
-              id="inputmask"
-              value={Clie_RTN}
-              mask="9999-9999-99999"
-              onChange={(e) => setClie_RTN(e.value)}
-              className={classNames({
-                "p-invalid": submitted && !Clie_RTN,
-              })}
-            ></InputMask>
+                  <InputMask
+                    disabled={RTNDisabled}
+                    id="inputmask"
+                    value={Clie_RTN}
+                    mask="9999-9999-99999"
+                    onChange={(e) => setClie_RTN(e.value)}
+                    className={classNames({
+                      "p-invalid": submitted && !Clie_RTN,
+                    })}
+                  ></InputMask>
 
-            {submitted && !Clie_RTN && (
-              <small className="p-invalid">EL DNI es requerido.</small>
-            )}
+                  {submitted && !Clie_RTN && (
+                    <small className="p-invalid">EL DNI es requerido.</small>
+                  )}
+                </div>
+              </div>
+
+              <div className="col-6">
+                <div className="field">
+                  <label htmlFor="Nombre">Nombre</label>
+                  <InputText
+                    disabled={NameDisabled}
+                    type="text"
+                    id="Nombre"
+                    value={Clien_Nombre}
+                    onChange={(e) => setClien_Nombre(e.target.value)}
+                    className={classNames({
+                      "p-invalid": submitted && !Clien_Nombre,
+                    })}
+                  />
+                  {submitted && !Clien_Nombre && (
+                    <small className="p-invalid">EL Nombre es requerido.</small>
+                  )}
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="field">
+                  <label htmlFor="Apellido">Apellido</label>
+                  <InputText
+                    disabled={ApellidoDisabled}
+                    value={Clie_Apellido}
+                    type="text"
+                    id="Apellido"
+                    onChange={(e) => setClie_Apellido(e.target.value)}
+                    className={classNames({
+                      "p-invalid": submitted && !Clie_Apellido,
+                    })}
+                  />
+                  {submitted && !Clie_Apellido && (
+                    <small className="p-invalid">
+                      EL Apellido es requerido.
+                    </small>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="col-6">
-          <div className="field">
-            <label htmlFor="Nombre">Nombre</label>
-            <InputText
-              disabled={NameDisabled}
-              type="text"
-              id="Nombre"
-              value={Clien_Nombre}
-              onChange={(e) => setClien_Nombre(e.target.value)}
-              className={classNames({
-                "p-invalid": submitted && !Clien_Nombre,
-              })}
-            />
-            {submitted && !Clien_Nombre && (
-              <small className="p-invalid">EL Nombre es requerido.</small>
-            )}
-          </div>
-        </div>
+        {showContent2 && (
+          <div className="col-12">
+            <div className="grid p-fluid">
+              <div className="col-6">
+                <div className="field">
+                  <label htmlFor="Funciones">Funciones</label>
+                  <Dropdown
+                    disabled={labelVisible1}
+                    value={selectedProyeccion}
+                    onChange={onProyeccionChange}
+                    options={ProyeccionOptions}
+                    placeholder="Seleccionar"
+                    filter
+                    filterPlaceholder="Buscar"
+                    onFilter={(e) => onProyeccionFilter(e, ProyeccionOptions)}
+                    className={classNames({
+                      "p-invalid":
+                        !labelVisible1 && submitted && !selectedProyeccion,
+                    })}
+                  />
+                  {!labelVisible1 && submitted && !selectedProyeccion && (
+                    <small className="p-invalid">
+                      EL Funciones es requerido.
+                    </small>
+                  )}
+                </div>
+              </div>
 
-        <div className="col-6">
-          <div className="field">
-            <label htmlFor="Apellido">Apellido</label>
-            <InputText
-              disabled={ApellidoDisabled}
-              value={Clie_Apellido}
-              type="text"
-              id="Apellido"
-              onChange={(e) => setClie_Apellido(e.target.value)}
-              className={classNames({
-                "p-invalid": submitted && !Clie_Apellido,
-              })}
-            />
-            {submitted && !Clie_Apellido && (
-              <small className="p-invalid">EL Apellido es requerido.</small>
-            )}
+              <div className="col-6">
+                <div className="field">
+                  <label htmlFor="Funciones">Asientos</label>
+                  <Asientos
+                    salaId={Sala}
+                    labelVisible2={labelVisible2}
+                    ddlDisabled={ddlDisabled}
+                    EnviarAsientos={EnviarAsientos}
+                    fact_Id={Fact_Id}
+                    submitted={submitted}
+                    Proyeccion_Id={selectedProyeccion}
+                  />
+                </div>
+                {submitted && AsientosCantidad && (
+                  <small className="p-invalid">
+                    Tiene que seleccionar un Asiento.
+                  </small>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="col-6">
-          <div className="field">
-            <label htmlFor="Funciones">Funciones</label>
-            <Dropdown
-              disabled={labelVisible1}
-              value={selectedProyeccion}
-              onChange={onProyeccionChange}
-              options={ProyeccionOptions}
-              placeholder="Seleccionar"
-              filter
-              filterPlaceholder="Buscar"
-              onFilter={(e) => onProyeccionFilter(e, ProyeccionOptions)}
-              className={classNames({
-                "p-invalid": !labelVisible1 && submitted && !selectedProyeccion,
-              })}
-            />
-            {!labelVisible1 && submitted && !selectedProyeccion && (
-              <small className="p-invalid">EL Funciones es requerido.</small>
-            )}
-          </div>
-        </div>
-
-        <div className="col-6">
-          <div className="field">
-            <label htmlFor="Funciones">Asientos</label>
-            <Asientos
-              salaId={Sala}
-              labelVisible2={labelVisible2}
-              ddlDisabled={ddlDisabled}
-              EnviarAsientos={EnviarAsientos}
-              fact_Id={Fact_Id}
-              submitted={submitted}
-              Proyeccion_Id={selectedProyeccion}
-            />
-          </div>
-          {submitted && !AsientosCantidad && (
-            <small className="p-invalid">
-              Tiene que seleccionar un Asiento.
-            </small>
-          )}
-        </div>
+        )}
 
         <div className="col-6">
           <div className="field">
@@ -640,7 +690,30 @@ const CreateFactura = () => {
             )}
           </div>
         </div>
-        <Button label="Enviar" icon="pi pi-check" text onClick={SubmitValues} />
+        <div className="col-9">
+          <div className="grid p-fluid">
+            <div className="col-3">
+              <div className="field">
+                <Button
+                
+                  label="Enviar"
+                  icon="pi pi-check"
+                  onClick={SubmitValues}
+                />
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="field">
+                <Button
+                  label="Canselar"
+                  severity="danger"
+                  icon="pi pi-times"
+                  onClick={() =>{router.push("/uikit/Factura"), localStorage.clear("CantidadAsiento")}}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

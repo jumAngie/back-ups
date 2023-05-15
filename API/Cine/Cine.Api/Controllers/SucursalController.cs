@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Cine.Api.Models;
 using Cine.BusinessLogic.Services.Cine;
+using Cine.Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,38 @@ namespace Cine.Api.Controllers
         public IActionResult List()
         {
             var listado = _cineService.SucursalList();
+            return Ok(listado);
+        }
+
+        [HttpPost("Insert")]
+        public IActionResult Insert(SucursalViewModel item)
+        {
+
+            var listado = _mapper.Map<tbSucursale>(item);
+            var result = _cineService.InsertarSucursal(listado);
+            return Ok(result);
+        }
+
+
+        [HttpGet("Find/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var listado = _cineService.BuscarSucursal(id);
+            return Ok(listado);
+        }
+
+        [HttpPut("Update")]
+        public IActionResult Edit(SucursalViewModel item)
+        {
+            var listado = _mapper.Map<tbSucursale>(item);
+            var Result = _cineService.UpdateSucursal(listado);
+            return Ok(Result);
+        }
+
+        [HttpPost("Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var listado = _cineService.BorrarDirectore(id);
             return Ok(listado);
         }
     }

@@ -1,5 +1,4 @@
 import { Button } from 'primereact/button';
-import { Link } from 'react-router-dom';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Dialog } from 'primereact/dialog';
@@ -8,16 +7,13 @@ import { InputNumber } from 'primereact/inputnumber';
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton } from 'primereact/radiobutton';
-import { Rating } from 'primereact/rating';
 import { Toast } from 'primereact/toast';
 import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
-import { ProductService } from '../../../demo/service/ProductService';
 //Importo la url de la api
 import Global from '../../api/Global';
 import { useRouter } from 'next/router';
-import {EditEmpleado} from './EditEmpleado';
 import axios from "axios";
 
 
@@ -211,6 +207,7 @@ const Empleados = () => {
             <React.Fragment>
                 <div className="my-2">
                       <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={() => router.push('/uikit/Empleados/CreateEmpleado')} />
+
                 </div>
             </React.Fragment>
         );
@@ -220,7 +217,8 @@ const Empleados = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-               
+                <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="mr-2 inline-block" />
+                <Button label="Export" icon="pi pi-upload" severity="help" onClick={exportCSV} />
             </React.Fragment>
         );
     };

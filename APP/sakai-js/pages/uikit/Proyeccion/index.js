@@ -16,15 +16,16 @@ import { ProductService } from "../../../demo/service/ProductService";
 //Importo la url de la api
 import Global from "../../api/Global";
 
-const Sucursal = () => {
-  let emptySucursal = {
-    sucu_Id: null,
-    sucu_Nombre: "",
-    sucu_Direccion: "",
+const Proyecciones = () => {
+  let emptyProyecciones = {
+    proy_Id: null,
+    proy_Pelicula: null,
+    proy_Sala: null,
+    proy_Horario: null,
   };
 
   //products son los datos
-  const [Sucursal, setSucursal] = useState([]);
+  const [Proyecciones, setProyecciones] = useState([]);
   const [ddlDisabled, setDdlDisabled] = useState(true);
   const [headerDialog, setheaderDialog] = useState("");
 
@@ -35,15 +36,19 @@ const Sucursal = () => {
   const [deleteProductDialog, setDeleteProductDialog] = useState(false);
   const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
   //es mi model
-  const [product, setProduct] = useState(emptySucursal);
+  const [product, setProduct] = useState(emptyProyecciones);
 
-  //ddl de Departamento
-  const [DepartamentoOptions, setDepartamentoOptions] = useState([]);
-  const [selectedDepartamento, setselectedDepartamento] = useState(null);
+  //ddl de Peliculas
+  const [PeliculasOptions, setPeliculasOptions] = useState([]);
+  const [selectedPeliculas, setselectedPeliculas] = useState(null);
 
-  //ddl de Municipio
-  const [MunicipioOptions, setMunicipioOptions] = useState([]);
-  const [selectedMunicipio, setselectedMunicipio] = useState(null);
+  //ddl de Sala
+  const [SalaOptions, setSalaOptions] = useState([]);
+  const [selectedSala, setselectedSala] = useState(null);
+
+  //ddl de Horaio
+  const [HoraioOptions, setHoraioOptions] = useState([]);
+  const [selectedHoraio, setselectedHoraio] = useState(null);
 
   const [selectedProducts, setSelectedProducts] = useState(null);
   const [submitted, setSubmitted] = useState(false);
@@ -54,57 +59,71 @@ const Sucursal = () => {
   const dt = useRef(null);
 
   //el ProductService esta trallendo los datos de los productos
+
   useEffect(() => {
-    fetch(Global.url + "Sucursal/List")
+    fetch(Global.url + "Proyeccion/List")
       .then((response) => response.json())
-      .then((data) => setSucursal(data.data))
+      .then((data) => setProyecciones(data.data))
       .catch((error) => console.error(error));
 
-      //Departamento DDL
-      fetch(Global.url + "Departamento/List")
-        .then((response) => response.json())
-        .then((data) =>
-          setDepartamentoOptions(
-            data.map((d) => ({ value: d.dept_Id, label: d.dept_Descripcion }))
-          )
+    //Peliculas DDL
+    fetch(Global.url + "Peliculas/List")
+      .then((response) => response.json())
+      .then((data) =>
+        setPeliculasOptions(
+          data.data.map((p) => ({ value: p.peli_Id, label: p.peli_Titulo }))
         )
-        .catch((error) => console.error(error));
-  }, [Sucursal]);
+      )
+      .catch((error) => console.error(error));
 
-  const onDepartamentoChange = (e) => {
-    setselectedDepartamento(e.value);
+    //Sala DDL
+    fetch(Global.url + "Sala/List")
+      .then((response) => response.json())
+      .then((data) =>
+        setSalaOptions(
+          data.data.map((d) => ({
+            value: d.sala_Id,
+            label: `Sala N° ${d.sala_Id}  ${d.casa_Categoria}`,
+          }))
+        )
+      )
+      .catch((error) => console.error(error));
+
+    //Horairo DDL
+    fetch(Global.url + "Proyeccion/Horaio")
+      .then((response) => response.json())
+      .then((data) =>
+        setHoraioOptions(
+          data.data.map((d) => ({
+            value: d.hor_Id,
+            label: `Hora Inicio ${d.horaInicio} ~  Hora Fin ${d.horaFin}`,
+          }))
+        )
+      )
+      .catch((error) => console.error(error));
+  }, [Proyecciones]);
+
+  const onPeliculasChange = (e) => {
+    setselectedPeliculas(e.value);
     console.log(e.value);
-
-    if (e.value != 0 && e.value != null) {
-      // Verifica el nuevo valor seleccionado
-      axios
-        .get(`${Global.url}Municipio/FindState/${e.value}`) // Usa el nuevo valor seleccionado
-        .then((response) => {
-          setMunicipioOptions(
-            response.data.map((c) => ({
-              value: c.muni_Id,
-              label: c.muni_Descripcion,
-            }))
-          );
-          setDdlDisabled(false);
-        })
-        .catch((error) => {
-          console.error(error);
-          console.log("Error en el servidor");
-        });
-    } else {
-      setMunicipioOptions([]); // si no hay valor seleccionado, vacía las opciones del dropdown
-      setDdlDisabled(true); // deshabilita dropdown
-    }
   };
 
-  const onMunicipioChange = (e) => {
-    setselectedMunicipio(e.value);
+  const onSalaChange = (e) => {
+    setselectedSala(e.value);
+    console.log(e.value);
+  };
+
+  const onHorarioChange = (e) => {
+    setselectedHoraio(e.value);
+    console.log(e.value);
   };
 
   //abre el modal
   const openNew = () => {
-    setProduct(emptySucursal);
+    setselectedPeliculas("");
+            setselectedSala("");
+            setselectedHoraio("");
+    setProduct(emptyProyecciones);
     setSubmitted(false);
     setProductDialog(true);
     setheaderDialog(1);
@@ -120,7 +139,8 @@ const Sucursal = () => {
   };
 
   const hideDeleteProductsDialog = () => {
-    setDeleteProductsDialog(false);
+    setDeleteProductDialog(false);
+
   };
 
   //Guarda los datos
@@ -130,20 +150,17 @@ const Sucursal = () => {
 
     setSubmitted(true);
 
-    if (test.sucu_Id != "" && test.sucu_Id != 0 && test.sucu_Id != null) {
-      var fecha = new Date(test.dire_FechaNacimiento);
-      var dire_FechaNacimiento = (test.dire_FechaNacimiento = fecha);
+    if (selectedPeliculas > 0 && selectedSala > 0 && selectedHoraio > 0) {
       //Tomo los datos de mi modelo
       var parameter = {
-        sucu_Id: test.sucu_Id,
-        sucu_Nombre: test.sucu_Nombre,
-        sucu_Direccion: test.sucu_Direccion,
-        sucu_Ciudad: selectedMunicipio,
-        sucu_UserCrea: 1,
+        proy_Id: test.proy_Id,
+        proy_Pelicula: parseInt(selectedPeliculas),
+        proy_Sala: parseInt(selectedSala),
+        proy_Horario: parseInt(selectedHoraio),
       };
-      console.log(parameter)
+      console.log(parameter);
       axios
-        .put(Global.url + `Sucursal/Update`, parameter)
+        .put(Global.url + `Proyeccion/Update`, parameter)
         .then((response) => {
           if (response.data.codeStatus == 1) {
             toast.current.show({
@@ -153,14 +170,16 @@ const Sucursal = () => {
               life: 1500,
             });
             setProductDialog(false);
-             console.log(response.data);
+            setselectedPeliculas("");
+            setselectedSala("");
+            setselectedHoraio("");
           } else {
             toast.current.show({
-                severity: "Warning",
-                summary: "Felicidades",
-                detail: "Editaste un registro",
-                life: 1500,
-              });
+              severity: "Warning",
+              summary: "Felicidades",
+              detail: "Editaste un registro",
+              life: 1500,
+            });
             console.log(response.data);
           }
         })
@@ -173,19 +192,21 @@ const Sucursal = () => {
             life: 1500,
           });
         });
-    } else if (test.sucu_Nombre.trim() !== "" && test.sucu_Direccion !== "") {
-
+    } else if (
+      selectedPeliculas > 0 &&
+      selectedSala > 0 &&
+      selectedHoraio > 0
+    ) {
       console.log("Dentro al insertar");
 
       var parameter = {
-        sucu_Nombre: test.sucu_Nombre,
-        sucu_Direccion: test.sucu_Direccion,
-        sucu_Ciudad: parseInt(selectedMunicipio),
-        sucu_UserCrea: 1,
+        proy_Pelicula: parseInt(selectedPeliculas),
+        proy_Sala: parseInt(selectedSala),
+        proy_Horario: parseInt(selectedHoraio),
       };
 
       axios
-        .post(Global.url + `Sucursal/Insert`, parameter)
+        .post(Global.url + `Proyeccion/Insert`, parameter)
         .then((response) => {
           if (response.data.code == 200) {
             toast.current.show({
@@ -195,7 +216,7 @@ const Sucursal = () => {
               life: 1500,
             });
             setProductDialog(false);
-            product.sucu_Id = "";
+            product.proy_Id = "";
 
             console.log("hola");
           }
@@ -215,18 +236,15 @@ const Sucursal = () => {
   };
 
   const editProduct = (product) => {
-    console.log(product.sucu_Id)
+    console.log(product.proy_Id);
     setheaderDialog(2);
     axios
-      .get(Global.url + `Sucursal/Find/${product.sucu_Id}`)
+      .get(Global.url + `Proyeccion/Find/${product.proy_Id}`)
       .then((response) => {
         const product = response.data;
-        setselectedDepartamento(response.data.dept_Id)
-        console.log(response.data)
-        console.log(response.data.sucu_Ciudad)
-
-        ddlMunicipio(response.data.dept_Id, response.data.sucu_Ciudad);
-
+        setselectedPeliculas(response.data.proy_Pelicula);
+        setselectedSala(response.data.proy_Sala);
+        setselectedHoraio(response.data.proy_Horario);
         setProduct({ ...product });
       })
       .catch((error) => {
@@ -234,37 +252,12 @@ const Sucursal = () => {
         toast.current.show({
           severity: "error",
           summary: "Error",
-          detail: "Vuelva Ingresar los datos Nuevamente",
+          detail: "El dato que escogio no esta disponible en estos momentos",
           life: 1500,
         });
       });
     setProductDialog(true);
   };
-
-  function ddlMunicipio(departamento_Id,Muncipio_Id){
-    var codigo;
-    console.log(departamento_Id)
-   axios
-       .get(`${Global.url}Municipio/FindState/${departamento_Id}`) // Usa el nuevo valor seleccionado
-       .then((response) => {
-           codigo = response.empl_Muni;
-         setMunicipioOptions(
-           response.data.map((c) => ({
-             value: c.muni_Id,
-             label: c.muni_Descripcion,
-           }))
-         );
-         setDdlDisabled(false);
-         console.log("dentro en el departamento")
-         
-       })
-       .catch((error) => {
-         console.error(error);
-         console.log("Error en el servidor");
-       });
-       
-       setselectedMunicipio(Muncipio_Id);
- }
 
   const confirmDeleteProduct = (product) => {
     setProduct(product);
@@ -273,15 +266,14 @@ const Sucursal = () => {
 
   const deleteProduct = () => {
     let _products = product;
-    console.log(_products);
     setProducts(_products);
 
     //setDeleteProductDialog(false);
-    setProduct(emptySucursal);
+    setProduct(emptyProyecciones);
 
-    if (_products.sucu_Id != "") {
+    if (_products.proy_Id != "") {
       axios
-        .post(Global.url + `Sucursal/Delete/${_products.sucu_Id}`)
+        .post(Global.url + `Proyeccion/Delete/${_products.proy_Id}`)
         .then((response) => {
           if (response.data.codeStatus == 1) {
             toast.current.show({
@@ -303,15 +295,6 @@ const Sucursal = () => {
           });
         });
     }
-
-  };
-
-  const exportCSV = () => {
-    dt.current.exportCSV();
-  };
-
-  const confirmDeleteSelected = () => {
-    setDeleteProductsDialog(true);
   };
 
   const deleteSelectedProducts = () => {
@@ -327,28 +310,6 @@ const Sucursal = () => {
     });
   };
 
-  const onCategoryChange = (e) => {
-    let _product = { ...product };
-    _product["sucu_Id"] = e.value;
-    setProduct(_product);
-  };
-
-  //Seteo los valores
-  const onNombreChange = (e, sucu_Nombre) => {
-    const val = (e.target && e.target.value) || "";
-    let _product = { ...product };
-    _product[`${sucu_Nombre}`] = val;
-    setProduct(_product);
-  };
-
-  const onDireccionChange = (e, sucu_Direccion) => {
-    const val = (e.target && e.target.value) || "";
-    let _product = { ...product };
-    _product[`${sucu_Direccion}`] = val;
-
-    setProduct(_product);
-  };
-
   //habre el modal para crear un nuevo usuario y eliminar
   const leftToolbarTemplate = () => {
     return (
@@ -361,7 +322,6 @@ const Sucursal = () => {
             className="mr-2"
             onClick={openNew}
           />
-         
         </div>
       </React.Fragment>
     );
@@ -369,17 +329,13 @@ const Sucursal = () => {
 
   //redimenciona la  imagen
   const rightToolbarTemplate = () => {
-    return (
-      <React.Fragment>
-        
-      </React.Fragment>
-    );
+    return <React.Fragment></React.Fragment>;
   };
 
   if (headerDialog == "1") {
-    var Titulo = "Ingresar una Sucursal";
+    var Titulo = "Ingresar una Proyecciones";
   } else if (headerDialog == "2") {
-    var Titulo = "Editar una Sucursal";
+    var Titulo = "Editar una Proyecciones";
   }
 
   //Botones de editar y eliminar
@@ -403,17 +359,6 @@ const Sucursal = () => {
     );
   };
 
-  const productDialogFooter = (
-    <>
-      <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
-    </>
-  );
-  const deleteProductDialogFooter = (
-    <>
-       
-     </>
-  );
   const deleteProductsDialogFooter = (
     <>
       <Button
@@ -423,13 +368,22 @@ const Sucursal = () => {
         onClick={hideDeleteProductsDialog}
       />
       <Button
-        label="Yes"
+        label="Si"
         icon="pi pi-check"
         text
-        onClick={deleteSelectedProducts}
+        onClick={deleteProduct}
       />
     </>
   );
+
+  const productDialogFooter = (
+    <>
+      <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
+      <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
+    </>
+  );
+
+  
 
   //Encabezado
   const header = (
@@ -470,24 +424,31 @@ const Sucursal = () => {
           ></Toolbar>
 
           <DataTable
-            value={filterByNameOrAddress(globalFilter, Sucursal)}
+            value={filterByNameOrAddress(globalFilter, Proyecciones)}
             selection={selectedProducts}
             onSelectionChange={(e) => setSelectedProducts(e.value)}
-            dataKey="sucu_Id"
+            dataKey="proy_Id"
             paginator
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}
             className="datatable-responsive"
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
-            emptyMessage={`No hay sucursales que coincidan con "${globalFilter}".`}
+            emptyMessage={`No hay Proyeccioneses que coincidan con "${globalFilter}".`}
             header={header}
             responsiveLayout="scroll"
             globalFilter={globalFilter}
           >
-            <Column field="sucu_Id" header="ID" sortable />
-            <Column field="sucu_Nombre" header="Sucursal" sortable />
-            <Column field="sucu_Direccion" header="Direccion" sortable />
+            <Column field="proy_Id" header="ID" sortable />
+            <Column field="peli_Titulo" header="Proyecciones" sortable />
+            <Column
+              field="sala_Butacas"
+              header="Cantidad de Asinetos"
+              sortable
+            />
+            <Column field="casa_Categoria" header="Categoria" sortable />
+            <Column field="hor_HoraInicio" header="Inicia" sortable />
+            <Column field="hor_HoraFin" header="Finaliza" sortable />
             <Column
               body={actionBodyTemplate}
               headerStyle={{ minWidth: "10rem" }}
@@ -508,38 +469,20 @@ const Sucursal = () => {
             <div className="grid p-fluid">
               <div className="col-6">
                 <div className="field">
-                  <label htmlFor="name">Nombre</label>
-                  <InputText
-                    id="name"
-                    value={product.sucu_Nombre}
-                    onChange={(e) => onNombreChange(e, "sucu_Nombre")}
-                    required
-                    autoFocus
-                    className={classNames({
-                      "p-invalid": submitted && !product.sucu_Nombre,
-                    })}
-                  />
-                  {submitted && !product.sucu_Nombre && (
-                    <small className="p-invalid">Name is required.</small>
-                  )}
-                </div>
-              </div>
-              <div className="col-6">
-                <div className="field">
-                  <label htmlFor="Departamento">Departamento</label>
+                  <label htmlFor="Peliculas">Peliculas</label>
                   <Dropdown
-                    value={selectedDepartamento}
-                    onChange={onDepartamentoChange}
-                    options={DepartamentoOptions || []} // inicialmente null, pero en renderizado, si es null usará el array vacío
+                    value={selectedPeliculas}
+                    onChange={onPeliculasChange}
+                    options={PeliculasOptions || []} // inicialmente null, pero en renderizado, si es null usará el array vacío
                     placeholder="Seleccionar"
                     autoFocus
                     className={classNames({
-                      "p-invalid": submitted && !selectedDepartamento,
+                      "p-invalid": submitted && !selectedPeliculas,
                     })}
                   />
-                  {submitted && !selectedDepartamento && (
+                  {submitted && !selectedPeliculas && (
                     <small className="p-invalid">
-                      EL Estado Civil es requerido.
+                      La pelicula es requerido.
                     </small>
                   )}
                 </div>
@@ -547,36 +490,39 @@ const Sucursal = () => {
 
               <div className="col-6">
                 <div className="field">
-                  <label htmlFor="Municipio">Municipio</label>
+                  <label htmlFor="Sala">Sala</label>
                   <Dropdown
-                    value={selectedMunicipio}
-                    onChange={onMunicipioChange || []}
-                    options={MunicipioOptions}
+                    value={selectedSala}
+                    onChange={onSalaChange}
+                    options={SalaOptions || []} // inicialmente null, pero en renderizado, si es null usará el array vacío
                     placeholder="Seleccionar"
-                    autoFocus
                     className={classNames({
-                      "p-invalid": submitted && !selectedMunicipio,
+                      "p-invalid": submitted && !selectedPeliculas,
                     })}
-                    disabled={ddlDisabled} // agregar propiedad disabled
                   />
-                  {submitted && !selectedMunicipio && (
-                    <small className="p-invalid">
-                      EL Municipio es requerido.
-                    </small>
+                  {submitted && !selectedSala && (
+                    <small className="p-invalid">La Sala es requerido.</small>
                   )}
                 </div>
               </div>
+
               <div className="col-6">
                 <div className="field">
-                  <label htmlFor="description">Description</label>
-                  <InputTextarea
-                    id="description"
-                    value={product.sucu_Direccion}
-                    onChange={(e) => onDireccionChange(e, "sucu_Direccion")}
-                    required
-                    rows={3}
-                    cols={20}
+                  <label htmlFor="Horario">Horario</label>
+                  <Dropdown
+                    value={selectedHoraio}
+                    onChange={onHorarioChange}
+                    options={HoraioOptions || []} // inicialmente null, pero en renderizado, si es null usará el array vacío
+                    placeholder="Seleccionar"
+                    className={classNames({
+                      "p-invalid": submitted && !selectedHoraio,
+                    })}
                   />
+                  {submitted && !selectedHoraio && (
+                    <small className="p-invalid">
+                      EL Horario es requerido.
+                    </small>
+                  )}
                 </div>
               </div>
             </div>
@@ -587,7 +533,7 @@ const Sucursal = () => {
             style={{ width: "450px" }}
             header="Confirm"
             modal
-            footer={deleteProductDialogFooter}
+            footer={deleteProductsDialogFooter}
             onHide={hideDeleteProductDialog}
           >
             <div className="flex align-items-center justify-content-center">
@@ -597,7 +543,7 @@ const Sucursal = () => {
               />
               {product && (
                 <span>
-                  Estas seguro de querer eliminar a <b>{product.sucu_Nombre}</b>?
+                  Estas seguro de querer eliminar este regiostro?
                 </span>
               )}
             </div>
@@ -608,4 +554,4 @@ const Sucursal = () => {
   );
 };
 
-export default Sucursal;
+export default Proyecciones;

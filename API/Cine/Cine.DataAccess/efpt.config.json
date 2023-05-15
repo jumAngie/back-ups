@@ -86,26 +86,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[ejemplo]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ejemploFinal]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[hobbies]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[tbtempFacturaDetalle]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[trabajo]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[gral].[tbCargos]",
          "ObjectType": 0
       },
@@ -182,6 +162,14 @@
          "ObjectType": 3
       },
       {
+         "Name": "[cine].[VW_tbFacturaDetalle1]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[cine].[VW_tbHorario]",
+         "ObjectType": 3
+      },
+      {
          "Name": "[cine].[VW_tbInsumos]",
          "ObjectType": 3
       },
@@ -222,7 +210,7 @@
          "ObjectType": 3
       }
    ],
-   "UiHint": "DESKTOP-36LBO8D\\SQLEXPRESS.db_Cine",
+   "UiHint": "PC-ANGIE\\SQLEXPRESS.db_Cine",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDbContextSplitting": false,

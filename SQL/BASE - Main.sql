@@ -11,10 +11,10 @@ DROP SCHEMA gral
 
 
  
-CREATE DATABASE db_Cine
-GO
-USE db_Cine
-GO 
+--CREATE DATABASE db_Cine
+--GO
+--USE db_Cine
+--GO 
 
 
 
@@ -114,14 +114,14 @@ GO
 INSERT INTO acce.tbPantallas(panta_Descripcion, panta_UserCrea, panta_Menu, panta_label, panta_to, icon)
 VALUES
 							('Empleados', 1, 'Menu General', 'Empleados', '/uikit/Empleados', 'pi pi-fw pi-user'),
-							('Salas', 1, '', '', '', ''),
+							('Salas', 1, 'Menu Administraivo', 'Salas', '/uikit/Salas', 'pi pi-fw pi-inbox'),
 							('Insumos', 1, 'Menu Administraivo', 'Insumos', '/uikit/Insumo', 'pi pi-fw pi-apple'),
 							('Combos', 1, 'Menu Administraivo', 'Combos', '/uikit/Combos', 'pi pi-fw pi-star-fill'),
 							('Metodos de Pago', 1, 'Menu General', 'Método de Pago', '/uikit/MetodosPago', 'pi pi-fw pi-credit-card'),
 							('Peliculas', 1, 'Menu Administraivo', 'Peliculas', '/uikit/Peliculas', 'pi pi-fw pi-eye'),
 							('Directores', 1, 'Menu Administraivo', 'Directores', '/uikit/Director', 'pi pi-fw pi-users'),
 							('Categorias', 1, 'Menu General', 'Categorías', '/uikit/Categorias', 'pi pi-fw pi-bars'),
-							('Proyecciones', 1, '', '', '', ''),
+							('Proyecciones', 1, 'Menu Administraivo', 'Proyecciones', '/uikit/Proyeccion', 'pi pi-fw pi-video'),
 							('Sucursales', 1, 'Menu Administraivo', 'Sucursales', '/uikit/Sucursal', 'pi pi-fw pi-building'),
 							('Facturas', 1, 'Menu Administraivo', 'Factura', '/uikit/Factura', 'pi pi-fw pi-bookmark'),
 							('Usuarios', 1, 'Menu Seguridad', 'Usuario', '/uikit/Usuarios', 'pi pi-fw pi-id-card'),

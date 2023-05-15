@@ -13,17 +13,34 @@ namespace Cine.DataAccess.Repository
     {
         public RequestStatus Delete(int id)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@proy_Id", id, DbType.Int32, ParameterDirection.Input);
+
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbProyecciones_DELETE, parametros, commandType: CommandType.StoredProcedure);
+
         }
 
         public VW_Proyeccione Find(int id)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@proy_Id", id, DbType.Int32, ParameterDirection.Input);
+
+            return db.QueryFirst<VW_Proyeccione>(ScriptsDataBase.UDP_tbProyecciones_FIND, parametros, commandType: CommandType.StoredProcedure);
+
         }
 
         public RequestStatus Insert(tbProyeccione item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@proy_Pelicula", item.proy_Pelicula, DbType.Int64, ParameterDirection.Input);
+            parametros.Add("@proy_Sala", item.proy_Sala, DbType.Int64, ParameterDirection.Input);
+            parametros.Add("@proy_Horario", item.proy_Horario, DbType.Int64, ParameterDirection.Input);
+            
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbProyecciones_INSERT, parametros, commandType: CommandType.StoredProcedure);
+
         }
 
         public IEnumerable<VW_Proyeccione> List()
@@ -36,7 +53,15 @@ namespace Cine.DataAccess.Repository
 
         public RequestStatus Update(tbProyeccione item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@proy_Id", item.proy_Id, DbType.Int64, ParameterDirection.Input);
+            parametros.Add("@proy_Pelicula", item.proy_Pelicula, DbType.Int64, ParameterDirection.Input);
+            parametros.Add("@proy_Sala", item.proy_Sala, DbType.Int64, ParameterDirection.Input);
+            parametros.Add("@proy_Horario", item.proy_Horario, DbType.Int64, ParameterDirection.Input);
+
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbProyecciones_UPDATE, parametros, commandType: CommandType.StoredProcedure);
+
         }
 
         public IEnumerable<tbAsiento> ListAsientos(int id)
@@ -46,6 +71,15 @@ namespace Cine.DataAccess.Repository
             parametros.Add("@asie_Sala", id, DbType.Int32, ParameterDirection.Input);
 
             return db.Query<tbAsiento>(ScriptsDataBase.UDP_tbAsientos_SELECT, parametros, commandType: CommandType.StoredProcedure);
+
+        }
+
+        public IEnumerable<VW_tbHorario> ListHorario()
+        {
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            return db.Query<VW_tbHorario>(ScriptsDataBase.UDP_tbHorario_SELECT, null, commandType: CommandType.StoredProcedure);
 
         }
     }
