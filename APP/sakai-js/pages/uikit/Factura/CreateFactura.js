@@ -25,12 +25,12 @@ const CreateFactura = () => {
   const toast = useRef(null);
 
   const [AsientosCantidad, setAsientosCantidad] = useState(false);
-try {
-  var cantidad = parseInt(localStorage.getItem("CantidadAsiento"));
-} catch (error) {
-}
-  
-  
+  try {
+    var cantidad = parseInt(localStorage.getItem("CantidadAsiento"));
+  } catch (error) {
+    console.log("Error con los asientos");
+  }
+
   const [Clie_Id, setClie_Id] = useState(null);
   const [Clie_RTN, setClie_RTN] = useState("");
   const [Clien_Nombre, setClien_Nombre] = useState("");
@@ -136,9 +136,6 @@ try {
         );
       })
       .catch((error) => console.error(error));
-
-
-      
   }, []);
 
   //Seteo Datos
@@ -302,15 +299,13 @@ try {
         cantidad: parseInt(valor),
       }));
 
- 
-      if(localStorage.getItem("CantidadAsiento") == null){
-        setAsientosCantidad(true);
-      }else{
-        setAsientosCantidad(false);
+    if (localStorage.getItem("CantidadAsiento") == null) {
+      setAsientosCantidad(true);
+    } else {
+      setAsientosCantidad(false);
 
-        console.log("ya no es nullo")
-      }
-      
+      console.log("ya no es nullo");
+    }
 
     if (validarComida == true) {
       if (
@@ -337,7 +332,7 @@ try {
         (selectedProyeccion !== null || labelVisible1 == true) &&
         selectedMetodoPago !== null &&
         (localStorage.getItem("CantidadAsiento") != null ||
-          validarComida == false)  
+          validarComida == false)
       ) {
         console.log(cantidad);
         //============================== INSERT DE CLIENTE ====================================//
@@ -401,7 +396,8 @@ try {
                       life: 1500,
                     });
                   }
-                  localStorage.clear("CantidadAsiento");
+
+                  localStorage.setItem("CantidadAsiento", 0);
                   setTimeout(() => {
                     router.push("/uikit/Factura");
                   }, 1500);
@@ -417,9 +413,8 @@ try {
                       life: 1500,
                     });
                   } catch (error) {
-                    console.log("A ocurrido algun error")
+                    console.log("A ocurrido algun error");
                   }
-                  
                 }
 
                 console.log("Están llenos");
@@ -485,7 +480,6 @@ try {
     }
   };
 
-  
   return (
     <div className="card">
       <Toast ref={toast} />
@@ -691,13 +685,9 @@ try {
           </div>
         </div>
         <div className="col-9">
-        
           <div className="grid p-fluid">
-        
             <div className="col-3">
-            
               <div className="field">
-              
                 <Button
                   label="Guardar"
                   severity="warning"
@@ -712,15 +702,14 @@ try {
                   label="Cancelar"
                   severity="danger"
                   icon="pi pi-times"
-                  onClick={() =>{router.push("/uikit/Factura"), localStorage.clear("CantidadAsiento")}}
+                  onClick={() => {
+                    router.push("/uikit/Factura"),
+                      localStorage.setItem("CantidadAsiento", 0);
+                  }}
                 />
-                
               </div>
-             
             </div>
-           
           </div>
-         
         </div>
       </div>
     </div>
