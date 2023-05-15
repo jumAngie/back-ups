@@ -28,20 +28,17 @@ namespace Cine.Entities.Entities
         public int role_Id { get; set; }
 
         [NotMapped]
-        public string panta_URL { get; set; }
+        public string panta_to { get; set; }
 
         [NotMapped]
         public string panta_Menu { get; set; }
 
-        [NotMapped]
-        public string panta_Item { get; set; }
-
 
         [NotMapped]
-        public string panta_Label { get; set; }
+        public string panta_label { get; set; }
 
         [NotMapped]
-        public string panta_Icono { get; set; }
+        public string icon { get; set; }
 
         [NotMapped]
         public bool esAdmin { get; set; }

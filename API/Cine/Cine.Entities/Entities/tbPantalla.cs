@@ -15,9 +15,11 @@ namespace Cine.Entities.Entities
 
         public int panta_Id { get; set; }
         public string panta_Descripcion { get; set; }
-        public string panta_URL { get; set; }
+        public string panta_to { get; set; }
+
+        public string icon { get; set; }
+        public string panta_label { get; set; }
         public string panta_Menu { get; set; }
-        public string panta_Item { get; set; }
         public bool? panta_Estado { get; set; }
         public int panta_UserCrea { get; set; }
         public DateTime? panta_FechaCrea { get; set; }
