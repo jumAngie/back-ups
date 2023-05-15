@@ -40,5 +40,36 @@ namespace Cine.Api.Controllers
             var listado = _accessService.ValidPassword(usu);
             return Ok(listado);
         }
+
+        [HttpPost("Insert")]
+        public IActionResult Insert(UserViewModel item)
+        {
+
+            var listado = _mapper.Map<tbUsuario>(item);
+            var Result = _accessService.InsertarUsuario(listado);
+            return Ok(Result);
+        }
+
+        [HttpGet("Find/{id}")]
+        public IActionResult Edit(int id)
+        {
+            var listado = _accessService.BuscarUsuarios(id);
+            return Ok(listado);
+        }
+
+        [HttpPut("Update")]
+        public IActionResult Edit(UserViewModel item)
+        {
+            var listado = _mapper.Map<tbUsuario>(item);
+            var Result = _accessService.UpdateUsuario(listado);
+            return Ok(Result);
+        }
+
+        [HttpPost("Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var listado = _accessService.BorrarUsuario(id);
+            return Ok(listado);
+        }
     }
 }

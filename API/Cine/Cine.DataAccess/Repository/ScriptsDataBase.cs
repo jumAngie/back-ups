@@ -129,7 +129,8 @@ namespace Terminal.DataAccess.Repository
         public static string UDP_tbEmpleados_FIND = "gral.UDP_tbEmpleados_FIND";
         public static string UDP_tbEmpleados_UPDATE = "gral.UDP_tbEmpleados_UPDATE";
         public static string UDP_tbEmpleados_Delete = "gral.UDP_tbEmpleados_Delete";
-
+        public static string UDP_tbEmpleadosSinUsuario = "acce.UDP_tbEmpleadosSinUsuarios";
+        public static string UDP_tbEmpleadosSinUsuario_Edit = "acce.UDP_tbEmpleadoSinUsuario_Editar";
         #endregion
 
         #region Director

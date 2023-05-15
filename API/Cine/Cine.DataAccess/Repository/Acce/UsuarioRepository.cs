@@ -13,17 +13,38 @@ namespace Cine.DataAccess.Repository
     {
         public RequestStatus Delete(int id)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@user_Id", id, DbType.Int32, ParameterDirection.Input);
+
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbUsuario_DELETE, parametros, commandType: CommandType.StoredProcedure);
+
         }
 
         public VW_Usuario Find(int id)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@user_Id", id, DbType.Int32, ParameterDirection.Input);
+
+            return db.QueryFirst<VW_Usuario>(ScriptsDataBase.UDP_tbUsuario_FIND, parametros, commandType: CommandType.StoredProcedure);
+
         }
 
         public RequestStatus Insert(tbUsuario item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            parametros.Add("@user_NombreUsuario", item.user_NombreUsuario, DbType.String, ParameterDirection.Input);
+            parametros.Add("@user_Contrasenia", item.user_Contrasenia, DbType.String, ParameterDirection.Input);
+            parametros.Add("@user_Empleado", item.user_Empleado, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@user_Rol", item.user_Rol, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@user_EsAdmin", item.user_EsAdmin, DbType.Boolean, ParameterDirection.Input);
+            parametros.Add("@user_UsuarioCrea", item.user_UsuarioCrea, DbType.Int32, ParameterDirection.Input);
+
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbUsuario_INSERT, parametros, commandType: CommandType.StoredProcedure);
+
         }
 
 
@@ -48,7 +69,18 @@ namespace Cine.DataAccess.Repository
 
         public RequestStatus Update(tbUsuario item)
         {
-            throw new NotImplementedException();
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+
+            parametros.Add("@user_Id", item.user_Id, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@user_NombreUsuario", item.user_NombreUsuario, DbType.String, ParameterDirection.Input);
+            parametros.Add("@user_Empleado", item.user_Empleado, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@user_Rol", item.user_Rol, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@user_EsAdmin", item.user_EsAdmin, DbType.Boolean, ParameterDirection.Input);
+            parametros.Add("@user_UsuarioModifica", item.user_UsuarioModifica, DbType.Int32, ParameterDirection.Input);
+
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbUsuario_UPDATE, parametros, commandType: CommandType.StoredProcedure);
+
         }
     }
 }

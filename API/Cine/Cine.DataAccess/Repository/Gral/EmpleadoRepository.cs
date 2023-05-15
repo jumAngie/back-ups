@@ -62,6 +62,23 @@ namespace Cine.DataAccess.Repository
 
         }
 
+        public IEnumerable<VW_tbEmpleado> EmpleadosSinUsuarios()
+        {
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            return db.Query<VW_tbEmpleado>(ScriptsDataBase.UDP_tbEmpleadosSinUsuario, null, commandType: CommandType.StoredProcedure);
+
+        }
+
+        public IEnumerable<VW_tbEmpleado> EmpleadosSinUsuarios_Editar(int user_Id)
+        {
+            using var db = new SqlConnection(CineContext.ConnectionString);
+            var parametros = new DynamicParameters();
+            parametros.Add("@user_Id", user_Id, DbType.Int32, ParameterDirection.Input);
+            return db.Query<VW_tbEmpleado>(ScriptsDataBase.UDP_tbEmpleadosSinUsuario_Edit, parametros, commandType: CommandType.StoredProcedure);
+
+        }
+
         public RequestStatus Update(tbEmpleado item)
         {
             using var db = new SqlConnection(CineContext.ConnectionString);

@@ -3,27 +3,31 @@ import { useRouter } from "next/router";
 import { RadioButton } from "primereact/radiobutton";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
+import axios from "axios";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Toast } from "primereact/toast";
 import { Toolbar } from "primereact/toolbar";
+import Select from "react-select";
 import { Button } from "primereact/button";
-import axios from "axios";
 import Global from "../../api/Global";
 import { classNames } from "primereact/utils";
 import { ToggleButton } from "primereact/togglebutton";
 
+const EditUsuarios = () => {
+    
+    const router = useRouter();
+    const id = router.query.user_Id;
 
-const CrearUsuario = () => {
     let UsuarioModel = {
-            user_Id: null,
-            user_NombreUsuario: "",
-            user_Contrasenia: "string",
-            user_Empleado: null,
-            user_Rol: null,
-            user_EsAdmin: false,
-            user_UsuarioCrea: null,
-            user_UsuarioModifica: null
-      };
+        user_Id: null,
+        user_NombreUsuario: "",
+        user_Contrasenia: "string",
+        user_Empleado: null,
+        user_Rol: null,
+        user_EsAdmin: false,
+        user_UsuarioCrea: null,
+        user_UsuarioModifica: null
+  };
 
         const [usuarios, setUsuarios] = useState(UsuarioModel);
         // ddl empleado
@@ -36,16 +40,43 @@ const CrearUsuario = () => {
         //
         const [submitted, setSubmitted] = useState(false);
         const [toggleValue, setToggleValue] = useState(false);
-        const router = useRouter();
         const toast = useRef(null);
 
         // input values
+        const [user_Id, setUser_Id] = useState("");
         const [user_NombreUsuario, setUser_NombreUsuario] = useState("");
-        const [user_Contraseña, setUser_Contraseña] = useState("");
+
+        useEffect(() => {
+
+            axios.get(Global.url + `Usuario/Find/${id}`)
+            .then(response => {
+              const data = response;
+              if(response.data.user_EsAdmin === true)
+              {
+                setUser_Id(response.data.user_Id)
+                setUser_NombreUsuario(response.data.user_NombreUsuario)
+                setSelectedEmpleado(response.data.user_Empleado)
+                setToggleValue(response.data.user_EsAdmin)
+                setSelectedRol(null)
+                setRolDisabled(true)
+              }
+              else
+              {
+                setUser_Id(response.data.user_Id)
+                setUser_NombreUsuario(response.data.user_NombreUsuario)
+                setSelectedEmpleado(response.data.user_Empleado)
+                setToggleValue(response.data.user_EsAdmin)
+                setSelectedRol(response.data.user_Rol)
+              }
+                
+             })
+          .catch(error => console.error(error));
+        
+        }, []);
 
         useEffect(() => {
             // ddl Empleado
-            fetch(Global.url + "Empleado/EmpleSinUsuario")
+            fetch(Global.url + `Empleado/EmpleSinUsuarioEditar/${id}`)
               .then((response) => response.json())
               .then((data) =>
               setEmpleadoOptions(
@@ -101,7 +132,7 @@ const CrearUsuario = () => {
             
                 setUsuarios(_Usuario);
               };
-            
+
               const EsAdmin = (e) => {
                 var final = e.value;
                 setToggleValue(final);
@@ -123,7 +154,7 @@ const CrearUsuario = () => {
                     )
                     .catch((error) => console.error(error));
                 }
-              }              
+              } 
 
               const guardarUsuario = () => {
                 setSubmitted(true);
@@ -149,18 +180,20 @@ const CrearUsuario = () => {
                         rolProvisional = selectedRol
                     }
                     var parameters = {
-                        "user_Id": 0,
-                        "user_NombreUsuario": user_NombreUsuario,
-                        "user_Contrasenia": user_Contraseña,
-                        "user_Empleado": selectedEmpleado,
-                        "user_Rol":  rolProvisional,
-                        "user_EsAdmin": toggleValue,
-                        "user_UsuarioCrea": 1,
-                        "user_UsuarioModifica": 0
+                        
+                            "user_Id": parseInt(id),
+                            "user_NombreUsuario": user_NombreUsuario,
+                            "user_Contrasenia": "",
+                            "user_Empleado": selectedEmpleado,
+                            "user_Rol": rolProvisional,
+                            "user_EsAdmin": toggleValue,
+                            "user_UsuarioCrea": 0,
+                            "user_UsuarioModifica": 1
+            
                     };
                 
                     let parametrosValidos = true;
-                    const camposRequeridos = ["user_NombreUsuario", "user_Contrasenia", "user_Empleado"];
+                    const camposRequeridos = ["user_NombreUsuario", "user_Empleado"];
                     camposRequeridos.forEach((campo) => {
                         if (!parameters[campo]) {
                           console.log(`Falta el campo requerido ${campo}`);
@@ -171,13 +204,13 @@ const CrearUsuario = () => {
                     if (parametrosValidos) {
                       console.log(parameters);
                       axios
-                        .post(Global.url + `Usuario/Insert`, parameters)
+                        .put(Global.url + `Usuario/Update`, parameters)
                         .then((response) => {
-                          if (response.data.code == 200) {
+                          if (response.status == 200) {
                             toast.current.show({
                               severity: "success",
                               summary: "Felicidades",
-                              detail: "Creaste un registro",
+                              detail: "Editaste un registro",
                               life: 1500,
                             });
                 
@@ -197,49 +230,32 @@ const CrearUsuario = () => {
                     }
                   };
                 }
-
-                
-
-        return (
-            <div className="card">
-               
-              <Toast ref={toast} />
-              <h5>Crear Usuario</h5>
-              <div className="grid p-fluid">
-            <div className="col-6">
-            <div className="field">
-                <label htmlFor="Usuario">Usuario</label>
-            <InputText
-            type="text"
-              id="inputUsuario"
-              onChange={(e) => setUser_NombreUsuario(e.target.value)}
-              required
-              autoFocus
-              className={classNames({ "p-invalid": submitted && !user_NombreUsuario,
-              })}
-            />
-            {submitted && !user_NombreUsuario && (<small className="p-invalid">El Usuario es requerido.</small>
-            )}
-          </div>
-        </div>
         
-        <div className="col-6">
-            <div className="field">
-                <label htmlFor="Contraseña">Contraseña</label>
-            <InputText
-            type="text"
-              id="inputContraseña"
-              onChange={(e) => setUser_Contraseña(e.target.value)}
-              required
-              className={classNames({ "p-invalid": submitted && !user_Contraseña,
-              })}
-            />
-            {submitted && !user_Contraseña && (<small className="p-invalid">El Usuario es requerido.</small>
-            )}
+              return(
+                <div className="card">
+               
+                <Toast ref={toast} />
+                <h5>Editar Usuario</h5>
+                <div className="grid p-fluid">
+              <div className="col-6">
+              <div className="field">
+                  <label htmlFor="Usuario">Usuario</label>
+              <InputText
+              type="text"
+                id="inputUsuario"
+                onChange={(e) => setUser_NombreUsuario(e.target.value)}
+                value={user_NombreUsuario}
+                required
+                autoFocus
+                className={classNames({ "p-invalid": submitted && !user_NombreUsuario,
+                })}
+              />
+              {submitted && !user_NombreUsuario && (<small className="p-invalid">El Usuario es requerido.</small>
+              )}
+            </div>
           </div>
-        </div>
 
-        <div className="col-6">
+          <div className="col-6">
           <div className="field">
             <label htmlFor="Empleado">Empleado</label>
             <Dropdown
@@ -278,7 +294,7 @@ const CrearUsuario = () => {
           </div>
         </div>
 
-        <div className="col-12">
+        <div className="col-6">
           <div className="field">
             <label htmlFor="esAdmin">Es Administrador</label>
             <ToggleButton
@@ -290,17 +306,17 @@ const CrearUsuario = () => {
             />
           </div>
         </div>
-        </div>
-        <br>
+          </div>
+          <br>
         </br>
         <center>
-        <Button label="Enviar" icon="pi pi-check" severity="warning" className="mr-2" onClick={guardarUsuario} />
+        <Button label="Enviar" icon="pi pi-check" severity="warning" className="mr-2" onClick={guardarUsuario}/>
         <Button label="Cancelar" icon="pi pi-times" severity="danger" className="mr-2" onClick={() => router.push('/uikit/Usuarios')} />
         </center>
-        </div>
+          </div>
+              )
 
-           
-        )
+      
 }
 
-export default CrearUsuario;
+export default EditUsuarios;

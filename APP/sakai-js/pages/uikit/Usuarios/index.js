@@ -15,6 +15,7 @@ import React, { useEffect, useRef, useState } from 'react';
 //Importo la url de la api
 import Global from '../../api/Global';
 import { useRouter } from 'next/router';
+import axios from "axios";
 
 const Usuario = () => {
     let emptyProduct = {
@@ -102,22 +103,45 @@ const Usuario = () => {
         }
     };
 
-    const editProduct = (product) => {
-        setProduct({ ...product });
-        setProductDialog(true);
-    };
+    const fetchData = () => {
+        axios
+          .get(Global.url + "Usuario/List")
+          .then((response) => {
+            setUsuario(response.data.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          })
+      };
 
-    const confirmDeleteProduct = (product) => {
-        setProduct(product);
+      const confirmDeleteProduct = (products) => {
+        setProducts(products);
         setDeleteProductDialog(true);
     };
 
     const deleteProduct = () => {
-        let _products = products.filter((val) => val.id !== product.id);
+        let _products = products;
+        console.log(_products);
         setProducts(_products);
         setDeleteProductDialog(false);
-        setProduct(emptyProduct);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+
+        if(_products.user_Id !== "" ){
+            axios.post(Global.url + `Usuario/Delete/${_products.user_Id}`)
+        .then((response) => {
+             if(response.data.codeStatus == 1){
+                toast.current.show({ severity: 'success', summary: 'Exitoso', detail: 'Usuario eliminado', life: 3000 });
+                fetchData();
+                setDeleteProductDialog(false);
+            }
+
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el usuario', life: 1500 });
+
+        });
+        }
+       
     };
 
     //Busca por el index
@@ -239,7 +263,7 @@ const Usuario = () => {
     const actionBodyTemplate = (rowData) => {
         return (
             <>
-                <Button icon="pi pi-pencil" severity="success" rounded className="mr-2" onClick={() => editProduct(rowData)} />
+                <Button icon="pi pi-pencil" severity="success" rounded className="mr-2" onClick={() => router.push({pathname:'/uikit/Usuarios/EditUsuario', query:{user_Id: rowData.user_Id} })} />
                 <Button icon="pi pi-trash" severity="warning" rounded onClick={() => confirmDeleteProduct(rowData)} />
             </>
         );
@@ -281,8 +305,8 @@ const Usuario = () => {
     );
     const deleteProductDialogFooter = (
         <>
-            <Button label="No" icon="pi pi-times" text onClick={hideDeleteProductDialog} />
-            <Button label="Yes" icon="pi pi-check" text onClick={deleteProduct} />
+            <Button label="No" severity='danger' icon="pi pi-times" text onClick={hideDeleteProductDialog} />
+            <Button label="Sí" severity='warning' icon="pi pi-check" text onClick={deleteProduct} />
         </>
     );
     const deleteProductsDialogFooter = (
@@ -324,64 +348,18 @@ const Usuario = () => {
                          <Column body={actionBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
                     </DataTable>
 
-                     <Dialog visible={productDialog} style={{ width: '450px' }} header="Product Details" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
-                        {product.image && <img src={`/demo/images/product/${product.image}`} alt={product.image} width="150" className="mt-0 mx-auto mb-5 block shadow-2" />}
-                        <div className="field">
-                            <label htmlFor="name">Name</label>
-                            <InputText id="name" value={product.name} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.name })} />
-                            {submitted && !product.name && <small className="p-invalid">Name is required.</small>}
-                        </div>
-                        <div className="field">
-                            <label htmlFor="description">Description</label>
-                            <InputTextarea id="description" value={product.description} onChange={(e) => onInputChange(e, 'description')} required rows={3} cols={20} />
-                        </div>
-
-                        <div className="field">
-                            <label className="mb-3">Category</label>
-                            <div className="formgrid grid">
-                                <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="category1" name="category" value="Accessories" onChange={onCategoryChange} checked={product.category === 'Accessories'} />
-                                    <label htmlFor="category1">Accessories</label>
-                                </div>
-                                <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="category2" name="category" value="Clothing" onChange={onCategoryChange} checked={product.category === 'Clothing'} />
-                                    <label htmlFor="category2">Clothing</label>
-                                </div>
-                                <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="category3" name="category" value="Electronics" onChange={onCategoryChange} checked={product.category === 'Electronics'} />
-                                    <label htmlFor="category3">Electronics</label>
-                                </div>
-                                <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="category4" name="category" value="Fitness" onChange={onCategoryChange} checked={product.category === 'Fitness'} />
-                                    <label htmlFor="category4">Fitness</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="formgrid grid">
-                            <div className="field col">
-                                <label htmlFor="price">Price</label>
-                                <InputNumber id="price" value={product.price} onValueChange={(e) => onInputNumberChange(e, 'price')} mode="currency" currency="USD" locale="en-US" />
-                            </div>
-                            <div className="field col">
-                                <label htmlFor="quantity">Quantity</label>
-                                <InputNumber id="quantity" value={product.quantity} onValueChange={(e) => onInputNumberChange(e, 'quantity')} integeronly="true" />
-                            </div>
-                        </div>
-                    </Dialog>
-
                     <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
                         <div className="flex align-items-center justify-content-center">
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                             {product && (
                                 <span>
-                                    Are you sure you want to delete <b>{product.name}</b>?
+                                    ¿Está seguro de eliminar este Usuario?
                                 </span>
                             )}
                         </div>
                     </Dialog>
 
-                    <Dialog visible={deleteProductsDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProductsDialogFooter} onHide={hideDeleteProductsDialog}>
+                    <Dialog visible={deleteProductsDialog} style={{ width: '450px' }} header="Confirmar" modal footer={deleteProductsDialogFooter} onHide={hideDeleteProductsDialog}>
                         <div className="flex align-items-center justify-content-center">
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                             {product && <span>Are you sure you want to delete the selected products?</span>}

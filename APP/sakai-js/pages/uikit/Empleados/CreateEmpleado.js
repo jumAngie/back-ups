@@ -224,7 +224,7 @@ const CreateEmpleado = () => {
             toast.current.show({
               severity: "success",
               summary: "Felicidades",
-              detail: "Editaste un registro",
+              detail: "Creaste un registro",
               life: 1500,
             });
 
@@ -235,7 +235,7 @@ const CreateEmpleado = () => {
           toast.current.show({
             severity: "error",
             summary: "Error",
-            detail: "Vuelva Ingresar los datos Nuevamente",
+            detail: "Vuelva  a ingresar los datos nuevamente",
             life: 1500,
           });
         });
@@ -517,20 +517,21 @@ const CreateEmpleado = () => {
           </div>
         </div>
       </div>
+      <center>
       <Button
-        label="Canselar"
+        label="Cancelar"
         severity="danger"
         icon="pi pi-times"
         onClick={() => router.push("/uikit/Empleados")}
       />
       <Button
         type="button"
-        label="Save"
-        severity="success"
+        label="Enviar"
+        severity="warning"
         className="ml-4"
         icon="pi pi-check"
         onClick={saveProduct}
-      />
+      /></center>
     </div>
   );
 };

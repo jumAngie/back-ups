@@ -93,7 +93,7 @@ namespace Cine.DataAccess.Repository.Acce
             parametros.Add("@ropa_Pantalla", item.ropa_Pantalla, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@ropa_UserMofica", item.ropa_UserMofica, DbType.Int32, ParameterDirection.Input);
 
-            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbRolPantallas_INSERT, parametros, commandType: CommandType.StoredProcedure);
+            return db.QueryFirst<RequestStatus>(ScriptsDataBase.UDP_tbRolPantallas_UPDATE, parametros, commandType: CommandType.StoredProcedure);
 
         }
     }

@@ -256,6 +256,50 @@ namespace Cine.BusinessLogic.Services.Access
             }
         }
 
+        public ServiceResult InsertarUsuario(tbUsuario item)
+        {
+            var result = new ServiceResult();
+
+            var map = _usuarioRepository.Insert(item);
+            return result.Ok(map);
+        }
+
+        public VW_Usuario BuscarUsuarios(int id)
+        {
+            try
+            {
+                return _usuarioRepository.Find(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public RequestStatus BorrarUsuario(int id)
+        {
+            try
+            {
+                return _usuarioRepository.Delete(id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public RequestStatus UpdateUsuario(tbUsuario tabla)
+        {
+            try
+            {
+                return _usuarioRepository.Update(tabla);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public ServiceResult ValidPassword(tbUsuario iteam)
         {
             var result = new ServiceResult();

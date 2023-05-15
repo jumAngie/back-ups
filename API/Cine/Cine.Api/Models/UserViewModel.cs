@@ -16,5 +16,7 @@ namespace Cine.Api.Models
         public bool user_EsAdmin { get; set; }
         public int user_UsuarioCrea { get; set; }
 
+        public int? user_UsuarioModifica { get; set; }
+
     }
 }

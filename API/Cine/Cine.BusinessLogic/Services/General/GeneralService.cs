@@ -334,6 +334,40 @@ namespace Cine.BusinessLogic.Services.General
             }
         }
 
+        public ServiceResult EmpleadosSinUsuario()
+        {
+            var result = new ServiceResult();
+
+
+            try
+            {
+                var list = _empleadoRepository.EmpleadosSinUsuarios();
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+
+                return result.Error(e.Message);
+            }
+        }
+
+        public ServiceResult EmpleadosSinUsuario_Editar(int user_Id)
+        {
+            var result = new ServiceResult();
+
+
+            try
+            {
+                var list = _empleadoRepository.EmpleadosSinUsuarios_Editar(user_Id);
+                return result.Ok(list);
+            }
+            catch (Exception e)
+            {
+
+                return result.Error(e.Message);
+            }
+        }
+
 
         public ServiceResult InsertarEmpleado(tbEmpleado item)
         {

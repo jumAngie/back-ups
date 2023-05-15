@@ -62,5 +62,19 @@ namespace Cine.Api.Controllers
             var listado = _GeneralService.BorrarEmpleado(id);
             return Ok(listado);
         }
+
+        [HttpGet("EmpleSinUsuario")]
+        public IActionResult EmpleSinUsuario()
+        {
+            var listado = _GeneralService.EmpleadosSinUsuario();
+            return Ok(listado);
+        }
+
+        [HttpGet("EmpleSinUsuarioEditar/{user_Id}")]
+        public IActionResult EmpleSinUsuario_Editar(int user_Id)
+        {
+            var listado = _GeneralService.EmpleadosSinUsuario_Editar(user_Id);
+            return Ok(listado);
+        }
     }
 }
