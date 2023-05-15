@@ -1,4 +1,4 @@
-﻿use db_Cine
+﻿use databaseCine2
 go
 
 --*****************************************************--
@@ -40,7 +40,7 @@ BEGIN
       ,[role_UsuModificacion]
       ,[role_FechaModificacion]
       ,[role_Estado]
-  FROM [db_Cine].[acce].[VW_tbRoles]
+  FROM [acce].[VW_tbRoles]
   WHERE [role_Estado] = 1
 
 END
@@ -61,7 +61,7 @@ BEGIN
       ,[role_UsuModificacion]
       ,[role_FechaModificacion]
       ,[role_Estado]
-  FROM [db_Cine].[acce].[VW_tbRoles]
+  FROM [acce].[VW_tbRoles]
   WHERE [role_Estado] = 1
   AND [role_Id] = @role_Id
 
@@ -147,7 +147,7 @@ SELECT TOP (1000) [ropa_Id]
       ,[ropa_FechaCrea]
       ,[ropa_UserMofica]
       ,[ropa_FechaModifica]
-  FROM [db_Cine].[acce].[tbRolesPantallas]
+  FROM [acce].[tbRolesPantallas]
 
 --*************** SELECT DE ROLES X PANTALLAS ******************--
 GO
@@ -162,7 +162,7 @@ SELECT TOP (1000) [ropa_Id]
       ,[ropa_FechaCrea]
       ,[ropa_UserMofica]
       ,[ropa_FechaModifica]
-  FROM [db_Cine].[acce].[tbRolesPantallas]
+  FROM [acce].[tbRolesPantallas]
   WHERE ropa_Estado = 1
 END
 
@@ -261,7 +261,7 @@ SELECT TOP (1000) [user_Id]
       ,[user_FechaCrea]
       ,[user_UsuarioModifica]
       ,[user_FechaModifica]
-  FROM [db_Cine].[acce].[tbUsuarios] T1 INNER JOIN gral.tbEmpleados t2
+  FROM [acce].[tbUsuarios] T1 INNER JOIN gral.tbEmpleados t2
   ON	t1.user_Empleado = t2.empl_Id  LEFT JOIN acce.tbRoles t3
   ON	t1.user_Rol = t3.role_Id
 
@@ -288,7 +288,7 @@ BEGIN
       ,[user_FechaCrea]
       ,[user_UsuarioModifica]
       ,[user_FechaModifica]
-  FROM [db_Cine].[acce].[VW_Usuario]
+  FROM [acce].[VW_Usuario]
   WHERE user_Estado = 1
 
 END
@@ -313,7 +313,7 @@ BEGIN
       ,[user_FechaCrea]
       ,[user_UsuarioModifica]
       ,[user_FechaModifica]
-  FROM [db_Cine].[acce].[VW_Usuario]
+  FROM [acce].[VW_Usuario]
   WHERE user_Estado = 1
   AND   user_Id = @user_Id
   	IF @@ROWCOUNT = 0
@@ -435,7 +435,7 @@ SELECT TOP (1000) [fact_Id]
       ,[fact_FechaCrea]
       ,[fact_UsuMofica]
       ,[fact_FechaModifica]
-  FROM [db_Cine].[cine].[tbFacturas]T1 INNER JOIN acce.tbUsuarios t2
+  FROM [cine].[tbFacturas]T1 INNER JOIN acce.tbUsuarios t2
   ON	T1.[fact_UsuCrea] = t2.user_Id INNER JOIN gral.tbEmpleados t3
   ON	t2.user_Empleado = t3.empl_Id  INNER JOIN gral.tbClientes t4
   ON	t1.fact_Cliente = t4.clie_Id
@@ -487,81 +487,7 @@ BEGIN
 
 END
 
- --EXECUTE gral.UDP_tbClientes_Insert   'Juan', 'Pérez', '22222522222', 1;
-
-
--- --*************** FIND DE FACTURA ******************--
--- GO
---CREATE OR ALTER PROCEDURE cine.UDP_tbFactura_FIND 
---@fact_Id		INT
---AS
---BEGIN
--- BEGIN TRY
---	SELECT [fact_Id]
---      ,[fact_Nombres]
---      ,[fact_Apellidos]
---      ,[fact_RTN]
---      ,[fact_Estado]
---      ,[fact_UsuCrea]
---      ,[fact_FechaCrea]
---      ,[fact_UsuMofica]
---      ,[fact_FechaModifica]
---  FROM [cine].VW_tbFactura
---  WHERE [fact_Estado] = 1
---  AND	[fact_Id] = @fact_Id
-
---  	   SELECT 1 CodeStatus
---	END TRY
---	BEGIN CATCH
---		   SELECT 0 CodeStatus
---	END CATCH
-
---END
-
- --*************** UPDATE DE FACTURA ******************--
--- GO
---CREATE OR ALTER PROCEDURE cine.UDP_tbFactura_UPDATE 
---@fact_Id		INT,
---@fact_Nombres nvarchar(100),
---@fact_Apellidos nvarchar(100),
---@fact_RTN varchar(14),
---@fact_UsuMofica int
---AS
---BEGIN
--- BEGIN TRY
---	 UPDATE [cine].[tbFacturas]
---   SET [fact_Nombres] = @fact_Nombres
---      ,[fact_Apellidos] = @fact_Apellidos
---      ,[fact_RTN] = @fact_RTN
---         ,[fact_UsuMofica] =  @fact_UsuMofica
---      ,[fact_FechaModifica] = GETDATE()
--- WHERE	[fact_Id] = @fact_Id
--- 	   SELECT 1 CodeStatus
---	END TRY
---	BEGIN CATCH
---		   SELECT 0 CodeStatus
---	END CATCH
---END
-
-
--- --*************** DELETE DE FACTURA ******************--
--- GO
---CREATE OR ALTER PROCEDURE cine.UDP_tbFactura_DELETE 
---@fact_Id		INT
-
---AS
---BEGIN
--- BEGIN TRY
-
---	UPDATE [cine].[tbFacturas]
---   SET [fact_Estado] = 0
--- WHERE	[fact_Id] = @fact_Id
--- 	   SELECT 1 CodeStatus
---	END TRY
---	BEGIN CATCH
---		   SELECT 0 CodeStatus
---	END CATCH
---END
+ 
 
 --*****************************************************--
 --*************** VISTA DE FACTURA DETALLE ******************--
@@ -575,7 +501,7 @@ SELECT t1.fade_Factura
 	  ,t3.clie_Apellidos
 	  ,t5.peli_Titulo
 	  ,[fade_Tickets]
-  FROM [db_Cine].[cine].[tbFacturaDetalle] t1
+  FROM [cine].[tbFacturaDetalle] t1
 	INNER JOIN cine.tbFacturas t2
   	ON t1.fade_Factura = t2.fact_Id
 	INNER JOIN gral.tbClientes t3
@@ -614,7 +540,7 @@ SELECT TOP (1000) [fade_Id]
       ,[fade_FechaCrea]
       ,[fade_UsuMofica]
       ,[fade_FechaModifica]
-  FROM [db_Cine].[cine].[tbFacturaDetalle] t1
+  FROM [cine].[tbFacturaDetalle] t1
   INNER JOIN cine.tbFacturas t2
   	ON t1.fade_Factura = t2.fact_Id
   INNER JOIN gral.tbClientes t3
@@ -658,7 +584,7 @@ SELECT TOP (1000) [fade_Id]
       ,[fade_FechaCrea]
       ,[fade_UsuMofica]
       ,[fade_FechaModifica]
-  FROM [db_Cine].[cine].[tbFacturaDetalle] t1
+  FROM [cine].[tbFacturaDetalle] t1
   INNER JOIN cine.tbFacturas t2
   	ON t1.fade_Factura = t2.fact_Id
   INNER JOIN gral.tbClientes t3
@@ -702,7 +628,7 @@ SELECT TOP (1000) [fade_Id]
       ,[fade_FechaCrea]
       ,[fade_UsuMofica]
       ,[fade_FechaModifica]
-	   FROM [db_Cine].[cine].[tbFacturaDetalle] t1
+	   FROM [cine].[tbFacturaDetalle] t1
   INNER JOIN cine.tbFacturas t2
   	ON t1.fade_Factura = t2.fact_Id
   INNER JOIN gral.tbClientes t3
@@ -732,7 +658,7 @@ BEGIN
       ,[clie_Apellidos]
       ,[peli_Titulo]
       ,[fade_Tickets]
-	  FROM [db_Cine].[cine].[VW_tbFacturaDetalle]
+	  FROM [cine].[VW_tbFacturaDetalle]
 END
 
 GO
@@ -772,86 +698,10 @@ IF @Total = 0
       ,[fade_FechaCrea]
       ,[fade_UsuMofica]
       ,[fade_FechaModifica]
-  FROM [db_Cine].[cine].[VW_tbFacturaDetalle1]
+  FROM [cine].[VW_tbFacturaDetalle1]
   where clie_RTN = @clie_RTN and fade_Factura = @fade_Factura
 END
 
-/*
-
- --*************** INSERT DE FACTURA DETALLE ******************--
- GO
-GO
-CREATE OR ALTER PROCEDURE cine.UDP_tbFacturaDetalle_INSERT 
-	@fade_Factura		INT, 
-	@fade_Proyeccion	INT, 
-	@fade_ComboDetalle  INT, 
-	@fade_UsuCrea		INT
-AS
-BEGIN
- BEGIN TRY
-	INSERT INTO [cine].[tbFacturaDetalle]([fade_Factura], [fade_Proyeccion],[fade_ComboDetalle], [fade_UsuCrea])
-     VALUES								(@fade_Factura, @fade_Proyeccion, @fade_ComboDetalle, @fade_UsuCrea)
-		   	   
-			   SELECT 1 CodeStatus , 'Operacion completada exitosamente.' messageStatus
-	END TRY
-	BEGIN CATCH
-				SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
-	END CATCH
-
-END
- --*************** FIND DE FACTURA DETALLE ******************--
- GO
-CREATE OR ALTER PROCEDURE cine.UDP_tbFacturaDetalle_FIND 
-@fade_Id		INT
-AS
-BEGIN
- BEGIN TRY
-			SELECT	fade_Id, 
-					fade_Factura, 
-					fade_Proyeccion, 
-					fade_ComboDetalle, 
-					fade_Estado, 
-					fade_UsuCrea, 
-					fade_FechaCrea, 
-					fade_UsuMofica, 
-					fade_FechaModifica
-			FROM    [cine].[tbFacturaDetalle]
-			WHERE	fade_Estado = 1
-			AND		fade_Id= @fade_Id
-	END TRY
-	BEGIN CATCH
-		   SELECT 0 CodeStatus,  'No se pudo completar el proceso.' messageStatus
-	END CATCH
-END
-
- --*************** UPDATE DE FACTURA DETALLE ******************--
- GO
-CREATE OR ALTER PROCEDURE cine.UDP_tbFacturaDetalle_UPDATE 
-	@fade_Id			INT, 
-	@fade_Factura		INT, 
-	@fade_Proyeccion	INT, 
-	@fade_ComboDetalle	INT, 
-	@fade_UsuMofica		INT
-AS
-BEGIN
- BEGIN TRY
-	 UPDATE [cine].[tbFacturaDetalle]
-	 SET	fade_Factura = @fade_Factura,
-			fade_Proyeccion = @fade_Proyeccion,
-			fade_ComboDetalle = @fade_ComboDetalle,
-			fade_UsuMofica = @fade_UsuMofica,
-			fade_FechaModifica = GETDATE()
-	 WHERE	fade_Id = @fade_Id
-		
- 	   SELECT 1 CodeStatus , 'Operacion completada exitosamente.' messageStatus
-	END TRY
-	BEGIN CATCH
-		SELECT 0 CodeStatus , 'No se pudo completar el proceso.' messageStatus
-	END CATCH
-END
-*/
--- EXEC cine.UDP_tbFacturaDetalle_INSERT 1,1,20,'[]','[]',1,1,1
----- EXEC cine.UDP_tbFacturaDetalle_INSERT 1,1,20,'[{"id": 2, "cantidad": 12}, {"id": 2, "cantidad": 2}, {"id": 3, "cantidad": 1}]','[{"id": 1, "cantidad": 3}, {"id": 2, "cantidad": 2}, {"id": 3, "cantidad": 1}]',1,1,1
 
 go
 CREATE OR ALTER PROCEDURE cine.UDP_tbFacturaDetalle_INSERT  
@@ -978,7 +828,6 @@ END
 END;
 
 
---EXEC cine.UDP_tbFacturaDetalle_INSERT @factura = 1, @proyeccion = 1, @Tickets = 33, @comboDetalle = 1, @fade_ContenidoCombo = {"comboDetalle": [{"id": 2, "cantidad": 2}, {"id": 4, "cantidad": 2}]}'), @pago = 1, @usuCrea = 1;
 
 GO
 CREATE OR ALTER PROCEDURE cine.UDP_tbTickets_INSERT
@@ -1080,7 +929,7 @@ BEGIN
       ,[sucu_FechaCrea]
       ,[sucu_UsuarioModifica]
       ,[sucu_FechaModifica]
-  FROM [db_Cine].[cine].[VW_tbSUCURSAL]
+  FROM [cine].[VW_tbSUCURSAL]
   WHERE [sucu_Estado] = 1
 
 END
@@ -1141,7 +990,7 @@ BEGIN
       ,[sucu_FechaCrea]
       ,[sucu_UsuarioModifica]
       ,[sucu_FechaModifica]
-  FROM [db_Cine].[cine].[VW_tbSUCURSAL]
+  FROM [cine].[VW_tbSUCURSAL]
   WHERE [sucu_Estado] = 1
   AND	[sucu_Id] = @sucu_Id
 
@@ -1216,7 +1065,7 @@ SELECT TOP (1000) [insu_Id]
       ,[insu_FechaCrea]
       ,[insu_UsuarioModifica]
       ,[insu_FechaModifica]
-  FROM [db_Cine].[cine].[tbInsumos] T1 INNER JOIN acce.tbUsuarios t2
+  FROM [cine].[tbInsumos] T1 INNER JOIN acce.tbUsuarios t2
   ON	T1.[insu_UserCrea] = t2.user_Id INNER JOIN gral.tbEmpleados t3
   ON	t2.user_Empleado = t3.empl_Id  
 
@@ -1380,7 +1229,7 @@ AS
       ,[comb_FechaCrea]
       ,[comb_UsuarioModifica]
       ,[comb_FechaModifica]
-  FROM [db_Cine].[cine].[tbCombos] T1 INNER JOIN acce.tbUsuarios t2
+  FROM [cine].[tbCombos] T1 INNER JOIN acce.tbUsuarios t2
   ON	T1.[comb_UserCrea] = t2.user_Id INNER JOIN gral.tbEmpleados t3
   ON	t2.user_Empleado = t3.empl_Id  
 
@@ -1399,7 +1248,7 @@ BEGIN
       ,[comb_FechaCrea]
       ,[comb_UsuarioModifica]
       ,[comb_FechaModifica]
-  FROM [db_Cine].[cine].[VW_tbCombo]
+  FROM [cine].[VW_tbCombo]
   WHERE [comb_Estado] = 1
 
 END
@@ -1451,7 +1300,7 @@ BEGIN
       ,[comb_FechaCrea]
       ,[comb_UsuarioModifica]
       ,[comb_FechaModifica]
-  FROM [db_Cine].[cine].[VW_tbCombo]
+  FROM [cine].[VW_tbCombo]
   WHERE [comb_Estado] = 1
   AND	[comb_Id] = @comb_Id
   	   SELECT 1 CodeStatus
@@ -1528,7 +1377,7 @@ AS
       ,[cdet_FechaCrea]
       ,[cdet_UserMofica]
       ,[cdet_FechaModifica]
-	FROM [db_Cine].[cine].[tbComboDetalle] T1
+	FROM [cine].[tbComboDetalle] T1
 	INNER JOIN acce.tbUsuarios t2 ON T1.[cdet_UserCrea] = t2.user_Id
 	INNER JOIN gral.tbEmpleados t3 ON t2.user_Empleado = t3.empl_Id
 	INNER JOIN cine.tbCombos T4 ON T1.cdet_combId = T4.comb_Id
@@ -1699,7 +1548,7 @@ SELECT [dire_Id]
       ,[dire_FechaCrea]
       ,[dire_UsuMofica]
       ,[dire_FechaModifica]
-  FROM [db_Cine].[cine].[VW_tbDirector]
+  FROM [cine].[VW_tbDirector]
 
  END
 
@@ -1759,7 +1608,7 @@ END
       ,[dire_FechaCrea]
       ,[dire_UsuMofica]
       ,[dire_FechaModifica]
-  FROM [db_Cine].[cine].[VW_tbDirector]
+  FROM [cine].[VW_tbDirector]
   WHERE dire_Id = @dire_Id
 
  END
@@ -1866,7 +1715,7 @@ SELECT [peli_Id]
       ,[peli_FechaCrea]
       ,[peli_UsuMofica]
       ,[peli_FechaModifica]
-  FROM [db_Cine].[cine].[VW_tbPeliculas]
+  FROM [cine].[VW_tbPeliculas]
   where [peli_Estado] = 1
 
  END
@@ -1996,8 +1845,6 @@ BEGIN CATCH
 END CATCH
 
 END
-
-EXEC cine.UDP_tbPeliculas_DELETE 6
 
 --*****************************************************--
 --*************** ESQUEMA DE GENERAL ******************--
@@ -2272,7 +2119,7 @@ SELECT TOP (1000) [estc_Id]
       ,[estc_FechaCrea]
       ,[estc_UserMofica]
       ,[estc_FechaModifica]
-  FROM [db_Cine].[gral].[tbEstadosCiviles]
+  FROM [gral].[tbEstadosCiviles]
 
 --*************** SELECT DE CIVIL ******************--
 GO
@@ -2287,7 +2134,7 @@ BEGIN
       ,[estc_FechaCrea]
       ,[estc_UserMofica]
       ,[estc_FechaModifica]
-  FROM [db_Cine].[gral].[VW_EstadoCivil]
+  FROM [gral].[VW_EstadoCivil]
   WHERE [estc_Estado] = 1
 
 END
@@ -2304,7 +2151,7 @@ SELECT TOP (1000) [carg_Id]
       ,[carg_FechaCreacion]
       ,[carg_UsuarioModificado]
       ,[carg_FechaModificacion]
-  FROM [db_Cine].[gral].[tbCargos]
+  FROM [gral].[tbCargos]
 
 --*************** SELECT DE CARGO ******************--
 GO
@@ -2319,7 +2166,7 @@ BEGIN
       ,[carg_FechaCreacion]
       ,[carg_UsuarioModificado]
       ,[carg_FechaModificacion]
-  FROM [db_Cine].[gral].[VW_Cargo]
+  FROM [gral].[VW_Cargo]
   WHERE [car_Estado] = 1
 
 END
@@ -2420,7 +2267,7 @@ SELECT TOP (1000) [pago_Id]
       ,[pago_FechaCreacion]
       ,[pago_UsuarioModificador]
       ,[pago_FechaModificacion]
-  FROM [db_Cine].[gral].[tbMetodosPago]
+  FROM [gral].[tbMetodosPago]
 
 --*************** SELECT DE METODO DE PAGO ******************--
 GO
@@ -2434,7 +2281,7 @@ BEGIN
       ,[pago_FechaCreacion]
       ,[pago_UsuarioModificador]
       ,[pago_FechaModificacion]
-  FROM [db_Cine].[gral].[tbMetodosPago]
+  FROM [gral].[tbMetodosPago]
   WHERE pago_Estado = 1
 
 END
@@ -2530,7 +2377,7 @@ SELECT TOP (1000) [cate_Id]
       ,[cate_FechaCreacion]
       ,[cate_UsuarioModificador]
       ,[cate_FechaModificacion]
-  FROM [db_Cine].[gral].[tbCategorias]
+  FROM [gral].[tbCategorias]
 
 --*************** SELECT DE CATEGORIA ******************--
 GO
@@ -2544,7 +2391,7 @@ BEGIN
       ,[cate_FechaCreacion]
       ,[cate_UsuarioModificador]
       ,[cate_FechaModificacion]
-  FROM [db_Cine].[gral].[tbCategorias]
+  FROM [gral].[tbCategorias]
   WHERE cate_Estado = 1
 
 END
@@ -2638,7 +2485,7 @@ SELECT TOP (1000) [sala_Id]
       ,[sala_FechaCrea]
       ,[sala_UserMofica]
       ,[sala_FechaModifica]
-   FROM [db_Cine].[cine].[tbSalas] t1 INNER JOIN cine.tbCategoriaSala t2
+   FROM [cine].[tbSalas] t1 INNER JOIN cine.tbCategoriaSala t2
   ON	t1.sala_Tipo = t2.casa_Id
 
 --*************** SELECT DE SALAS ******************--
@@ -2657,7 +2504,7 @@ SELECT TOP (1000) [sala_Id]
       ,[sala_FechaCrea]
       ,[sala_UserMofica]
       ,[sala_FechaModifica]
- FROM [db_Cine].[cine].[VW_Salas]
+ FROM [cine].[VW_Salas]
   WHERE sala_Estado = 1
 END
 
@@ -2698,7 +2545,7 @@ END
       ,[sala_FechaCrea]
       ,[sala_UserMofica]
       ,[sala_FechaModifica]
-		FROM [db_Cine].[cine].[VW_Salas]
+		FROM [cine].[VW_Salas]
 		WHERE	sala_Estado = 1 
 			AND		sala_Id = @sala_Id
 		END TRY
@@ -2764,7 +2611,7 @@ SELECT TOP (1000) [clie_Id]
       ,[clie_FechaCrea]
       ,[clie_UserModifica]
       ,[clie_FechaModifica]
-  FROM [db_Cine].[gral].[tbClientes]
+  FROM [gral].[tbClientes]
 
 --*************** SELECT DE CLIENTES ******************--
 GO
@@ -2780,7 +2627,7 @@ SELECT TOP (1000) [clie_Id]
       ,[clie_FechaCrea]
       ,[clie_UserModifica]
       ,[clie_FechaModifica]
-  FROM [db_Cine].[gral].[tbClientes]
+  FROM [gral].[tbClientes]
   WHERE clie_Estado = 1
 END
 
@@ -2902,7 +2749,7 @@ SELECT TOP (1000) [panta_Id]
       ,[panta_FechaCrea]
       ,[panta_UserMofica]
       ,[panta_FechaModifica]
-  FROM [db_Cine].[acce].[tbPantallas]
+  FROM [acce].[tbPantallas]
 
 --*************** SELECT DE PANTALLAS ******************--
 GO
@@ -2920,7 +2767,7 @@ SELECT TOP (1000) [panta_Id]
       ,[panta_FechaCrea]
       ,[panta_UserMofica]
       ,[panta_FechaModifica]
-  FROM [db_Cine].[acce].[tbPantallas]
+  FROM [acce].[tbPantallas]
   WHERE panta_Estado = 1
 END
 
@@ -3082,7 +2929,7 @@ BEGIN
       ,[muni_FechaCrea]
       ,[muni_UserMofica]
       ,[muni_FechaModifica]
-  FROM [db_Cine].[gral].[tbMunicipios]
+  FROM [gral].[tbMunicipios]
   where [muni_Estado] = 1 
   AND    [muni_depId] = @muni_depId
 END
@@ -3236,7 +3083,7 @@ BEGIN
       ,[proy_Horario]
       ,[hor_HoraInicio]
       ,[hor_HoraFin]
-	FROM [db_Cine].[cine].[VW_Proyecciones]
+	FROM [cine].[VW_Proyecciones]
 	WHERE proy_Estado = 1 and [proy_Sala] NOT IN (
 	SELECT DISTINCT [asie_Sala]
 		FROM cine.tbAsientos
@@ -3268,7 +3115,7 @@ BEGIN
       ,[proy_Horario]
       ,[hor_HoraInicio]
       ,[hor_HoraFin]
-	FROM [db_Cine].[cine].[VW_Proyecciones]
+	FROM [cine].[VW_Proyecciones]
 	WHERE proy_Estado = 1 AND proy_Id = @proy_Id
 	   SELECT 1 CodeStatus
 	END TRY
@@ -3355,7 +3202,7 @@ BEGIN
 SELECT TOP (1000) [hor_Id]
       ,[HoraInicio]
       ,[HoraFin]
-  FROM [db_Cine].[cine].[VW_tbHorario]
+  FROM [cine].[VW_tbHorario]
 END
 
 --/////////////////--PRUEBA DE FACTURA--//////////////////////--
@@ -3372,7 +3219,7 @@ BEGIN
 		,[asie_FechaCrea]
 		,[asie_UserMofica]
 		,[asie_FechaModifica]
-  FROM	[db_Cine].[cine].[tbAsientos]
+  FROM	[cine].[tbAsientos]
   WHERE [asie_Sala] = @asie_Sala
 END
 

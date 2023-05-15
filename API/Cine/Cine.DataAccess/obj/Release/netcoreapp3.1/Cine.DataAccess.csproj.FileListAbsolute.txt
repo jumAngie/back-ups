@@ -1,0 +1,13 @@
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\bin\Release\netcoreapp3.1\Cine.DataAccess.deps.json
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\bin\Release\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\bin\Release\netcoreapp3.1\Cine.DataAccess.pdb
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\bin\Release\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\bin\Release\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\obj\Release\netcoreapp3.1\Cine.DataAccess.csproj.AssemblyReference.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\obj\Release\netcoreapp3.1\Cine.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\obj\Release\netcoreapp3.1\Cine.DataAccess.AssemblyInfoInputs.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\obj\Release\netcoreapp3.1\Cine.DataAccess.AssemblyInfo.cs
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\obj\Release\netcoreapp3.1\Cine.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\obj\Release\netcoreapp3.1\Cine.DataAccess.csproj.CopyComplete
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\obj\Release\netcoreapp3.1\Cine.DataAccess.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.DataAccess\obj\Release\netcoreapp3.1\Cine.DataAccess.pdb

@@ -306,13 +306,7 @@ const Sucursal = () => {
 
   };
 
-  const exportCSV = () => {
-    dt.current.exportCSV();
-  };
 
-  const confirmDeleteSelected = () => {
-    setDeleteProductsDialog(true);
-  };
 
   const deleteSelectedProducts = () => {
     let _products = products.filter((val) => !selectedProducts.includes(val));
@@ -406,40 +400,32 @@ const Sucursal = () => {
 
   const productDialogFooter = (
     <>
-      <Button label="Cancelar" severity="danger" icon="pi pi-times" text onClick={hideDialog} />
-      <Button label="Guardar" severity="warning" icon="pi pi-check" text onClick={saveProduct} />
+      <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
+      <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
     </>
   );
   const deleteProductDialogFooter = (
     <>
-      <Button
+       <Button
         label="No"
-        severity="danger"
         icon="pi pi-times"
+        severity="danger"
         text
         onClick={hideDeleteProductsDialog}
       />
-      <Button
-        label="Sí"
-        severity="warning"
-        icon="pi pi-check"
-        text
-        onClick={deleteProduct}
-      />
-    </>
+      <Button label="Si" severity="warning" icon="pi pi-check" text onClick={deleteProduct} />
+     </>
   );
   const deleteProductsDialogFooter = (
     <>
       <Button
         label="No"
-        severity="danger"
         icon="pi pi-times"
         text
         onClick={hideDeleteProductsDialog}
       />
       <Button
-        label="Sí"
-        severity="warning"
+        label="Yes"
         icon="pi pi-check"
         text
         onClick={deleteSelectedProducts}
@@ -510,6 +496,7 @@ const Sucursal = () => {
           <Dialog
             visible={productDialog}
             style={{ width: "450px" }}
+            header="Product Details"
             modal
             className="p-fluid"
             footer={productDialogFooter}
@@ -532,7 +519,7 @@ const Sucursal = () => {
                     })}
                   />
                   {submitted && !product.sucu_Nombre && (
-                    <small className="p-invalid">El nombre es requerido.</small>
+                    <small className="p-invalid">Name is required.</small>
                   )}
                 </div>
               </div>
@@ -551,7 +538,7 @@ const Sucursal = () => {
                   />
                   {submitted && !selectedDepartamento && (
                     <small className="p-invalid">
-                      El Estado Civil es requerido.
+                      EL Estado Civil es requerido.
                     </small>
                   )}
                 </div>
@@ -573,14 +560,14 @@ const Sucursal = () => {
                   />
                   {submitted && !selectedMunicipio && (
                     <small className="p-invalid">
-                      El Municipio es requerido.
+                      EL Municipio es requerido.
                     </small>
                   )}
                 </div>
               </div>
               <div className="col-6">
                 <div className="field">
-                  <label htmlFor="description">Descripción</label>
+                  <label htmlFor="description">Description</label>
                   <InputTextarea
                     id="description"
                     value={product.sucu_Direccion}
@@ -597,9 +584,9 @@ const Sucursal = () => {
           <Dialog
             visible={deleteProductDialog}
             style={{ width: "450px" }}
-            header="Confirmar"
+            header="Confirm"
             modal
-            footer={deleteProductsDialogFooter}
+            footer={deleteProductDialogFooter}
             onHide={hideDeleteProductDialog}
           >
             <div className="flex align-items-center justify-content-center">

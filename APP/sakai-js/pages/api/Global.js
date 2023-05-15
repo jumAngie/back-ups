@@ -1,5 +1,5 @@
 var Global = {
-    url: "https://localhost:44312/api/"
+    url: "http://www.megafilms.somee.com/api/"
 }
 
 

@@ -1,5 +1,5 @@
 ﻿/*
-DROP DATABASE db_Cine
+DROP DATABASE databaseCine
 
 DROP SCHEMA cine
 GO
@@ -8,8 +8,6 @@ GO
 DROP SCHEMA gral
 
 */
-
-
  
 --CREATE DATABASE db_Cine
 --GO
@@ -115,9 +113,7 @@ INSERT INTO acce.tbPantallas(panta_Descripcion, panta_UserCrea, panta_Menu, pant
 VALUES
 							('Empleados', 1, 'Menu General', 'Empleados', '/uikit/Empleados', 'pi pi-fw pi-user'),
 							('Salas', 1, 'Menu Administraivo', 'Salas', '/uikit/Salas', 'pi pi-fw pi-inbox'),
-							('Insumos', 1, 'Menu Administraivo', 'Insumos', '/uikit/Insumo', 'pi pi-fw pi-apple'),
-							('Combos', 1, 'Menu Administraivo', 'Combos', '/uikit/Combos', 'pi pi-fw pi-star-fill'),
-							('Metodos de Pago', 1, 'Menu General', 'Método de Pago', '/uikit/MetodosPago', 'pi pi-fw pi-credit-card'),
+							('Insumos', 1, 'Menu Administraivo', 'Insumos', '/uikit/Insumo', 'pi pi-fw pi-apple'),							('Metodos de Pago', 1, 'Menu General', 'Método de Pago', '/uikit/MetodosPago', 'pi pi-fw pi-credit-card'),
 							('Peliculas', 1, 'Menu Administraivo', 'Peliculas', '/uikit/Peliculas', 'pi pi-fw pi-eye'),
 							('Directores', 1, 'Menu Administraivo', 'Directores', '/uikit/Director', 'pi pi-fw pi-users'),
 							('Categorias', 1, 'Menu General', 'Categorías', '/uikit/Categorias', 'pi pi-fw pi-bars'),
@@ -125,7 +121,8 @@ VALUES
 							('Sucursales', 1, 'Menu Administraivo', 'Sucursales', '/uikit/Sucursal', 'pi pi-fw pi-building'),
 							('Facturas', 1, 'Menu Administraivo', 'Factura', '/uikit/Factura', 'pi pi-fw pi-bookmark'),
 							('Usuarios', 1, 'Menu Seguridad', 'Usuario', '/uikit/Usuarios', 'pi pi-fw pi-id-card'),
-							('Roles', 1, 'Menu Seguridad', 'Roles', '/uikit/table', 'pi pi-fw pi-cog');
+							('Roles', 1, 'Menu Seguridad', 'Roles', '/uikit/table', 'pi pi-fw pi-cog'),
+							('Clientes', 1, 'Menu General', 'Clientes', '/uikit/Clientes', 'pi pi-user-plus');
 GO
 
 ---------------------------------------tbRolesPantallas-------------------------------------
@@ -165,9 +162,8 @@ CREATE TABLE acce.tbRolesPantallas(
 									(2,           10,              1),
 
 									(3,           11,              1),
-									(3,           12,              1),
-									(3,           13,              1);
-
+									(3,           12,              1);
+								
  GO
 -------------------------------------tbDepartamentos----------------------------------
  CREATE TABLE [gral].[tbDepartamentos](
@@ -1457,11 +1453,6 @@ VALUES
 ('13:30:00', '16:30:00'),
 ('17:00:00', '20:00:00'),
 ('20:30:00', '23:30:00');
-
-
---//Insert tar de los horarios//--
-
-select * from cine.tbHorarios
 
 
 

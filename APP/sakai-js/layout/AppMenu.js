@@ -18,7 +18,7 @@ const AppMenu = () => {
     }
     useEffect(() => {
         // Aquí llamarías a la API para obtener los datos del menú
-        fetch(`https://localhost:44312/api/RolPantallas/DibujarMenu/${rol_id},${esAdmin}`)
+        fetch(`http://www.megafilms.somee.com/api/RolPantallas/DibujarMenu/${rol_id},${esAdmin}`)
           .then(response => response.json())
           .then(data => setMenuItems(data.data));
       }, []);

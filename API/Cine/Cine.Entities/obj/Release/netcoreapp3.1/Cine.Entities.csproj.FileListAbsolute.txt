@@ -1,0 +1,10 @@
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\bin\Release\netcoreapp3.1\Cine.Entities.deps.json
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\bin\Release\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\bin\Release\netcoreapp3.1\Cine.Entities.pdb
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\obj\Release\netcoreapp3.1\Cine.Entities.csproj.AssemblyReference.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\obj\Release\netcoreapp3.1\Cine.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\obj\Release\netcoreapp3.1\Cine.Entities.AssemblyInfoInputs.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\obj\Release\netcoreapp3.1\Cine.Entities.AssemblyInfo.cs
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\obj\Release\netcoreapp3.1\Cine.Entities.csproj.CoreCompileInputs.cache
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\obj\Release\netcoreapp3.1\Cine.Entities.dll
+C:\Users\LAB01.DESKTOP-36LBO8D\Documents\GitHub\back-ups\API\Cine\Cine.Entities\obj\Release\netcoreapp3.1\Cine.Entities.pdb
