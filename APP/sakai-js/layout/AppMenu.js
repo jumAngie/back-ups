@@ -30,7 +30,7 @@ const AppMenu = () => {
             <center style={{color: 'gray', fontWeight: 'bold'}}><h4>Menú</h4></center>
             <ul className="layout-menu">
                 {menuItems && menuItems.map(item => (
-                    <li key={item.panta_Menu} className="menu-item">
+                    <li key={item.panta_Id} className="menu-item">
                         <Link href={{ pathname: item.panta_to }}>
                             <i style={{color: 'black', fontWeight: 'bold'}} className={item.icon}></i>
                             <span style={{color: 'gray', fontWeight: 'bold'}}>{item.panta_label}</span>

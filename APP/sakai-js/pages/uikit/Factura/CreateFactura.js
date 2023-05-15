@@ -691,12 +691,16 @@ try {
           </div>
         </div>
         <div className="col-9">
+        
           <div className="grid p-fluid">
+        
             <div className="col-3">
+            
               <div className="field">
+              
                 <Button
-                
-                  label="Enviar"
+                  label="Guardar"
+                  severity="warning"
                   icon="pi pi-check"
                   onClick={SubmitValues}
                 />
@@ -705,14 +709,18 @@ try {
             <div className="col-3">
               <div className="field">
                 <Button
-                  label="Canselar"
+                  label="Cancelar"
                   severity="danger"
                   icon="pi pi-times"
                   onClick={() =>{router.push("/uikit/Factura"), localStorage.clear("CantidadAsiento")}}
                 />
+                
               </div>
+             
             </div>
+           
           </div>
+         
         </div>
       </div>
     </div>

@@ -286,7 +286,7 @@ const Salas = () => {
           <Button
             label="Nuevo"
             icon="pi pi-plus"
-            severity="sucess"
+            severity="warning"
             className="mr-2"
             onClick={openNew}
           />
@@ -297,13 +297,15 @@ const Salas = () => {
 
   //redimenciona la  imagen
   const rightToolbarTemplate = () => {
-    return <React.Fragment></React.Fragment>;
+    return <React.Fragment>
+      <img src='https://th.bing.com/th/id/R.bcc38aab2cb03164fd9674904351c744?rik=enobop4YZHVvEA&pid=ImgRaw&r=0' width={'100px'}></img>
+    </React.Fragment>;
   };
 
   if (headerDialog == "1") {
-    var Titulo = "Ingresar una Salas";
+    var Titulo = "Ingresar una Sala";
   } else if (headerDialog == "2") {
-    var Titulo = "Editar una Salas";
+    var Titulo = "Editar una Sala";
   }
 
   //Botones de editar y eliminar
@@ -341,15 +343,14 @@ const Salas = () => {
 
   const productDialogFooter = (
     <>
-      <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
+      <Button label="Cancelar" severity="danger" icon="pi pi-times" text onClick={hideDialog} />
+      <Button label="Guardar" severity="warning" icon="pi pi-check" text onClick={saveProduct} />
     </>
   );
 
   //Encabezado
   const header = (
     <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-      <h5 className="m-0">Directores</h5>
       <span className="block mt-2 md:mt-0 p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -377,11 +378,8 @@ const Salas = () => {
       <div className="col-12">
         <div className="card">
           <Toast ref={toast} />
-          <Toolbar
-            className="mb-4"
-            left={leftToolbarTemplate}
-            right={rightToolbarTemplate}
-          ></Toolbar>
+          <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Salas</h2>} right={rightToolbarTemplate}></Toolbar>
+
 
           <DataTable
             value={filterByNameOrAddress(globalFilter, Salas)}
@@ -412,7 +410,6 @@ const Salas = () => {
           <Dialog
             visible={productDialog}
             style={{ width: "450px" }}
-            header="Product Details"
             modal
             className="p-fluid"
             footer={productDialogFooter}

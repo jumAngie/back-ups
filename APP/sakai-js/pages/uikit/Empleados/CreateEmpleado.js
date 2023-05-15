@@ -255,7 +255,6 @@ const CreateEmpleado = () => {
               maxLength={13}
               value={empl_DNI}
               required
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !empl_DNI,
               })}
@@ -274,7 +273,6 @@ const CreateEmpleado = () => {
               type="text"
               id="Nombre"
               onChange={(e) => setempl_Nombre(e.target.value)}
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !empl_Nombre,
               })}
@@ -292,7 +290,6 @@ const CreateEmpleado = () => {
                 type="text"
                 id="Apellido"
                 onChange={(e) => setempl_Apellidos(e.target.value)}
-                autoFocus
                 className={classNames({
                   "p-invalid": submitted && !empl_Apellidos,
                 })}
@@ -315,7 +312,6 @@ const CreateEmpleado = () => {
                     value="M"
                     checked={empl_Sexo === "M"}
                     onChange={(e) => setempl_Sexo(e.target.value)}
-                    autoFocus
                     className={classNames({
                       "p-invalid": submitted && !empl_Sexo,
                     })}
@@ -331,7 +327,6 @@ const CreateEmpleado = () => {
                     value="F"
                     checked={empl_Sexo === "F"}
                     onChange={(e) => setempl_Sexo(e.target.value)}
-                    autoFocus
                     className={classNames({
                       "p-invalid": submitted && !empl_Sexo,
                     })}
@@ -355,7 +350,6 @@ const CreateEmpleado = () => {
               showButtonBar
               onChange={(e) => setempl_FechaNacimiento(e.target.value)}
               required
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !empl_FechaNacimiento,
               })}
@@ -388,7 +382,6 @@ const CreateEmpleado = () => {
               maxLength={9}
               value={empl_Telefono}
               required
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !empl_Telefono,
               })}
@@ -408,7 +401,6 @@ const CreateEmpleado = () => {
               onChange={onEstadoCivilChange}
               options={estadosCiviles}
               placeholder="Seleccionar"
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !estadoCivilSeleccionado,
               })}
@@ -427,7 +419,6 @@ const CreateEmpleado = () => {
               onChange={onDepartamentoChange}
               options={DepartamentoOptions || []} // inicialmente null, pero en renderizado, si es null usará el array vacío
               placeholder="Seleccionar"
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !selectedDepartamento,
               })}
@@ -466,7 +457,6 @@ const CreateEmpleado = () => {
               onChange={onCargoChange}
               options={cargoOptions}
               placeholder="Seleccionar"
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !selectedCargo,
               })}
@@ -485,7 +475,6 @@ const CreateEmpleado = () => {
               onChange={onSucursalChange}
               options={sucursalOptions}
               placeholder="Seleccionar"
-              autoFocus
               className={classNames({
                 "p-invalid": submitted && !selectedSucursal,
               })}
@@ -516,20 +505,22 @@ const CreateEmpleado = () => {
           </div>
         </div>
       </div>
+      <center>
       <Button
-        label="Canselar"
+        label="Cancelar"
         severity="danger"
         icon="pi pi-times"
         onClick={() => router.push("/uikit/Empleados")}
       />
       <Button
         type="button"
-        label="Save"
-        severity="success"
+        label="Guardar"
+        severity="warning"
         className="ml-4"
         icon="pi pi-check"
         onClick={saveProduct}
       />
+      </center>
     </div>
   );
 };

@@ -288,9 +288,8 @@ const Director = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                    <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={openNew} />
-                    <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
-                </div>
+                    <Button label="Nuevo" icon="pi pi-plus" severity="warning" className="mr-2" onClick={openNew} />                
+                    </div>
             </React.Fragment>
         );
     };
@@ -299,8 +298,7 @@ const Director = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="mr-2 inline-block" />
-                <Button label="Export" icon="pi pi-upload" severity="help" onClick={exportCSV} />
+                <img src='https://th.bing.com/th/id/R.6179121e8f985416144a22deb8f7232e?rik=5egpn8CoYmOwZQ&riu=http%3a%2f%2f4.bp.blogspot.com%2f-W1FXPxi8pJ0%2fT5EagHp-URI%2fAAAAAAAAOi4%2ffoVfrcJCkzw%2fs1600%2fDirectors%2bChair.png&ehk=NA5JX6b5EczXh2fd%2fWrUtxdxZEdA8ADf0uF6QkV20ak%3d&risl=&pid=ImgRaw&r=0' width={'100px'}></img>
             </React.Fragment>
         );
     };
@@ -329,7 +327,6 @@ const Director = () => {
     //Encabezado
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-          <h5 className="m-0">Directores</h5>
           <span className="block mt-2 md:mt-0 p-input-icon-left">
             <i className="pi pi-search" />
             <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="Buscar..." />
@@ -373,7 +370,7 @@ const Director = () => {
             <div className="col-12">
                 <div className="card">
                     <Toast ref={toast} />
-                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+                    <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Directores</h2>} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable
                         ref={dt}

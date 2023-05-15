@@ -206,7 +206,7 @@ const Empleados = () => {
         return (
             <React.Fragment>
                 <div className="my-2">
-                      <Button label="Nuevo" icon="pi pi-plus" severity="sucess" className="mr-2" onClick={() => router.push('/uikit/Empleados/CreateEmpleado')} />
+                      <Button label="Nuevo" icon="pi pi-plus" severity="warning" className="mr-2" onClick={() => router.push('/uikit/Empleados/CreateEmpleado')} />
 
                 </div>
             </React.Fragment>
@@ -217,56 +217,14 @@ const Empleados = () => {
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <FileUpload mode="basic" accept="image/*" maxFileSize={1000000} label="Import" chooseLabel="Import" className="mr-2 inline-block" />
-                <Button label="Export" icon="pi pi-upload" severity="help" onClick={exportCSV} />
+                <img src='https://th.bing.com/th/id/R.bb5314b19eca1130c59d964aeb4a5972?rik=8GSIvHlC1Mz4Qg&riu=http%3a%2f%2fwww.hrnet.com.mx%2fres%2fpng%2fempleados.png&ehk=28rrNXis5yOWMse10CONfxmUQcZ7iffTHpR2u4wVgNU%3d&risl=&pid=ImgRaw&r=0' width={'100px'}></img>
             </React.Fragment>
         );
     };
 
-    //Comienzo de el head de la tabla
-    const codeBodyTemplate = (rowData) => {
-        return (
-            <>
-                <span className="p-column-title">Code</span>
-                {rowData.empl_DNI}
-            </>
-        );
-    };
+   
 
-    const nameBodyTemplate = (rowData) => {
-        return (
-            <>
-                <span className="p-column-title">Name</span>
-                {rowData.empl_Nombre}
-            </>
-        );
-    };
-
-    const ApellidoBodyTemplate = (rowData) => {
-        return (
-            <>
-                <span className="p-column-title">Name</span>
-                {rowData.empl_Apellidos}
-            </>
-        );
-    };
-    const CargoBodyTemplate = (rowData) => {
-        return (
-            <>
-                <span className="p-column-title">Name</span>
-                {rowData.carg_Cargo}
-            </>
-        );
-    };
-    const SucursalBodyTemplate = (rowData) => {
-        return (
-            <>
-                <span className="p-column-title">Name</span>
-                {rowData.sucu_Nombre}
-            </>
-        );
-    };
-
+    
     
     //Finall de la heda de la tabla
 
@@ -297,7 +255,6 @@ const Empleados = () => {
     //Titulo de mi Tabla
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <h5 className="m-0">Empleados</h5>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onChange={(e) => setGlobalFilter(e.target.value)} placeholder="Buscar..." />
@@ -315,7 +272,7 @@ const Empleados = () => {
     const deleteProductDialogFooter = (
         <>
             <Button label="No" icon="pi pi-times" text onClick={hideDeleteProductDialog} />
-            <Button label="Yes" icon="pi pi-check" text onClick={deleteProduct} />
+            <Button label="Sí" icon="pi pi-check" text onClick={deleteProduct} />
         </>
     );
     const deleteProductsDialogFooter = (
@@ -330,7 +287,7 @@ const Empleados = () => {
             <div className="col-12">
                 <div className="card">
                     <Toast ref={toast} />
-                    <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+                    <Toolbar className="mb-4" style={{backgroundImage: 'linear-gradient(to right, #fff, #FFF84C, #FFA600)',color: '#fff'}}  left={leftToolbarTemplate} center={<h2 className="m-0" style={{ fontFamily: 'Arial', fontWeight: 'bold' }}>Empleados</h2>} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable
                         ref={dt}
@@ -408,7 +365,7 @@ const Empleados = () => {
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                             {product && (
                                 <span>
-                                    Are you sure you want to delete <b>{product.name}</b>?
+                                    ¿Está seguro de eliminar este empleado?
                                 </span>
                             )}
                         </div>
