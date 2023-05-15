@@ -157,7 +157,7 @@ const Proyecciones = () => {
 
     setSubmitted(true);
 
-    if (selectedPeliculas > 0 && selectedSala > 0 && selectedHoraio > 0) {
+    if (test.proy_Id != "" && test.proy_Id != 0 && test.proy_Id != null) {
       //Tomo los datos de mi modelo
       var parameter = {
         proy_Id: test.proy_Id,

@@ -182,7 +182,7 @@ const Sucursal = () => {
             life: 1500,
           });
         });
-    } else if (test.sucu_Nombre.trim() !== "" && test.sucu_Direccion !== "") {
+    } else if (test.sucu_Nombre.trim() !== "" ) {
 
       console.log("Dentro al insertar");
 
