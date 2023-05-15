@@ -109,7 +109,6 @@ const Director = () => {
         setSubmitted(true);
 
         if(test.dire_Id != "" && test.dire_Id != 0 && test.dire_Id != null){
-
              var fecha = new Date(test.dire_FechaNacimiento)
             var dire_FechaNacimiento = test.dire_FechaNacimiento = fecha;
              //Tomo los datos de mi modelo
@@ -121,17 +120,23 @@ const Director = () => {
                 "dire_Sexo":test.dire_Sexo,
                 "dire_UsuMofica": 1
             }
-
+            console.log(parameter)
             axios.put(Global.url + `Director/Update`, parameter)
             .then((response) => {
+                console.log(response)
 
                  if(response.data.codeStatus == 1){
                     toast.current.show({ severity: 'success', summary: 'Felicidades', detail: 'Editaste un registro', life: 1500 });
                     setProductDialog(false);
+                    console.log("si se envio")
                     setRadioValue("");
                     console.log(response.data)
                 }else{
                     console.log(response.data)
+                    toast.current.show({ severity: 'warn', summary: 'Error', detail: 'Error, Intente denuevo', life: 3000 });
+
+                    console.log("no se envio")
+
                 }
  
             })
@@ -183,6 +188,7 @@ const Director = () => {
     };
 
      const editProduct = (product) => {
+
         setheaderDialog(2);
         axios.get(Global.url + `Director/Find/${product.dire_Id}`)
         .then((response) => {
@@ -198,7 +204,7 @@ const Director = () => {
             .catch((error) => {
 
                 console.log(error.response.data.errors);
-                toast.current.show({ severity: 'error', summary: 'Error', detail: 'Vuelva Ingresar los datos Nuevamente', life: 1500 });
+                toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error al cargar, intente mas tarde', life: 1500 });
 
             });
             setProductDialog(true);
@@ -211,7 +217,6 @@ const Director = () => {
 
     const deleteProduct = () => {
         let _products = product;
-        console.log(_products);
         setProducts(_products);
 
         //setDeleteProductDialog(false);
@@ -224,14 +229,14 @@ const Director = () => {
             .then((response) => {
 
                  if(response.data.codeStatus == 1){
-                    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+                    toast.current.show({ severity: 'success', summary: 'Felicidades', detail: 'Registro eliminado', life: 3000 });
                     setDeleteProductDialog(false);
                 }
  
             })
             .catch((error) => {
                 console.log(error.response.data.errors);
-                toast.current.show({ severity: 'error', summary: 'Error', detail: 'Vuelva Ingresar los datos Nuevamente', life: 1500 });
+                toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error al Eliminar, intente mas tarde', life: 1500 });
 
             });
 
@@ -239,13 +244,6 @@ const Director = () => {
         }
     };
 
-    const exportCSV = () => {
-        dt.current.exportCSV();
-    };
-
-    const confirmDeleteSelected = () => {
-        setDeleteProductsDialog(true);
-    };
 
     const deleteSelectedProducts = () => {
         let _products = products.filter((val) => !selectedProducts.includes(val));
@@ -358,20 +356,20 @@ const Director = () => {
 
     const productDialogFooter = (
         <>
-            <Button label="Cancel" icon="pi pi-times" text onClick={hideDialog} />
-            <Button label="Save" icon="pi pi-check" text onClick={saveProduct} />
+            <Button label="Cancelar" icon="pi pi-times" text onClick={hideDialog} />
+            <Button label="Guardar" icon="pi pi-check" text onClick={saveProduct} />
         </>
     );
     const deleteProductDialogFooter = (
         <>
             <Button label="No" icon="pi pi-times" text onClick={hideDeleteProductDialog} />
-            <Button label="Yes" icon="pi pi-check" text onClick={deleteProduct} />
+            <Button label="si" icon="pi pi-check" text onClick={deleteProduct} />
         </>
     );
     const deleteProductsDialogFooter = (
         <>
             <Button label="No" icon="pi pi-times" text onClick={hideDeleteProductsDialog} />
-            <Button label="Yes" icon="pi pi-check" text onClick={deleteSelectedProducts} />
+            <Button label="si" icon="pi pi-check" text onClick={deleteSelectedProducts} />
         </>
     );
      return (
@@ -462,7 +460,7 @@ const Director = () => {
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                             {product && (
                                 <span>
-                                    Are you sure you want to delete <b>{product.name}</b>?
+                                    ¿Estas seguro de eliminar este siguiente registro?
                                 </span>
                             )}
                         </div>
@@ -471,7 +469,7 @@ const Director = () => {
                     <Dialog visible={deleteProductsDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProductsDialogFooter} onHide={hideDeleteProductsDialog}>
                         <div className="flex align-items-center justify-content-center">
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
-                            {product && <span>Are you sure you want to delete the selected products?</span>}
+                            {product && <span>Estas seguro de eliminar el siguiente registro?</span>}
                         </div>
                     </Dialog>
                 </div>

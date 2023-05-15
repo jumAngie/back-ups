@@ -399,7 +399,7 @@ const CreateEmpleado = () => {
             />
 
             {submitted && !empl_Telefono && (
-              <small className="p-invalid">EL DNI es requerido.</small>
+              <small className="p-invalid">EL Telefono es requerido.</small>
             )}
           </div>
         </div>
@@ -435,7 +435,7 @@ const CreateEmpleado = () => {
               })}
             />
             {submitted && !selectedDepartamento && (
-              <small className="p-invalid">EL Estado Civil es requerido.</small>
+              <small className="p-invalid">EL Departamento es requerido.</small>
             )}
           </div>
         </div>
