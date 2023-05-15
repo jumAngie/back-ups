@@ -466,7 +466,6 @@ const Proyecciones = () => {
           <Dialog
             visible={productDialog}
             style={{ width: "450px" }}
-            header="Product Details"
             modal
             className="p-fluid"
             footer={productDialogFooter}

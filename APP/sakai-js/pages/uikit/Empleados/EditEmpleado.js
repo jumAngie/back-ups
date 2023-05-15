@@ -575,20 +575,22 @@ const EditEmpleado = () => {
           </div>
         </div>
       </div>
+      <center>
       <Button
-        label="Canselar"
+        label="Cancelar"
         severity="danger"
         icon="pi pi-times"
         onClick={() => router.push("/uikit/Empleados")}
       />
       <Button
         type="button"
-        label="Save"
-        severity="success"
+        label="Guardar"
+        severity="warning"
         className="ml-4"
         icon="pi pi-check"
         onClick={saveProduct}
       />
+      </center>
     </div>
   );
 };

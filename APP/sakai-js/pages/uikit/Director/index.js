@@ -356,19 +356,19 @@ const Director = () => {
 
     const productDialogFooter = (
         <>
-            <Button label="Cancelar" icon="pi pi-times" text onClick={hideDialog} />
-            <Button label="Guardar" icon="pi pi-check" text onClick={saveProduct} />
+            <Button label="Cancelar" severity='danger'  icon="pi pi-times" text onClick={hideDialog} />
+            <Button label="Guardar" severity='warning' icon="pi pi-check" text onClick={saveProduct} />
         </>
     );
     const deleteProductDialogFooter = (
         <>
-            <Button label="No" icon="pi pi-times" text onClick={hideDeleteProductDialog} />
-            <Button label="si" icon="pi pi-check" text onClick={deleteProduct} />
+            <Button label="No" severity='danger' icon="pi pi-times" text onClick={hideDeleteProductDialog} />
+            <Button label="Sí"  severity='warning' icon="pi pi-check" text onClick={deleteProduct} />
         </>
     );
     const deleteProductsDialogFooter = (
         <>
-            <Button label="No" icon="pi pi-times" text onClick={hideDeleteProductsDialog} />
+            <Button label="No"  icon="pi pi-times" text onClick={hideDeleteProductsDialog} />
             <Button label="si" icon="pi pi-check" text onClick={deleteSelectedProducts} />
         </>
     );
@@ -466,7 +466,7 @@ const Director = () => {
                         </div>
                     </Dialog>
 
-                    <Dialog visible={deleteProductsDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProductsDialogFooter} onHide={hideDeleteProductsDialog}>
+                    <Dialog visible={deleteProductsDialog} style={{ width: '450px' }} header="Confirmar" modal footer={deleteProductsDialogFooter} onHide={hideDeleteProductsDialog}>
                         <div className="flex align-items-center justify-content-center">
                             <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem' }} />
                             {product && <span>Estas seguro de eliminar el siguiente registro?</span>}
